@@ -4,10 +4,11 @@
 # sample getopts and 
 # input validation code
 
-while getopts "f:" OPTIONS
+while getopts "n:f:" OPTIONS
   do
     case "$OPTIONS" in
-			# N for NAME INPUT
+	  n)  HOST_MACHINE = $OPTARG;;
+      N)  HOST_MACHINE = $OPTARG;;		# N for NAME INPUT
       f)  if [ ! -z $READ_FILE ] # Check if we've parsed this flag already
           then
             echo "$0: does not support nultiple -f's"
@@ -21,7 +22,7 @@ while getopts "f:" OPTIONS
               exit 1
             fi
           fi;;
-      n)  HOST_MACHINE = $OPTARG;;
+      
       \?) echo "usage: $0 [-d directory (OPTIONAL)] [-n IP or Name of computer] or [-f File containing names or IPs]"
           exit 1;;
     esac
