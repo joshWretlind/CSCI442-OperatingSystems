@@ -19,14 +19,26 @@ getInfo () {
         echo "Too many arguments to getInfo"
         exit 1
     fi
+    
+    set command = "
 }
 
-while getopts "N:n:f:" OPTIONS
+while getopts "n:f:" OPTIONS
   do
     case "$OPTIONS" in
-	  n)  set REMOTE_MACHINE = $OPTARG;;
-      N)  set REMOTE_MACHINE = $OPTARG;;		# N for NAME INPUT
-      f)  if [ ! -z $READ_FILE ] # Check if we've parsed this flag already
+	  n)  if [ ! -z $READ_FILE ]
+          then
+            echo "Cannot set both n and f options"
+            exit 1            
+          else
+            set REMOTE_MACHINE = $OPTARG;;
+          fi;;
+      f)  if [ ! -z $REMOTE_MACHINE ]
+          then
+            echo "Cannot set both n and f options"
+            exit 1  
+          fi
+          if [ ! -z $READ_FILE ] # Check if we've parsed this flag already
           then
             echo "$0: does not support nultiple -f's"
             exit 1
