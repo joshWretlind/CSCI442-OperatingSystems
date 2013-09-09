@@ -27,7 +27,7 @@ while getopts "n:f:" OPTIONS
   do
     case "$OPTIONS" in
 	  n)  set isN = 1
-          if [ ! -z isF ]
+          if [ $isF -eq 1 ]
           then
             echo "Cannot set both n and f options -n"
             exit 1            
@@ -41,7 +41,7 @@ while getopts "n:f:" OPTIONS
             fi
           fi;;
       f)  set isF = 1
-          if [ ! -z isN ]
+          if [ $isN -eq 1 ]
           then
             echo "Cannot set both n and f options -f"
             exit 1  
