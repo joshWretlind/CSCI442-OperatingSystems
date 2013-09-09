@@ -20,7 +20,7 @@ getInfo () {
         exit 1
     fi
     
-    set command = "
+    set command = ""
 }
 
 while getopts "n:f:" OPTIONS
