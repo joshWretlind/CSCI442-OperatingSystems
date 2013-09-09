@@ -45,6 +45,7 @@ while getopts "N:n:f:" OPTIONS
 
 if [ ! -z $READ_FILE] #We have a file to do
 then
+    echo "unimplemented"
 fi
 if [ ! -z $REMOTE_MACHINE] # we only have a single machine to get info on
 then
