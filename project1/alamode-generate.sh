@@ -5,5 +5,4 @@
 # it is running on. For example, numebr of processes in a certain state,
 # total number of users logged in, processor usage, disk usuage, etc
 
-set outfile = "/tmp/$(hostname)"
-echo "2"  >  $outfile
+echo "2"  >  "/tmp/`hostname`"
