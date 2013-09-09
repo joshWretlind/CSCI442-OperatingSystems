@@ -8,7 +8,7 @@
 # contains a little bit of validation, but most of that is done 
 # before this is ever called.
 
-getInfo {
+function getInfo {
     echo $#
     echo $0
     if [ -z $1 ]
