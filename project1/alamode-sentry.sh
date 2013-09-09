@@ -26,7 +26,8 @@ getInfo () {
 while getopts "n:f:" OPTIONS
   do
     case "$OPTIONS" in
-	  n)  if [ ! -z $READ_FILE ]
+	  n)  set isN = 1
+          if [ isF -eq 1 ]
           then
             echo "Cannot set both n and f options"
             exit 1            
@@ -38,8 +39,9 @@ while getopts "n:f:" OPTIONS
               echo "-n options must be given a host"
               exit 1
             fi
-          fi;;
-      f)  if [ ! -z $REMOTE_MACHINE ]
+          fi
+      f)  set isF = 1
+          if [ isN -eq 1 ]
           then
             echo "Cannot set both n and f options"
             exit 1  
