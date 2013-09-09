@@ -30,7 +30,7 @@ while getopts "n:f:" OPTIONS
 	  n)  set isN = "foo"
           echo $isN
           echo $isF
-          if [ ! -z isF ]
+          if [ ! -z $isF ]
           then
             echo "Cannot set both n and f options -n"
             exit 1            
@@ -46,7 +46,7 @@ while getopts "n:f:" OPTIONS
       f)  set isF = "foo"
           echo $isN
           echo $isF
-          if [ ! -z isN ]
+          if [ ! -z $isN ]
           then
             echo "Cannot set both n and f options -f"
             exit 1  
