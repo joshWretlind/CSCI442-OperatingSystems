@@ -4,11 +4,11 @@
 # sample getopts and 
 # input validation code
 
-while getopts "n:f:" OPTIONS
+while getopts "N:n:f:" OPTIONS
   do
     case "$OPTIONS" in
-	  n)  HOST_MACHINE = $OPTARG;;
-      N)  HOST_MACHINE = $OPTARG;;		# N for NAME INPUT
+	  n)  set REMOTE_MACHINE = $OPTARG;;
+      N)  set REMOTE_MACHINE = $OPTARG;;		# N for NAME INPUT
       f)  if [ ! -z $READ_FILE ] # Check if we've parsed this flag already
           then
             echo "$0: does not support nultiple -f's"
@@ -43,7 +43,23 @@ while getopts "n:f:" OPTIONS
   fi
 ########################################################
 
-if [ 
-getInfo() {
-    ssh 
+if [ ! -z $READ_FILE] #We have a file to do
+then
+fi
+if [ ! -z $REMOTE_MACHINE] # we only have a single machine to get info on
+then
+    getInfo $REMOTE_MACHINE
+fi
+
+getInfo {
+    if [ -z $1 ]
+    then
+        echo "Must call getInfo with a machine to get the info from"
+        exit 1
+    fi
+    if [ ! $# -eq 1 ]
+    then
+        echo "Too many arguments to getInfo"
+        exit 1
+    fi
 }
