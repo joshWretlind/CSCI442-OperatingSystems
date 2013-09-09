@@ -4,6 +4,25 @@
 # sample getopts and 
 # input validation code
 
+# getInfo basically is the wrapper for the SSH command itself. This
+# contains a little bit of validation, but most of that is done 
+# before this is ever called.
+
+getInfo {
+    echo $#
+    echo $0
+    if [ -z $1 ]
+    then
+        echo "Must call getInfo with a machine to get the info from"
+        exit 1
+    fi
+    if [ ! $# -eq 1 ]
+    then
+        echo "Too many arguments to getInfo"
+        exit 1
+    fi
+}
+
 while getopts "N:n:f:" OPTIONS
   do
     case "$OPTIONS" in
@@ -52,15 +71,4 @@ then
     getInfo $REMOTE_MACHINE
 fi
 
-getInfo {
-    if [ -z $1 ]
-    then
-        echo "Must call getInfo with a machine to get the info from"
-        exit 1
-    fi
-    if [ ! $# -eq 1 ]
-    then
-        echo "Too many arguments to getInfo"
-        exit 1
-    fi
-}
+
