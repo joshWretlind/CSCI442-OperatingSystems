@@ -23,10 +23,12 @@ getInfo () {
     set command = ""
 }
 
+set isN = 0
+set isF = 0
 while getopts "n:f:" OPTIONS
   do
     case "$OPTIONS" in
-	  n)  set isN = 1
+	  n)  isN = 1
           if [ $isF -eq 1 ]
           then
             echo "Cannot set both n and f options -n"
@@ -40,7 +42,7 @@ while getopts "n:f:" OPTIONS
               exit 1
             fi
           fi;;
-      f)  set isF = 1
+      f)  isF = 1
           if [ $isN -eq 1 ]
           then
             echo "Cannot set both n and f options -f"
