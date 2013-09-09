@@ -27,9 +27,9 @@ while getopts "n:f:" OPTIONS
   do
     case "$OPTIONS" in
 	  n)  set isN = 1
-          if [ ! -z $isF ]
+          if [ ! -z isF ]
           then
-            echo "Cannot set both n and f options"
+            echo "Cannot set both n and f options -n"
             exit 1            
           else
             if [ ! -z $OPTARG ]
@@ -41,9 +41,9 @@ while getopts "n:f:" OPTIONS
             fi
           fi;;
       f)  set isF = 1
-          if [ ! -z $isN ]
+          if [ ! -z isN ]
           then
-            echo "Cannot set both n and f options"
+            echo "Cannot set both n and f options -f"
             exit 1  
           fi
           if [ ! -z $READ_FILE ] # Check if we've parsed this flag already
