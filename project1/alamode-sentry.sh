@@ -8,15 +8,13 @@
 # contains a little bit of validation, but most of that is done 
 # before this is ever called.
 
-function getInfo {
-    echo $#
-    echo $0
+getInfo {
     if [ -z $1 ]
     then
         echo "Must call getInfo with a machine to get the info from"
         exit 1
     fi
-    if [ ! $# -eq 1 ]
+    if [ ! $# -eq 2 ]
     then
         echo "Too many arguments to getInfo"
         exit 1
