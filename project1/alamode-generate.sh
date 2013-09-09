@@ -7,4 +7,7 @@
 
 set directiory = "/tmp/"
 
-echo $( who | wc -l )
+set totalUsers = $( who | wc -l )
+
+echo $totalUsers
+echo totalUsers
