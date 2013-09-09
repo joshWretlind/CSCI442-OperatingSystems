@@ -5,8 +5,8 @@
 # it is running on. For example, numebr of processes in a certain state,
 # total number of users logged in, processor usage, disk usuage, etc
 
-set directiory = "/tmp/"
+directiory = "/tmp/"
 
-set totalNumOfUsers = $(who | wc -l)
+totalNumOfUsers = $(who | wc -l)
 
 echo $totalNumOfUsers
