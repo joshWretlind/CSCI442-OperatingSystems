@@ -39,7 +39,7 @@ while getopts "n:f:" OPTIONS
               echo "-n options must be given a host"
               exit 1
             fi
-          fi
+          fi;;
       f)  set isF = 1
           if [ isN -eq 1 ]
           then
