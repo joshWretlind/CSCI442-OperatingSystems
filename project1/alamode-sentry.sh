@@ -31,7 +31,12 @@ while getopts "n:f:" OPTIONS
             echo "Cannot set both n and f options"
             exit 1            
           else
-            set REMOTE_MACHINE = $OPTARG;;
+            if [ ! -z $OPTARG ]
+              set REMOTE_MACHINE = $OPTARG
+            else
+              echo "-n options must be given a host"
+              exit 1
+            fi
           fi;;
       f)  if [ ! -z $REMOTE_MACHINE ]
           then
