@@ -21,6 +21,7 @@ while getopts "f:" OPTIONS
               exit 1
             fi
           fi;;
+      n)  HOST_MACHINE = $OPTARG;;
       \?) echo "usage: $0 [-d directory (OPTIONAL)] [-n IP or Name of computer] or [-f File containing names or IPs]"
           exit 1;;
     esac
@@ -40,3 +41,8 @@ while getopts "f:" OPTIONS
     exit 1
   fi
 ########################################################
+
+if [ 
+getInfo() {
+    ssh 
+}
