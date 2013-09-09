@@ -8,7 +8,7 @@
 # contains a little bit of validation, but most of that is done 
 # before this is ever called.
 
-getInfo {
+getInfo () {
     if [ -z $1 ]
     then
         echo "Must call getInfo with a machine to get the info from"
