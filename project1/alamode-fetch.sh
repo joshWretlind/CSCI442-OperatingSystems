@@ -24,9 +24,24 @@ getInfo () {
     ssh -q $1 $command
     if [ $# -eq 1 ]
     then
-        scp $1:/tmp/$1 /tmp/$1
+        outdir=$(mktemp -d)/$1
+        scp -q $1:/tmp/$1 $outdir
+        echo $outdir
     else
-        scp $1:/tmp/$1 $2
+        if [ ! -e $2 ]
+        then
+            mkdir $2
+        fi
+        if [ ! -d $2 ]
+        then
+            echo "A file already exsists where this directiory is meant to be"
+        fi
+        if [ ! -w $2 ]
+        then
+            echo "We do not have write permissions to this directory"
+        fi
+        scp -q $1:/tmp/$1 $2
+        echo $2
     fi
 }
 
