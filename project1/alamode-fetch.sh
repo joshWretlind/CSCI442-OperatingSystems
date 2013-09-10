@@ -106,7 +106,8 @@ then
 fi
 if [ ! -z $REMOTE_MACHINE] # we only have a single machine to get info on
 then
-    echo "unimplemented"
+    pushCommand $REMOTE_MACHINE
+    getInfo $REMOTE_MACHINE
 fi
 
 
