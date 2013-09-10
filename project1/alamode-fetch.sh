@@ -101,7 +101,16 @@ while getopts "n:f:" OPTIONS
 
 if [ ! -z $READ_FILE ] #We have a file to do
 then
-    echo "unimplemented"
+    #push the commands to all the hosts first
+    for host in $(cat $READ_FILE)
+    do
+        pushCommand $host
+    done
+    #run the commands and clean up
+    for host in $(cat $READ_FILE)
+    do
+        getInfo $host
+    done
 fi
 if [ ! -z $REMOTE_MACHINE ] # we only have a single machine to get info on
 then
