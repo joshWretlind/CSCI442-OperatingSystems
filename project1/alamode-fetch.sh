@@ -15,7 +15,7 @@ getInfo () {
         echo "Must call getInfo with a machine to get the info from"
         exit 1
     fi
-    if [[ " ! $# -eq 1 " && " ! $# -eq 2" ]]
+    if [  ! $# -eq 1 ] &&  [ ! $# -eq 2 ]
     then
         echo "Too many arguments to getInfo"
         exit 1
