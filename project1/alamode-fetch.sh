@@ -20,11 +20,11 @@ getInfo () {
         echo "Too many arguments to getInfo"
         exit 1
     fi
-    
-    ssh $1 sh ./alamode-generate.sh; rm ./alamode-generate;
+    command="sh ./alamode-generate.sh; rm ./alamode-generate.sh;"
+    ssh -q $1 $command
 }
 
-# Ehat pushCommand does is that it copies over the commands that need to
+# What pushCommand does is that it copies over the commands that need to
 # ran to the host machine we're running things on, reporting it to their 
 # respective locaiton. This is it's own file.
 pushCommand () {
