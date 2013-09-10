@@ -45,7 +45,7 @@ pushCommand () {
 while getopts "n:f:" OPTIONS
   do
     case "$OPTIONS" in
-	  n)  set isN = "foo"
+	  n)  isN="foo"
           if [ ! -z $isF ]
           then
             echo "Cannot set both n and f options -n"
@@ -53,13 +53,13 @@ while getopts "n:f:" OPTIONS
           else
             if [ ! -z $OPTARG ]
             then
-              set REMOTE_MACHINE = $OPTARG
+              REMOTE_MACHINE=$OPTARG
             else
               echo "-n options must be given a host"
               exit 1
             fi
           fi;;
-      f)  set isF = "foo"
+      f)  isF="foo"
           if [ ! -z $isN ]
           then
             echo "Cannot set both n and f options -f"
