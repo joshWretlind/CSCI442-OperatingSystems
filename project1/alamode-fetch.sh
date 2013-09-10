@@ -40,7 +40,7 @@ pushCommand () {
         exit 1
     fi
     
-    scp ./alamode-generate.sh $1:/tmp/alamode-generate.sh
+    scp -q ./alamode-generate.sh $1:/tmp/alamode-generate.sh
 }
 
 while getopts "n:f:" OPTIONS
