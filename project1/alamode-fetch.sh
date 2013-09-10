@@ -15,7 +15,7 @@ getInfo () {
         echo "Must call getInfo with a machine to get the info from"
         exit 1
     fi
-    if [ ! $# -eq 2 ]
+    if [ ! $# -eq 1 ]
     then
         echo "Too many arguments to getInfo"
         exit 1
@@ -28,14 +28,12 @@ getInfo () {
 # ran to the host machine we're running things on, reporting it to their 
 # respective locaiton. This is it's own file.
 pushCommand () {
-    echo $0
-    echo $#
     if [ -z $1 ]
     then
         echo "Must call pushCommand with a machine to get the info from"
         exit 1
     fi
-    if [ ! $# -eq 2 ]
+    if [ ! $# -eq 1 ]
     then
         echo "Too many arguments to pushCommand"
         exit 1
