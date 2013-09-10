@@ -104,11 +104,13 @@ then
     #push the commands to all the hosts first
     for host in $(cat $READ_FILE)
     do
+        echo $host
         pushCommand $host
     done
     #run the commands and clean up
     for host in $(cat $READ_FILE)
     do
+        echo $host
         getInfo $host
     done
 fi
