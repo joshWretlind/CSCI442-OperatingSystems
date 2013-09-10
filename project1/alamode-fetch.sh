@@ -84,6 +84,8 @@ while getopts "n:f:" OPTIONS
     esac
   done
 
+echo $READ_FILE
+echo $REMOTE_MACHINE
 ######## Begin input validation for -f flag ############
 
   if [ ! -f $READ_FILE ] #Check if file exists
