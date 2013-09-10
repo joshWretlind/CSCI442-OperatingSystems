@@ -7,3 +7,5 @@
 
 echo "Current number of users logged in: $(who | wc -l)"   >  "/tmp/`hostname`"
 echo "You currently are taking up: $(du -ch | grep total) space in your home directory" >> "/tmp/`hostname`"
+echo "Total amount of ram: $(cat /proc/meminfo | grep MemTotal | sed -e " s/MemTotal:\s*//g")" >> "/tmp/`hostname`"
+ 
