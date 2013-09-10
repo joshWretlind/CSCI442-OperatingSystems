@@ -43,9 +43,22 @@ pushCommand () {
     scp -q ./alamode-generate.sh $1:/tmp/alamode-generate.sh
 }
 
-while getopts "n:f:" OPTIONS
+while getopts "d:n:f:" OPTIONS
   do
     case "$OPTIONS" in
+      d)  if [ ! -z $DIRECTORY ]
+          then
+            echo "Cannot set two directory options"
+            exit 1
+          else
+            if[ ! -z $OPTARG ]
+            then
+              DIRECTORY=$OPTARG
+            else
+              echo "You must set a directpry after the -d argument"
+              exit 1
+            fi
+          fi;;
 	  n)  isN="foo"
           if [ ! -z $isF ]
           then
