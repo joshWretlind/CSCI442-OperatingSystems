@@ -21,8 +21,7 @@ getInfo () {
         exit 1
     fi
     
-    set command = "sh ./alamode-generate.sh; rm ./alamode-generate;"
-    ssh $1 $command
+    ssh $1 sh ./alamode-generate.sh; rm ./alamode-generate;
 }
 
 # Ehat pushCommand does is that it copies over the commands that need to
