@@ -15,12 +15,12 @@ getInfo () {
         echo "Must call getInfo with a machine to get the info from"
         exit 1
     fi
-    if [ ! $# -eq 1 ]
+    if [[ " ! $# -eq 1 " && " ! $# -eq 2" ]]
     then
         echo "Too many arguments to getInfo"
         exit 1
     fi
-    command="sh /tmp/alamode-generate.sh; rm /tmp/alamode-generate.sh;"
+    command="sh /tmp/alamode-generate.sh $2 ; rm /tmp/alamode-generate.sh;"
     ssh -q $1 $command
 }
 
@@ -34,7 +34,7 @@ pushCommand () {
         echo "Must call pushCommand with a machine to get the info from"
         exit 1
     fi
-    if [ ! $# -eq 1 ]
+    if [ ! $# -eq 1 ] 
     then
         echo "Too many arguments to pushCommand"
         exit 1
@@ -123,14 +123,14 @@ then
     #run the commands and clean up
     for host in $(cat $READ_FILE)
     do
-        getInfo $host
+        getInfo $host $DIRECTORY
     done
 fi
 if [ ! -z $REMOTE_MACHINE ] # we only have a single machine to get info on
 then
     echo "trying to push to $REMOTE_MACHINE"
     pushCommand $REMOTE_MACHINE
-    getInfo $REMOTE_MACHINE
+    getInfo $REMOTE_MACHINE $DIRECTORY
 fi
 
 
