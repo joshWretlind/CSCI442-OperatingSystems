@@ -20,7 +20,7 @@ getInfo () {
         echo "Too many arguments to getInfo"
         exit 1
     fi
-    command="sh ./alamode-generate.sh; rm ./alamode-generate.sh;"
+    command="sh ~/alamode-generate.sh; rm ~/alamode-generate.sh;"
     ssh -q $1 $command
 }
 
@@ -39,7 +39,7 @@ pushCommand () {
         exit 1
     fi
     
-    scp ./alamode-generate.sh $1:./alamode-generate.sh
+    scp ./alamode-generate.sh $1:~/alamode-generate.sh
 }
 
 while getopts "n:f:" OPTIONS
