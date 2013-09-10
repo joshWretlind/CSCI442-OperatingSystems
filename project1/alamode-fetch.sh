@@ -20,9 +20,10 @@ getInfo () {
         echo "Too many arguments to getInfo"
         exit 1
     fi
-    command="sh ~/alamode-generate.sh; rm ~/alamode-generate.sh;"
+    command="sh /tmp/alamode-generate.sh; rm /tmp/alamode-generate.sh;"
     ssh -q $1 $command
 }
+
 
 # What pushCommand does is that it copies over the commands that need to
 # ran to the host machine we're running things on, reporting it to their 
@@ -39,7 +40,7 @@ pushCommand () {
         exit 1
     fi
     
-    scp ./alamode-generate.sh $1:~/alamode-generate.sh
+    scp ./alamode-generate.sh $1:/tmp/alamode-generate.sh
 }
 
 while getopts "n:f:" OPTIONS
