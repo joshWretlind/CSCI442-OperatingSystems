@@ -20,8 +20,14 @@ getInfo () {
         echo "Too many arguments to getInfo"
         exit 1
     fi
-    command="sh /tmp/alamode-generate.sh $2 ; rm /tmp/alamode-generate.sh;"
+    command="sh /tmp/alamode-generate.sh; rm /tmp/alamode-generate.sh;"
     ssh -q $1 $command
+    if [ $# -eq 1 ]
+    then
+        scp $1:/tmp/$1 /tmp/$1
+    else
+        scp $1:/tmp/$1 $2
+    fi
 }
 
 
