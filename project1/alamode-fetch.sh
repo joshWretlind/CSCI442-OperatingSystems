@@ -51,7 +51,7 @@ while getopts "d:n:f:" OPTIONS
             echo "Cannot set two directory options"
             exit 1
           else
-            if[ ! -z $OPTARG ]
+            if [ ! -z $OPTARG ]
             then
               DIRECTORY=$OPTARG
             else
