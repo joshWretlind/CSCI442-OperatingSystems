@@ -84,8 +84,6 @@ while getopts "n:f:" OPTIONS
     esac
   done
 
-echo $READ_FILE
-echo $REMOTE_MACHINE
 ######## Begin input validation for -f flag ############
 
   if [ ! -f $READ_FILE ] #Check if file exists
@@ -101,11 +99,11 @@ echo $REMOTE_MACHINE
   fi
 ########################################################
 
-if [ ! -z $READ_FILE] #We have a file to do
+if [ ! -z $READ_FILE ] #We have a file to do
 then
     echo "unimplemented"
 fi
-if [ ! -z $REMOTE_MACHINE] # we only have a single machine to get info on
+if [ ! -z $REMOTE_MACHINE ] # we only have a single machine to get info on
 then
     echo "trying to push to $REMOTE_MACHINE"
     pushCommand $REMOTE_MACHINE
