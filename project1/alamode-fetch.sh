@@ -20,13 +20,9 @@ getInfo () {
         echo "Too many arguments to getInfo"
         exit 1
     fi
-    command="sh /tmp/alamode-generate.sh; rm /tmp/alamode-generate.sh;"
-    ssh -q $1 $command
     if [ $# -eq 1 ]
     then
         outdir=$(mktemp -d)/$1
-        scp -q $1:/tmp/$1 $outdir
-        echo $outdir
     else
         if [ ! -e $2 ]
         then
@@ -40,9 +36,17 @@ getInfo () {
         then
             echo "We do not have write permissions to this directory"
         fi
-        scp -q $1:/tmp/$1 $2
-        echo $2
+        outdir=$2
     fi
+    master_host=$(hostname)
+    command="sh /tmp/alamode-generate.sh;
+             rm /tmp/alamode-generate.sh;
+             scp /tmp/`hostname` $master_host:$2;
+             rm /tmp/`hostname`"
+             
+    echo $outdir
+
+    ssh -q $1 $command
 }
 
 
