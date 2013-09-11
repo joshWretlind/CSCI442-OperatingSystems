@@ -39,10 +39,10 @@ getInfo () {
         outdir=$2
     fi
     master_host=$(hostname)
-    command="sh /tmp/alamode-generate.sh;
-             rm /tmp/alamode-generate.sh;
-             scp /tmp/`hostname` $master_host:$2;
-             rm /tmp/`hostname`"
+    command="sh  /tmp/alamode-generate.sh;
+             rm  /tmp/alamode-generate.sh;
+             scp /tmp/$1 $master_host:$2;
+             rm  /tmp/$1"
              
     echo $outdir
 
