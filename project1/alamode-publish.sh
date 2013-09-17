@@ -59,10 +59,9 @@ fi
 
 set directory=$1
 
-if [ -z $directory ]
+if [ ! -z $INPUT_DIRECTORY ]
 then
     directory=$INPUT_DIRECTORY
-    echo $INPUT_DIRECTORY
 fi
 
 final_host_data=""
