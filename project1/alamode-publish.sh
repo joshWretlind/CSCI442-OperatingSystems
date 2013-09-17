@@ -35,12 +35,49 @@ while getopts ":d:s:h" OPTIONS
       h) echo "usage: $0 [-s source directory] [-d destination directory]"
           exit 1;;
     esac
-    shift
-  done
+    shift 2
+done
+  
+if [ ! -z $INPUT_DIRECTORY ]
+then
+    if [ ! -z $0 ]
+    then
+        echo "you cannot put two seperate input directories in"
+        exit 1
+    fi
+fi
 
-echo $0
-echo $1
-echo $2
-echo $3
-echo $4
+if [ -z $INPUT_DIRECTORY ]
+then
+    if [ -z $0 ]
+    then
+        echo "you must put in some sort of input directory"
+        exit 1
+    fi
+fi
 
+set directory=$0
+
+if [ -z $directory ]
+then
+    directory=$INPUT_DIRECTORY
+fi
+
+final_host_data=""
+for file in $(ls $directory) then
+do
+    inner=$(cat templateInsideMachine.bstl)
+    inner=$(echo "$inner" | sed -e "s/@HOSTNAME/$file/g")
+    inner=$(echo "$inner" | sed -e "s/@USERSLOGGEDIN/$(cat file | grep users | sed -e 's/[^0-9]//g')/g" )
+    inner=$(echo "$inner" | sed -e "s/@HOMESPACE/$(cat file | grep home | sed -e 's/[^0-9]//g')/g" )
+    inner=$(echo "$inner" | sed -e "s/@TOTALTASKCOUNT/$(cat file | grep Tasks | sed -e 's/[^0-9]//g')/g" )
+    inner=$(echo "$inner" | sed -e "s/@RUNNINGTASKCOUNT/$(cat file | grep Running | sed -e 's/[^0-9]//g')/g" )
+    inner=$(echo "$inner" | sed -e "s/@SLEEPINGTASKCOUNT/$(cat file | grep sleeping | sed -e 's/[^0-9]//g')/g" )
+    inner=$(echo "$inner" | sed -e "s/@STOPPEDTASKCOUNT/$(cat file | grep stopped | sed -e 's/[^0-9]//g')/g" )
+    inner=$(echo "$inner" | sed -e "s/@ZOMBIETASKCOUNT/$(cat file | grep zombie | sed -e 's/[^0-9]//g')/g" )
+    inner=$(echo "$inner" | sed -e "s/@TOTALRAMAVAILIBLE/$(cat file | grep ram | sed -e 's/[^0-9]//g')/g" )
+    inner=$(echo "$inner" | sed -e "s/@1MINUTELOADAVERAGE  /$(cat file | grep minute | sed -e 's/.*://g' | sed -e 's/[0-9]\.[0-9][0-9]//2' | sed -e 's/[0-9]\.[0-9][0-9]//3' )/g" )
+    inner=$(echo "$inner" | sed -e "s/@5MINUTELOADAVERAGE  /$(cat file | grep minute | sed -e 's/.*://g' | sed -e 's/[0-9]\.[0-9][0-9]//1' | sed -e 's/[0-9]\.[0-9][0-9]//3' )/g" )
+    inner=$(echo "$inner" | sed -e "s/@15MINUTELOADAVERAGE  /$(cat file | grep minute | sed -e 's/.*://g' | sed -e 's/[0-9]\.[0-9][0-9]//1' | sed -e 's/[0-9]\.[0-9][0-9]//2' )/g" )
+    echo $inner
+done
