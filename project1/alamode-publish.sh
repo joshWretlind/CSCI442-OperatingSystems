@@ -37,11 +37,9 @@ while getopts ":d:s:h" OPTIONS
     esac
     shift 2
 done
-echo $0
-echo $1
 if [ ! -z $INPUT_DIRECTORY ]
 then
-    if [ ! -z $0 ]
+    if [ ! -z $1 ]
     then
         echo "you cannot put two seperate input directories in"
         exit 1
@@ -50,14 +48,14 @@ fi
 
 if [ -z $INPUT_DIRECTORY ]
 then
-    if [ -z $0 ]
+    if [ -z $1 ]
     then
         echo "you must put in some sort of input directory"
         exit 1
     fi
 fi
 
-set directory=$0
+set directory=$1
 
 if [ -z $directory ]
 then
