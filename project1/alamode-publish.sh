@@ -38,3 +38,6 @@ while getopts ":d:s:h" OPTIONS
     esac
   done
 
+echo $0
+echo $1
+echo $2
