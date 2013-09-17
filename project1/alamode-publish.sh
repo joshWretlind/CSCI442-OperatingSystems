@@ -3,7 +3,7 @@
 # alamode-publish.sh
 # sample getopts and 
 # input validation code
-
+set i=0
 while getopts ":d:s:h" OPTIONS
   do
     case "$OPTIONS" in

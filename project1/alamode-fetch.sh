@@ -9,7 +9,6 @@
 # contains a little bit of validation, but most of that is done 
 # before this is ever called.
 
-set outdir=""
 
 getInfo () {
     if [ -z $1 ]
@@ -26,7 +25,7 @@ getInfo () {
     then
         if [ -z $outdir ]
         then
-            outdir="$(mktemp -d)/$1"
+            export outdir="$(mktemp -d)/$1"
         fi
     else
         if [ ! -e $2 ]
@@ -41,7 +40,7 @@ getInfo () {
         then
             echo "We do not have write permissions to this directory"
         fi
-        outdir=$2
+        export outdir=$2
     fi
     master_host=$(hostname)
     command="sh  /tmp/alamode-generate.sh;
@@ -142,6 +141,7 @@ while getopts "d:n:f:" OPTIONS
     exit 1
   fi
 ########################################################
+export outdir=""
 
 if [ ! -z $READ_FILE ] #We have a file to do
 then
