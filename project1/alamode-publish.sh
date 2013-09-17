@@ -62,6 +62,7 @@ set directory=$1
 if [ -z $directory ]
 then
     directory=$INPUT_DIRECTORY
+    echo $INPUT_DIRECTORY
 fi
 
 final_host_data=""
