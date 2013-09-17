@@ -63,7 +63,7 @@ if [ ! -z $INPUT_DIRECTORY ]
 then
     directory=$INPUT_DIRECTORY
 fi
-
+echo $directory
 final_host_data=""
 ls $directory
 for file in $(ls $directory) then
