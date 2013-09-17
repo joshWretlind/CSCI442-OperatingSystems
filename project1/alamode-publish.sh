@@ -37,7 +37,8 @@ while getopts ":d:s:h" OPTIONS
     esac
     shift 2
 done
-  
+echo $0
+echo $1
 if [ ! -z $INPUT_DIRECTORY ]
 then
     if [ ! -z $0 ]
@@ -64,6 +65,7 @@ then
 fi
 
 final_host_data=""
+ls $directory
 for file in $(ls $directory) then
 do
     inner=$(cat templateInsideMachine.bstl)
