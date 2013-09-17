@@ -42,7 +42,7 @@ getInfo () {
     master_host=$(hostname)
     command="sh  /tmp/alamode-generate.sh;
              rm  /tmp/alamode-generate.sh;
-             scp /tmp/$1 $master_host:$2;
+             scp /tmp/$1 $master_host:$outdir;
              rm  /tmp/$1"
              
     echo $outdir
