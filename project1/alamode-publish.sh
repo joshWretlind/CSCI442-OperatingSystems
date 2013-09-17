@@ -3,7 +3,6 @@
 # alamode-publish.sh
 # sample getopts and 
 # input validation code
-set i=0
 while getopts ":d:s:h" OPTIONS
   do
     case "$OPTIONS" in
@@ -36,8 +35,12 @@ while getopts ":d:s:h" OPTIONS
       h) echo "usage: $0 [-s source directory] [-d destination directory]"
           exit 1;;
     esac
+    shift
   done
 
 echo $0
 echo $1
 echo $2
+echo $3
+echo $4
+

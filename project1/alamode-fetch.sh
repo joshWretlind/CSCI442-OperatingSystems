@@ -137,6 +137,7 @@ while getopts "d:n:f:" OPTIONS
   fi
 ########################################################
 export outdir_base="$(mktemp -d)"
+
 if [ -z $DIRECTORY ]
 then
     echo $outdir_base
