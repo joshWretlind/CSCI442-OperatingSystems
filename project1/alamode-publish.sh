@@ -37,6 +37,8 @@ while getopts ":d:s:h" OPTIONS
     esac
     shift 2
 done
+
+echo $1
 if [ ! -z $INPUT_DIRECTORY ]
 then
     if [ ! -z $1 ]
@@ -76,8 +78,8 @@ do
     inner=$(echo "$inner" | sed -e "s/@STOPPEDTASKCOUNT/$(cat $directory/$file | grep stopped | sed -e 's/[^0-9]//g')/g" )
     inner=$(echo "$inner" | sed -e "s/@ZOMBIETASKCOUNT/$(cat $directory/$file | grep zombie | sed -e 's/[^0-9]//g')/g" )
     inner=$(echo "$inner" | sed -e "s/@TOTALRAMAVAILIBLE/$(cat $directory/$file | grep ram | sed -e 's/[^0-9]//g')/g" )
-    inner=$(echo "$inner" | sed -e "s/@1MINUTELOADAVERAGE  /$(cat $directory/$file | grep minute | sed -e 's/.*://g' | sed -e 's/[0-9]\.[0-9][0-9]//2' | sed -e 's/[0-9]\.[0-9][0-9]//3' )/g" )
-    inner=$(echo "$inner" | sed -e "s/@5MINUTELOADAVERAGE  /$(cat $directory/$file | grep minute | sed -e 's/.*://g' | sed -e 's/[0-9]\.[0-9][0-9]//1' | sed -e 's/[0-9]\.[0-9][0-9]//3' )/g" )
-    inner=$(echo "$inner" | sed -e "s/@15MINUTELOADAVERAGE  /$(cat $directory/$file | grep minute | sed -e 's/.*://g' | sed -e 's/[0-9]\.[0-9][0-9]//1' | sed -e 's/[0-9]\.[0-9][0-9]//2' )/g" )
+    inner=$(echo "$inner" | sed -e "s/@1MINUTELOADAVERAGE/$(cat $directory/$file | grep minute | sed -e 's/.*://g' | sed -e 's/[0-9]\.[0-9][0-9]//2' | sed -e 's/[0-9]\.[0-9][0-9]//2' )/g" )
+    inner=$(echo "$inner" | sed -e "s/@5MINUTELOADAVERAGE/$(cat $directory/$file | grep minute | sed -e 's/.*://g' | sed -e 's/[0-9]\.[0-9][0-9]//1' | sed -e 's/[0-9]\.[0-9][0-9]//2' )/g" )
+    inner=$(echo "$inner" | sed -e "s/@15MINUTELOADAVERAGE/$(cat $directory/$file | grep minute | sed -e 's/.*://g' | sed -e 's/[0-9]\.[0-9][0-9]//1' | sed -e 's/[0-9]\.[0-9][0-9]//1' )/g" )
     echo $inner
 done
