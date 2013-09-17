@@ -16,5 +16,5 @@ echo "Current number of users logged in: $(who | wc -l)"   >  $outdir
 echo "You currently are taking up this amount of space in home: $(du -ch ~ | grep total | sed -e "s/\s*total\s*//")" >> $outdir
 echo "Total amount of ram: $(cat /proc/meminfo | grep MemTotal | sed -e " s/MemTotal:\s*//g")" >> $outdir
 echo "1 minute, 5 minute, 15 minute average load: $(cat /proc/loadavg | sed -e "s/[0-9]\/.*//g")" >> $outdir
-
+echo "total nunber of tasks: $(top -bn 1 | grep Tasks | sed -e "s/,/\n/g")" >> $outdir
 
