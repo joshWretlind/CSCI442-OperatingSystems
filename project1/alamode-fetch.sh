@@ -22,7 +22,7 @@ getInfo () {
     fi
     if [ $# -eq 1 ]
     then
-        outdir=$(mktemp -d)/$1
+        outdir="$(mktemp -d)/$1"
     else
         if [ ! -e $2 ]
         then
