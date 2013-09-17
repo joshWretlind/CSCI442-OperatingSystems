@@ -1,0 +1,39 @@
+<div id="container">
+    <div id="hostTitle">
+        <h2>
+            @HOSTNAME
+        </h2>
+        <p>Total Ram Availible: @TOTALRAMAVAILIBLE</p>
+        <p>Total Number of users logged in: @USERSLOGGEDIN</p>
+        <p>You are using this much space on home: @HOMESPACE</p>
+    </div>
+    <b>Total Number of tasks in each state:</b><br>
+    <div id="TaskCountTableContainer">
+        <div id="statename" style="float:left">
+            <b>Running: </b><br>
+            <b>Sleeping:</b><br>
+            <b>Stopped: </b><br>
+            <b>Zombie:  </b><br>
+        </div>
+        <div id="taskCount:">
+            @RUNNINGTASKCOUNT  <br>
+            @SLEEPINGTASKCOUNT <br>
+            @STOPPEDTASKCOUNT  <br>
+            @ZOMBIETASKCOUNT   <br>
+        </div>
+    </div>
+    <br>
+    <b>CPU Load:</b><br>
+    <div id="loadAveragesContainer">
+        <div id="loadNames" style="float:left">
+            <b> 1 Minute Average: </b><br>
+            <b> 5 Minute Average: </b><br>
+            <b>15 Minute Average: </b><br>
+        </div>
+        <div id="loadData">
+            @1MINUTELOADAVERAGE  <br>
+            @5MINUTELOADAVERAGE  <br>
+            @15MINUTELOADAVERAGE <br>
+        </div>
+    </div>
+</div>
