@@ -9,6 +9,8 @@
 # contains a little bit of validation, but most of that is done 
 # before this is ever called.
 
+set outdir=""
+
 getInfo () {
     if [ -z $1 ]
     then
@@ -22,7 +24,10 @@ getInfo () {
     fi
     if [ $# -eq 1 ]
     then
-        outdir="$(mktemp -d)/$1"
+        if [ -z $outdir ]
+        then
+            outdir="$(mktemp -d)/$1"
+        fi
     else
         if [ ! -e $2 ]
         then
