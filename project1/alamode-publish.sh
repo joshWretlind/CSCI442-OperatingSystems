@@ -63,12 +63,10 @@ then
     directory=$INPUT_DIRECTORY
 fi
 
-final_host_data=""
+finalHostData=""
 ls $directory
 for file in $(ls $directory) then
 do
-    if [ ! $directory -eq "then"]
-    then
         inner=$(cat templateInsideMachine.bstl)
         inner=$(echo "$inner" | sed -e "s/@HOSTNAME/$file/g")
         inner=$(echo "$inner" | sed -e "s/@USERSLOGGEDIN/$(cat $directory/$file | grep users | sed -e 's/[^0-9]//g')/g" )
@@ -82,5 +80,7 @@ do
         inner=$(echo "$inner" | sed -e "s/@1MINUTELOADAVERAGE/$(cat $directory/$file | grep minute | sed -e 's/.*://g' | sed -e 's/[0-9]\.[0-9][0-9]//2' | sed -e 's/[0-9]\.[0-9][0-9]//2' )/g" )
         inner=$(echo "$inner" | sed -e "s/@5MINUTELOADAVERAGE/$(cat $directory/$file | grep minute | sed -e 's/.*://g' | sed -e 's/[0-9]\.[0-9][0-9]//1' | sed -e 's/[0-9]\.[0-9][0-9]//2' )/g" )
         inner=$(echo "$inner" | sed -e "s/@15MINUTELOADAVERAGE/$(cat $directory/$file | grep minute | sed -e 's/.*://g' | sed -e 's/[0-9]\.[0-9][0-9]//1' | sed -e 's/[0-9]\.[0-9][0-9]//1' )/g" )
-    fi
+        finalHostData = "$finalHostData $inner"
 done
+
+echo $finalHostData
