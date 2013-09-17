@@ -63,7 +63,7 @@ then
     directory=$INPUT_DIRECTORY
 fi
 
-finalHostData=""
+finalHostData=" "
 ls $directory
 for file in $(ls $directory) then
 do
