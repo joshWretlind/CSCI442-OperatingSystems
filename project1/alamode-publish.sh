@@ -63,9 +63,9 @@ then
     directory=$INPUT_DIRECTORY
 fi
 
-finalHostData=" "
+set finalHostData=" "
 ls $directory
-for file in $(ls $directory) then
+for file in $(ls $directory)
 do
         inner=$(cat templateInsideMachine.bstl)
         inner=$(echo "$inner" | sed -e "s/@HOSTNAME/$file/g")
