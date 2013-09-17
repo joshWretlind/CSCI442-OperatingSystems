@@ -83,6 +83,6 @@ do
 done
 
 outer=$(cat templateOutside.bstl)
-outer=$(echo "$outer" | sed -e "s/@HOSTMACHINEDATA/$finalHostData/g")
+outer=$(echo "$outer" | sed -e 's/@HOSTMACHINEDATA/"$finalHostData"/g')
 
 echo $outer
