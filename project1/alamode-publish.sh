@@ -57,7 +57,7 @@ then
     fi
 fi
 
-set directory=$1
+directory=$1
 
 if [ ! -z $INPUT_DIRECTORY ]
 then
