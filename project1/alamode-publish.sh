@@ -66,6 +66,7 @@ final_host_data=""
 ls $directory
 for file in $(ls $directory) then
 do
+    echo $file
     inner=$(cat templateInsideMachine.bstl)
     inner=$(echo "$inner" | sed -e "s/@HOSTNAME/$file/g")
     inner=$(echo "$inner" | sed -e "s/@USERSLOGGEDIN/$(cat $file | grep users | sed -e 's/[^0-9]//g')/g" )
