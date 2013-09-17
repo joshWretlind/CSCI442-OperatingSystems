@@ -23,10 +23,7 @@ getInfo () {
     fi
     if [ $# -eq 1 ]
     then
-        if [ -z $outdir ]
-        then
-            export outdir="$(mktemp -d)/$1"
-        fi
+        export outdir="$outdir_base/$1"
     else
         if [ ! -e $2 ]
         then
@@ -141,7 +138,7 @@ while getopts "d:n:f:" OPTIONS
     exit 1
   fi
 ########################################################
-export outdir=""
+export outdir_base="$(mktemp -d)"
 
 if [ ! -z $READ_FILE ] #We have a file to do
 then
