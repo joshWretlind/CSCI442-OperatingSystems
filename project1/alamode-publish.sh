@@ -7,7 +7,7 @@
 while getopts ":d:s:h" OPTIONS
   do
     case "$OPTIONS" in
-       s) if [ -z $INPUT_DIRECTORY ]
+       s) if [ ! -z $INPUT_DIRECTORY ]
           then
             echo "Cannot input duplicate -s options"
             exit 1
@@ -20,7 +20,7 @@ while getopts ":d:s:h" OPTIONS
               exit 1
             fi
           fi;;
-       d) if [ -z $OUTPUT_DIRECTORY ]
+       d) if [ ! -z $OUTPUT_DIRECTORY ]
           then
             echo "Cannot input duplicate -d options"
             exit 1
