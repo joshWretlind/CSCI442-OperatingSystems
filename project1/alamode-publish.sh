@@ -63,7 +63,6 @@ then
     directory=$INPUT_DIRECTORY
 fi
 
-ls $directory
 for file in $(ls $directory)
 do
     inner=$(cat templateInsideMachine.bstl)
