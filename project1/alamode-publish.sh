@@ -82,6 +82,7 @@ do
 	loadavg="$(echo $(cat $directory/$file | grep minute | sed -e 's/.*://g' | sed -e 's/[0-9]\.[0-9][0-9]//1' | sed -e 's/[0-9]\.[0-9][0-9]//1' ) | sed -e 's/\s//g') "
     isRed=$(echo "$loadavg > 0.5" | bc)
     isOrange=$(echo "$loadavg < 0.5 && $loadavg > 0.1" | bc)
+    isBlack=$(echo "$loadavg < 0.1" | bc)
 	if [ $isRed -eq 1 ]
 	then
 		inner=$(echo "$inner" | sed -e 's/@TITLECOLOR/style=\"color:red\"/g')
@@ -91,6 +92,11 @@ do
 	then
 		inner=$(echo "$inner" | sed -e 's/@TITLECOLOR/style=\"color:orange\"/g')
 	fi
+    
+    if [ $isBlack -eq 1 ]
+    then
+        inner=$(echo "$inner" | sed -e 's/@TITLECOLOR//g')
+    fi
     finalHostData+=$inner
 done
 
