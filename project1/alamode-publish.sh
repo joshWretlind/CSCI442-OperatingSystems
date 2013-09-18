@@ -66,25 +66,25 @@ fi
 ls $directory
 for file in $(ls $directory)
 do
-        inner=$(cat templateInsideMachine.bstl)
-        inner=$(echo "$inner" | sed -e "s/@HOSTNAME/$file/g")
-        inner=$(echo "$inner" | sed -e "s/@USERSLOGGEDIN/$(cat $directory/$file | grep users | sed -e 's/[^0-9]//g')/g" )
-        inner=$(echo "$inner" | sed -e "s/@HOMESPACE/$(cat $directory/$file | grep home | sed -e 's/[^0-9]//g')/g" )
-        inner=$(echo "$inner" | sed -e "s/@TOTALTASKCOUNT/$(cat $directory/$file | grep Tasks | sed -e 's/[^0-9]//g')/g" )
-        inner=$(echo "$inner" | sed -e "s/@RUNNINGTASKCOUNT/$(cat $directory/$file | grep running | sed -e 's/[^0-9]//g')/g" )
-        inner=$(echo "$inner" | sed -e "s/@SLEEPINGTASKCOUNT/$(cat $directory/$file | grep sleeping | sed -e 's/[^0-9]//g')/g" )
-        inner=$(echo "$inner" | sed -e "s/@STOPPEDTASKCOUNT/$(cat $directory/$file | grep stopped | sed -e 's/[^0-9]//g')/g" )
-        inner=$(echo "$inner" | sed -e "s/@ZOMBIETASKCOUNT/$(cat $directory/$file | grep zombie | sed -e 's/[^0-9]//g')/g" )
-        inner=$(echo "$inner" | sed -e "s/@TOTALRAMAVAILIBLE/$(cat $directory/$file | grep ram | sed -e 's/[^0-9]//g')/g" )
-        inner=$(echo "$inner" | sed -e "s/@1MINUTELOADAVERAGE/$(cat $directory/$file | grep minute | sed -e 's/.*://g' | sed -e 's/[0-9]\.[0-9][0-9]//2' | sed -e 's/[0-9]\.[0-9][0-9]//2' )/g" )
-        inner=$(echo "$inner" | sed -e "s/@5MINUTELOADAVERAGE/$(cat $directory/$file | grep minute | sed -e 's/.*://g' | sed -e 's/[0-9]\.[0-9][0-9]//1' | sed -e 's/[0-9]\.[0-9][0-9]//2' )/g" )
-        inner=$(echo "$inner" | sed -e "s/@15MINUTELOADAVERAGE/$(cat $directory/$file | grep minute | sed -e 's/.*://g' | sed -e 's/[0-9]\.[0-9][0-9]//1' | sed -e 's/[0-9]\.[0-9][0-9]//1' )/g" )
-	loadavg="$(echo $(cat $directory/$file | grep minute | sed -e 's/.*://g' | sed -e 's/[0-9]\.[0-9][0-9]//1' | sed -e 's/[0-9]\.[0-9][0-9]//1' ) | sed -e 's/\s//g') "
+    inner=$(cat templateInsideMachine.bstl)
+    inner=$(echo "$inner" | sed -e "s/@HOSTNAME/$file/g")
+    inner=$(echo "$inner" | sed -e "s/@USERSLOGGEDIN/$(cat $directory/$file | grep users | sed -e 's/[^0-9]//g')/g" )
+    inner=$(echo "$inner" | sed -e "s/@HOMESPACE/$(cat $directory/$file | grep home | sed -e 's/[^0-9]//g')/g" )
+    inner=$(echo "$inner" | sed -e "s/@TOTALTASKCOUNT/$(cat $directory/$file | grep Tasks | sed -e 's/[^0-9]//g')/g" )
+    inner=$(echo "$inner" | sed -e "s/@RUNNINGTASKCOUNT/$(cat $directory/$file | grep running | sed -e 's/[^0-9]//g')/g" )
+    inner=$(echo "$inner" | sed -e "s/@SLEEPINGTASKCOUNT/$(cat $directory/$file | grep sleeping | sed -e 's/[^0-9]//g')/g" )
+    inner=$(echo "$inner" | sed -e "s/@STOPPEDTASKCOUNT/$(cat $directory/$file | grep stopped | sed -e 's/[^0-9]//g')/g" )
+    inner=$(echo "$inner" | sed -e "s/@ZOMBIETASKCOUNT/$(cat $directory/$file | grep zombie | sed -e 's/[^0-9]//g')/g" )
+    inner=$(echo "$inner" | sed -e "s/@TOTALRAMAVAILIBLE/$(cat $directory/$file | grep ram | sed -e 's/[^0-9]//g')/g" )
+    inner=$(echo "$inner" | sed -e "s/@1MINUTELOADAVERAGE/$(cat $directory/$file | grep minute | sed -e 's/.*://g' | sed -e 's/[0-9]\.[0-9][0-9]//2' | sed -e 's/[0-9]\.[0-9][0-9]//2' )/g" )
+    inner=$(echo "$inner" | sed -e "s/@5MINUTELOADAVERAGE/$(cat $directory/$file | grep minute | sed -e 's/.*://g' | sed -e 's/[0-9]\.[0-9][0-9]//1' | sed -e 's/[0-9]\.[0-9][0-9]//2' )/g" )
+    inner=$(echo "$inner" | sed -e "s/@15MINUTELOADAVERAGE/$(cat $directory/$file | grep minute | sed -e 's/.*://g' | sed -e 's/[0-9]\.[0-9][0-9]//1' | sed -e 's/[0-9]\.[0-9][0-9]//1' )/g" )
+	loadavg=$(echo $(cat $directory/$file | grep minute | sed -e 's/.*://g' | sed -e 's/[0-9]\.[0-9][0-9]//1' | sed -e 's/[0-9]\.[0-9][0-9]//1' ) | sed -e 's/\s//g') 
 	if [ $loadavg > 0.10 ]
 	then
 		inner=$(echo "$inner" | sed -e 's/@TITLECOLOR/style=\"color:orange\"/g')
 	fi
-        finalHostData+=$inner
+    finalHostData+=$inner
 done
 
 outer=$(cat templateOutside.bstl)
