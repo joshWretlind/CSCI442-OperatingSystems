@@ -3,6 +3,7 @@ Files: alamode-fetch.sh
        alamode-generate.sh
        alamode-publish.sh
        hosts.txt
+       output.html
        README.txt
        templateInsideMachine.bstl
        templateOutside.bstl
