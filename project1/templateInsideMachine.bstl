@@ -3,9 +3,9 @@
         <h2 @TITLECOLOR>
             @HOSTNAME
         </h2>
-        <p>Total Ram Availible: @TOTALRAMAVAILIBLE</p>
-        <p>Total Number of users logged in: @USERSLOGGEDIN</p>
-        <p>You are using this much space on home: @HOMESPACE</p>
+        <p>Total Ram Availible: @TOTALRAMAVAILIBLE KB</p>
+        <p>Total Number of users logged in: @USERSLOGGEDIN Users</p>
+        <p>You are using this much space on home: @HOMESPACE MB</p>
     </div>
     <b>Total Number of tasks in each state:</b><br>
     <div>
