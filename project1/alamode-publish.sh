@@ -80,6 +80,8 @@ do
     inner=$(echo "$inner" | sed -e "s/@5MINUTELOADAVERAGE/$(cat $directory/$file | grep minute | sed -e 's/.*://g' | sed -e 's/[0-9]\.[0-9][0-9]//1' | sed -e 's/[0-9]\.[0-9][0-9]//2' )/g" )
     inner=$(echo "$inner" | sed -e "s/@15MINUTELOADAVERAGE/$(cat $directory/$file | grep minute | sed -e 's/.*://g' | sed -e 's/[0-9]\.[0-9][0-9]//1' | sed -e 's/[0-9]\.[0-9][0-9]//1' )/g" )
 	loadavg=$(echo $(cat $directory/$file | grep minute | sed -e 's/.*://g' | sed -e 's/[0-9]\.[0-9][0-9]//1' | sed -e 's/[0-9]\.[0-9][0-9]//1' ) | sed -e 's/\s//g') 
+    echo $loadavg
+    echo $loadavg > 0.10
 	if [ $loadavg > 0.10 ]
 	then
 		inner=$(echo "$inner" | sed -e 's/@TITLECOLOR/style=\"color:orange\"/g')
