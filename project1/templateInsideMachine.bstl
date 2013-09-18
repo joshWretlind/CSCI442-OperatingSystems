@@ -1,6 +1,6 @@
 <div>
     <div>
-        <h2>
+        <h2 @TITLECOLOR>
             @HOSTNAME
         </h2>
         <p>Total Ram Availible: @TOTALRAMAVAILIBLE</p>

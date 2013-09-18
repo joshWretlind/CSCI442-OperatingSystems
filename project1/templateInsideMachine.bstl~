@@ -1,6 +1,6 @@
 <div>
     <div>
-        <h2>
+        <h2 @BACKGROUNDCOLOR>
             @HOSTNAME
         </h2>
         <p>Total Ram Availible: @TOTALRAMAVAILIBLE</p>
@@ -24,7 +24,7 @@
     </div>
     <br>
     <b>CPU Load:</b><br>
-    <div id="loadAveragesContainer">
+    <div>
         <div style="float:left">
             <b> 1 Minute Average: </b><br>
             <b> 5 Minute Average: </b><br>
