@@ -109,7 +109,6 @@ done
 outer=$(cat templateOutside.bstl)
 outer=${outer/@HOSTMACHINEDATA/$finalHostData}
 
-echo "$OUTPUT_DIRECTORY"
 if [ ! -z $OUTPUT_DIRECTORY ]
 then
     $(echo "$outer" > $OUTPUT_DIRECTORY/output.html)
