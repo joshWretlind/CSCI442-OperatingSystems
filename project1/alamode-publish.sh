@@ -53,7 +53,7 @@ if [ -z $INPUT_DIRECTORY ]
 then
     if [ -z $directory ]
     then
-        read directory
+        directory=$(cat)
         if [ -z $directory ]
         then
             echo "you must put in some sort of input directory"
@@ -63,7 +63,7 @@ then
     fi
 fi
 
-echo "$(cat)"
+
 
 if [ ! -z $INPUT_DIRECTORY ]
 then
@@ -109,6 +109,7 @@ done
 outer=$(cat templateOutside.bstl)
 outer=${outer/@HOSTMACHINEDATA/$finalHostData}
 
+echo "$OUTPUT_DIRECTORY"
 if [ ! -z $OUTPUT_DIRECTORY ]
 then
     $(echo "$outer" >> $OUTPUT_DIRECTPRY/output.html)
