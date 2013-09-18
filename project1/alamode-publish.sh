@@ -38,10 +38,7 @@ while getopts ":d:s:h" OPTIONS
     shift 2
 done
 directory=$1
-if [ -z $directory ]
-then
-    read directory
-fi
+
 
 if [ ! -z $INPUT_DIRECTORY ]
 then
@@ -56,8 +53,13 @@ if [ -z $INPUT_DIRECTORY ]
 then
     if [ -z $directory ]
     then
-        echo "you must put in some sort of input directory"
-        exit 1
+        read directory
+        if [ -z $directory ]
+        then
+            echo "you must put in some sort of input directory"
+            exit 1       
+        fi
+        
     fi
 fi
 
@@ -68,7 +70,7 @@ then
     directory=$INPUT_DIRECTORY
 fi
 
-
+echo "$(cat)"
 
 for file in $(ls $directory)
 do
