@@ -24,7 +24,7 @@
     </div>
     <br>
     <b>CPU Load:</b><br>
-    <div>
+    <div id="loadAveragesContainer">
         <div style="float:left">
             <b> 1 Minute Average: </b><br>
             <b> 5 Minute Average: </b><br>
