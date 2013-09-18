@@ -24,3 +24,8 @@ How the HTML is formed: the BSTL(BASH Standard Template Library, I made that acr
 Interesting featureS: how much space home is taking up and the amount of ram availible(this has been useful for parallel scientific computing/knowing when a program I'm running hits ram limitations).
 
 Time spent: 9 Hours or so
+
+Note: The coloring for the output html file is done as follows:
+	if the 15 minute load is over 50%, then we color the hostname red
+	if the 15 minute load is under 50% but over 10%, we color the hostname orange
+	if the 15 minute load is under 10%, the hostname is colored black
