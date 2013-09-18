@@ -37,10 +37,15 @@ while getopts ":d:s:h" OPTIONS
     esac
     shift 2
 done
+directory=$1
+if [ -z $directory ]
+then
+    read directory
+fi
 
 if [ ! -z $INPUT_DIRECTORY ]
 then
-    if [ ! -z $1 ]
+    if [ ! -z $directory ]
     then
         echo "you cannot put two seperate input directories in"
         exit 1
@@ -49,19 +54,21 @@ fi
 
 if [ -z $INPUT_DIRECTORY ]
 then
-    if [ -z $1 ]
+    if [ -z $directory ]
     then
         echo "you must put in some sort of input directory"
         exit 1
     fi
 fi
 
-directory=$1
+
 
 if [ ! -z $INPUT_DIRECTORY ]
 then
     directory=$INPUT_DIRECTORY
 fi
+
+
 
 for file in $(ls $directory)
 do
