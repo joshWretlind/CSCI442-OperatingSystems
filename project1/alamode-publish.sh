@@ -112,7 +112,7 @@ outer=${outer/@HOSTMACHINEDATA/$finalHostData}
 echo "$OUTPUT_DIRECTORY"
 if [ ! -z $OUTPUT_DIRECTORY ]
 then
-    $(echo "$outer" >> $OUTPUT_DIRECTPRY/output.html)
+    $(echo "$outer" > $OUTPUT_DIRECTORY/output.html)
 else
     echo $outer
 fi
