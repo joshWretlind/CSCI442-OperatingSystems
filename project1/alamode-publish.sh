@@ -70,8 +70,6 @@ then
     directory=$INPUT_DIRECTORY
 fi
 
-echo "$(cat)"
-
 for file in $(ls $directory)
 do
     inner=$(cat templateInsideMachine.bstl)
