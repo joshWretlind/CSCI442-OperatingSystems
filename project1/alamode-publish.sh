@@ -63,7 +63,7 @@ then
     fi
 fi
 
-
+echo "$(cat)"
 
 if [ ! -z $INPUT_DIRECTORY ]
 then
@@ -109,4 +109,9 @@ done
 outer=$(cat templateOutside.bstl)
 outer=${outer/@HOSTMACHINEDATA/$finalHostData}
 
-echo $outer
+if [ ! -z $OUTPUT_DIRECTORY ]
+then
+    $(echo "$outer" >> $OUTPUT_DIRECTPRY/output.html)
+else
+    echo $outer
+fi
