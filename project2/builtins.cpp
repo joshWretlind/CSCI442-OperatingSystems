@@ -48,11 +48,10 @@ int com_cd(vector<string>& tokens) {
     // return error
     return 1;
   }
-
+  setenv("PWD", tokens[1].c_str(), 1);
   
   return chdir(tokens[1].c_str());
 }
-
 
 int com_pwd(vector<string>& tokens) {
   cout << pwd() << endl;
