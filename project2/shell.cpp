@@ -67,7 +67,7 @@ string get_prompt(int return_value) {
     } else {
         prompt += " (^_^) >";
     }
-  return prompt; // replace with your own code
+  return prompt;
 }
 
 

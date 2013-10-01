@@ -39,10 +39,7 @@ int com_cd(vector<string>& tokens) {
 
 
 int com_pwd(vector<string>& tokens) {
-  // TODO: YOUR CODE GOES HERE
-  // HINT: you should implement the actual fetching of the current directory in
-  // pwd(), since this information is also used for your prompt
-  cout << "pwd called" << endl; // delete when implemented
+  cout << pwd() << endl;
   return 0;
 }
 
@@ -82,6 +79,14 @@ int com_history(vector<string>& tokens) {
 }
 
 string pwd() {
-  // TODO: YOUR CODE GOES HERE
-  return NULL;
+  string varname = "PWD";
+    string pwd;
+    if (getenv(varname.c_str()) != NULL) {
+        pwd = getenv(varname.c_str());
+    } else if (localvars.find(varname) != localvars.end()) {
+        pwd = localvars.find(varname)->second;
+    } else {
+        pwd = "";
+    }
+    return pwd;
 }
