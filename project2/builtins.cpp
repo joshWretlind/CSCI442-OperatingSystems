@@ -81,7 +81,10 @@ int com_echo(vector<string>& tokens) {
     cout << "Echo requires an argument" << endl;
     return 1;
   }
-  cout << tokens[1] << endl;
+  for(int i = 1; i < tokens.size(); i++){
+    cout << tokens[1] << " ";
+  }
+  cout << endl;
   return 0;
 }
 
