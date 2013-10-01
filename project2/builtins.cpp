@@ -48,9 +48,11 @@ int com_cd(vector<string>& tokens) {
     // return error
     return 1;
   }
-  setenv("PWD", tokens[1].c_str(), 1);
+  char cwd[2048]; // up to 
+  int err = chdir(tokens[1].c_str());
+  setenv("PWD", getcwd(cwd, sizeof(cwd)), 1);
   
-  return chdir(tokens[1].c_str());
+  return err;
 }
 
 int com_pwd(vector<string>& tokens) {
