@@ -217,22 +217,7 @@ void local_variable_assignment(vector<string>& tokens) {
   }
 }
 
-int execute(const char* line) {
-
-      // Break the raw input line into tokens
-      vector<string> tokens = tokenize(line);
-
-      // Handle local variable declarations
-      local_variable_assignment(tokens);
-
-      // Substitute variable references
-      variable_substitution(tokens);
-
-      // Execute the line
-      int return_value = execute_line(tokens, builtins);
-      
-      return return_value;
-}
+int execute(const char* line);\
 
 // Handles external commands, redirects, and pipes.
 int execute_external_command(vector<string> tokens) {
@@ -268,6 +253,22 @@ int execute_line(vector<string>& tokens, map<string, command>& builtins) {
   return return_value;
 }
 
+int execute(const char* line) {
+
+      // Break the raw input line into tokens
+      vector<string> tokens = tokenize(line);
+
+      // Handle local variable declarations
+      local_variable_assignment(tokens);
+
+      // Substitute variable references
+      variable_substitution(tokens);
+
+      // Execute the line
+      int return_value = execute_line(tokens, builtins);
+      
+      return return_value;
+}
 
 // The main program
 int main() {
