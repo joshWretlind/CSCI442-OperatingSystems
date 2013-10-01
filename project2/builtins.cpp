@@ -50,7 +50,7 @@ int com_cd(vector<string>& tokens) {
   }
   char cwd[2048]; // up to 
   int err = chdir(tokens[1].c_str());
-  getcwd(cwd, sizeof(cwd))
+  getcwd(cwd, sizeof(cwd));
   setenv("PWD", cwd, 1);
   
   return err;
