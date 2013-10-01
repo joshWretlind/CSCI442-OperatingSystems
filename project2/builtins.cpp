@@ -97,8 +97,8 @@ int com_exit(vector<string>& tokens) {
 
 
 int com_history(vector<string>& tokens) {
-  for(HIST_ENTRY *comm = previous_history(); comm != NULL;*comm = next_history()){
-    cout << comm.line << endl;
+  for(HIST_ENTRY *comm = previous_history(); comm != NULL; comm = previous_history()){
+    cout << comm->line << endl;
   }
   return 0;
 }
