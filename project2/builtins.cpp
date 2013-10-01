@@ -32,9 +32,25 @@ int com_ls(vector<string>& tokens) {
 
 
 int com_cd(vector<string>& tokens) {
-  // TODO: YOUR CODE GOES HERE
-  cout << "cd called" << endl; // delete when implemented
-  return 0;
+  // if no directory is given, use the local directory
+  if (tokens.size() < 2) {
+    tokens.push_back(home());
+  }
+
+  // open the directory
+  DIR* dir = opendir(tokens[1].c_str());
+
+  // catch an errors opening the directory
+  if (!dir) {
+    // print the error from the last system call with the given prefix
+    perror("cd error: ");
+
+    // return error
+    return 1;
+  }
+
+  
+  return chdir(tokens[1].c_str());
 }
 
 
@@ -85,4 +101,13 @@ string pwd() {
         pwd = getenv(varname.c_str());
     }
     return pwd;
+}
+
+string home() {
+    string varname = "HOME";
+    string home;
+    if (getenv(varname.c_str()) != NULL) {
+        home = getenv(varname.c_str());
+    }
+    return home;
 }
