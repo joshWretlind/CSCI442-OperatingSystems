@@ -83,10 +83,6 @@ string pwd() {
     string pwd;
     if (getenv(varname.c_str()) != NULL) {
         pwd = getenv(varname.c_str());
-    } else if (localvars.find(varname) != localvars.end()) {
-        pwd = localvars.find(varname)->second;
-    } else {
-        pwd = "";
     }
     return pwd;
 }
