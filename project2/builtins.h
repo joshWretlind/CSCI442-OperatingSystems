@@ -51,3 +51,6 @@ int com_history(vector<string>& tokens);
 
 // Returns the current working directory.
 string pwd();
+
+// Returns the home directory.
+string home();

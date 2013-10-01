@@ -50,7 +50,7 @@ int com_cd(vector<string>& tokens) {
   }
 
   
-  return chdir(tokens[1].c_str());
+  return chdir(tokens[1].c_str()q);
 }
 
 
