@@ -273,7 +273,8 @@ int main() {
     if (!line) {
       break;
     }
-
+    //Only store up to 20 previous commands
+    stifle_history(20);
     // If the command is non-empty, attempt to execute it
     if (line[0]) {
 

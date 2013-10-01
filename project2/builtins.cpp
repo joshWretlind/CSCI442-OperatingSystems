@@ -1,4 +1,5 @@
 #include "builtins.h"
+#include <readline/history.h>
 
 using namespace std;
 
@@ -96,8 +97,9 @@ int com_exit(vector<string>& tokens) {
 
 
 int com_history(vector<string>& tokens) {
-  // TODO: YOUR CODE GOES HERE
-  cout << "history called" << endl; // delete when implemented
+  for(HIST_ENTRY *comm = next_history(); comm != NULL;){
+    cout << comm->line << endl;
+  }
   return 0;
 }
 
