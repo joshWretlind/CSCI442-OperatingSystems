@@ -82,7 +82,7 @@ int com_echo(vector<string>& tokens) {
     return 1;
   }
   for(int i = 1; i < tokens.size(); i++){
-    cout << tokens[1] << " ";
+    cout << tokens[i] << " ";
   }
   cout << endl;
   return 0;
@@ -90,8 +90,7 @@ int com_echo(vector<string>& tokens) {
 
 
 int com_exit(vector<string>& tokens) {
-  // TODO: YOUR CODE GOES HERE
-  cout << "exit called" << endl; // delete when implemented
+  exit(0);
   return 0;
 }
 
