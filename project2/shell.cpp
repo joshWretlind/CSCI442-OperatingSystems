@@ -54,10 +54,10 @@ int execute_external_command(vector<string> tokens) {
 string get_prompt(int return_value) {
     string varname = "HOME";
     string prompt;
-    if (getenv(var_name.c_str()) != NULL) {
-        *prompt = getenv(var_name.c_str());
-    } else if (localvars.find(var_name) != localvars.end()) {
-        *token = localvars.find(var_name)->second;
+    if (getenv(varname) != NULL) {
+        *prompt = getenv(varname);
+    } else if (localvars.find(varname) != localvars.end()) {
+        *token = localvars.find(varname)->second;
     } else {
         *prompt = "";
     }
