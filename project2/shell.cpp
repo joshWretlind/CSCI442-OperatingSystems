@@ -52,7 +52,7 @@ int execute_external_command(vector<string> tokens) {
 // include the current working directory and should also use the return value to
 // indicate the result (success or failure) of the last command.
 string get_prompt(int return_value) {
-    string varname = "HOME";
+    string varname = "PWD";
     string prompt;
     if (getenv(varname.c_str()) != NULL) {
         prompt = getenv(varname.c_str());
@@ -65,7 +65,7 @@ string get_prompt(int return_value) {
     if( return_value != 0 ) {
         prompt += " （；¬＿¬) >";
     } else {
-        prompt += " ｡◕‿◕｡ >";
+        prompt += " (^_^) >";
     }
   return prompt; // replace with your own code
 }
