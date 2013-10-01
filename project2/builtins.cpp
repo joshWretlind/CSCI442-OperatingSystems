@@ -50,7 +50,8 @@ int com_cd(vector<string>& tokens) {
   }
   char cwd[2048]; // up to 
   int err = chdir(tokens[1].c_str());
-  setenv("PWD", getcwd(cwd, sizeof(cwd)), 1);
+  getcwd(cwd, sizeof(cwd))
+  setenv("PWD", cwd, 1);
   
   return err;
 }
@@ -76,8 +77,11 @@ int com_unalias(vector<string>& tokens) {
 
 
 int com_echo(vector<string>& tokens) {
-  // TODO: YOUR CODE GOES HERE
-  cout << "echo called" << endl; // delete when implemented
+  if (tokens.size() < 2) {
+    cout << "Echo requires an argument" << endl;
+    return 1;
+  }
+  cout << tokens[1] << endl;
   return 0;
 }
 
