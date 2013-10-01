@@ -39,38 +39,9 @@ map<string, command> builtins;
 // Variables local to the shell
 map<string, string> localvars;
 
-int execute(const char* line) {
 
-      // Break the raw input line into tokens
-      vector<string> tokens = tokenize(line);
 
-      // Handle local variable declarations
-      local_variable_assignment(tokens);
 
-      // Substitute variable references
-      variable_substitution(tokens);
-
-      // Execute the line
-      return_value = execute_line(tokens, builtins);
-      
-      return return_value
-}
-
-// Handles external commands, redirects, and pipes.
-int execute_external_command(vector<string> tokens) {
-  if((tokens[0].c_str())[0] == '!'){
-      if(if((tokens[0].c_str())[1] == '!'){
-        return execute(previous_history()->line);
-      } 
-      int numOfCommandsToGoBackTo = (tokens[0].c_str())[1] - '0';
-      HIST_ENTRY *comm = previous_history();
-      for(int i = 0; i < numOfCommandsToGoBackTo; i++){
-            comm = previous_history();
-      }
-      return execute(comm->line);
-  }
-  return 0;
-}
 
 
 // Return a string representing the prompt to display to the user. It needs to
@@ -199,6 +170,39 @@ vector<string> tokenize(const char* line) {
   return tokens;
 }
 
+
+int execute(const char* line) {
+
+      // Break the raw input line into tokens
+      vector<string> tokens = tokenize(line);
+
+      // Handle local variable declarations
+      local_variable_assignment(tokens);
+
+      // Substitute variable references
+      variable_substitution(tokens);
+
+      // Execute the line
+      return_value = execute_line(tokens, builtins);
+      
+      return return_value
+}
+
+// Handles external commands, redirects, and pipes.
+int execute_external_command(vector<string> tokens) {
+  if((tokens[0].c_str())[0] == '!'){
+      if((tokens[0].c_str())[1] == '!'){
+        return execute(previous_history()->line);
+      } 
+      int numOfCommandsToGoBackTo = (tokens[0].c_str())[1] - '0';
+      HIST_ENTRY *comm = previous_history();
+      for(int i = 0; i < numOfCommandsToGoBackTo; i++){
+            comm = previous_history();
+      }
+      return execute(comm->line);
+  }
+  return 0;
+}
 
 // Executes a line of input by either calling execute_external_command or
 // directly invoking the built-in command.
