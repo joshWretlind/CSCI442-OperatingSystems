@@ -171,56 +171,6 @@ vector<string> tokenize(const char* line) {
 }
 
 
-int execute(const char* line) {
-
-      // Break the raw input line into tokens
-      vector<string> tokens = tokenize(line);
-
-      // Handle local variable declarations
-      local_variable_assignment(tokens);
-
-      // Substitute variable references
-      variable_substitution(tokens);
-
-      // Execute the line
-      return_value = execute_line(tokens, builtins);
-      
-      return return_value
-}
-
-// Handles external commands, redirects, and pipes.
-int execute_external_command(vector<string> tokens) {
-  if((tokens[0].c_str())[0] == '!'){
-      if((tokens[0].c_str())[1] == '!'){
-        return execute(previous_history()->line);
-      } 
-      int numOfCommandsToGoBackTo = (tokens[0].c_str())[1] - '0';
-      HIST_ENTRY *comm = previous_history();
-      for(int i = 0; i < numOfCommandsToGoBackTo; i++){
-            comm = previous_history();
-      }
-      return execute(comm->line);
-  }
-  return 0;
-}
-
-// Executes a line of input by either calling execute_external_command or
-// directly invoking the built-in command.
-int execute_line(vector<string>& tokens, map<string, command>& builtins) {
-  int return_value = 0;
-
-  if (tokens.size() != 0) {
-    map<string, command>::iterator cmd = builtins.find(tokens[0]);
-
-    if (cmd == builtins.end()) {
-      return_value = execute_external_command(tokens);
-    } else {
-      return_value = ((*cmd->second)(tokens));
-    }
-  }
-
-  return return_value;
-}
 
 
 // Substitutes any tokens that start with a $ with their appropriate value, or
@@ -265,6 +215,57 @@ void local_variable_assignment(vector<string>& tokens) {
       ++token;
     }
   }
+}
+
+int execute(const char* line) {
+
+      // Break the raw input line into tokens
+      vector<string> tokens = tokenize(line);
+
+      // Handle local variable declarations
+      local_variable_assignment(tokens);
+
+      // Substitute variable references
+      variable_substitution(tokens);
+
+      // Execute the line
+      int return_value = execute_line(tokens, builtins);
+      
+      return return_value;
+}
+
+// Handles external commands, redirects, and pipes.
+int execute_external_command(vector<string> tokens) {
+  if((tokens[0].c_str())[0] == '!'){
+      if((tokens[0].c_str())[1] == '!'){
+        return execute(previous_history()->line);
+      } 
+      int numOfCommandsToGoBackTo = (tokens[0].c_str())[1] - '0';
+      HIST_ENTRY *comm = previous_history();
+      for(int i = 0; i < numOfCommandsToGoBackTo; i++){
+            comm = previous_history();
+      }
+      return execute(comm->line);
+  }
+  return 0;
+}
+
+// Executes a line of input by either calling execute_external_command or
+// directly invoking the built-in command.
+int execute_line(vector<string>& tokens, map<string, command>& builtins) {
+  int return_value = 0;
+
+  if (tokens.size() != 0) {
+    map<string, command>::iterator cmd = builtins.find(tokens[0]);
+
+    if (cmd == builtins.end()) {
+      return_value = execute_external_command(tokens);
+    } else {
+      return_value = ((*cmd->second)(tokens));
+    }
+  }
+
+  return return_value;
 }
 
 
