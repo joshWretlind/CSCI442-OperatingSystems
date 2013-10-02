@@ -1,0 +1,8 @@
+Name: Josh Wretlind
+Files: builtins.cpp: The code for all of the built in functions
+       builtins.h: The code for all of the built in function headers
+	   shell.cpp: this is the main file, contains overarching logic
+	   makefile: Standard make file
+	   MyShell: This is the binary that make produces
+
+Time Spent: Intermediate 1: 1.5 hours
