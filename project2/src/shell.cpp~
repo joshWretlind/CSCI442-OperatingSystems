@@ -334,11 +334,134 @@ int execute_external_command(vector<string> tokens) {
 	}
 	exit(err);
     } else {
-
+	dup2(currentPipe[1],1);
+	
+	if((isInput || isOverwrite || isAppend) && !isBackground){
+		tokenCharVector[tokens.size()-1] = NULL;
+		tokenCharVector[tokens.size()-2] = NULL;
+	} else if((isInput || isOverwrite || isAppend) && isBackground){
+		tokenCharVector[tokens.size()-1] = NULL;
+		tokenCharVector[tokens.size()-2] = NULL;
+		tokenCharVector[tokens.size()-3] = NULL;
+	}
+	int i = 0;
+	while(tokenCharVector[i] != "|") {
+	  i++;
+	}
+	for(i;i < tokenCharVector.size(); i++){
+		tokenCharVector[i] = NULL;
+	}
+	
+	FILE *outfile;
+	if(isOverwrite || isAppend){
+	  string fileName = "";
+	  if(!isBackground) {
+	    fileName = tokens[tokens.size() -1];
+	  } else {
+	    fileName = tokens[tokens.size() -2];
+	  }
+	  FILE *outfile;
+	  if(isOverwrite){
+	    outfile = freopen(fileName.c_str(), "w", stdout);
+	  } else {
+	    outfile = freopen(fileName.c_str(), "a", stdout);
+	  }
+        }
+	if(isInput){
+	  fstream inputFile;
+	  string fileName = "";
+	  if(!isBackground) {
+	    fileName = tokens[tokens.size() -1];
+	  } else {
+	    fileName = tokens[tokens.size() -2];
+	  }
+	   inputFile.open(fileName.c_str(),ios_base::in);
+	   string fileContents;
+	   string fileLine;
+	   while(inputFile >> fileLine){
+		fileContents += fileLine;
+	   }
+	   tokens.push_back(fileContents.c_str());
+	    transform (tokens.begin(), tokens.end(), tokenCharVector.begin(), convertStringToCStr);
+	}
+	int err = execvp(tokens[0].c_str(), &tokenCharVector[0]);
+	cout << endl;
+	if(isOverwrite || isAppend){
+	  fclose(outfile);
+	}
+	exit(err);
     }
   } else {
     if(isPipe){
-  
+	wait(NULL);
+    vector<char*> tokenCharVector;
+    tokenCharVector.resize(tokens.size() + 1); 
+    transform (tokens.begin(), tokens.end(), tokenCharVector.begin(), convertStringToCStr);
+	dup2(currentPipe[0],0);
+	char buffer[1024*4];
+	read(0,buffer,sizeof(buffer));
+	cout << buffer;
+	int j = 0;
+	while(tokens[j] != "|"){
+	  j++;
+	}
+	for(int i = 0; tokens[i] != "|"; i++){
+		char* charArray = new char[tokens[i+j].size() + 1];
+		strcpy(charArray, tokens[i+j].c_str());
+		tokenCharVector[i] = charArray;
+	}
+	for(int i = j; i >= 0; i--){
+		tokenCharVector.pop_back();
+	} 
+	if((isInput || isOverwrite || isAppend) && !isBackground){
+		tokenCharVector[tokens.size()-1] = NULL;
+		tokenCharVector[tokens.size()-2] = NULL;
+	} else if((isInput || isOverwrite || isAppend) && isBackground){
+		tokenCharVector[tokens.size()-1] = NULL;
+		tokenCharVector[tokens.size()-2] = NULL;
+		tokenCharVector[tokens.size()-3] = NULL;
+	}
+	FILE *outfile;
+	if(isOverwrite || isAppend){
+	  string fileName = "";
+	  if(!isBackground) {
+	    fileName = tokens[tokens.size() -1];
+	  } else {
+	    fileName = tokens[tokens.size() -2];
+	  }
+	  FILE *outfile;
+	  if(isOverwrite){
+	    outfile = freopen(fileName.c_str(), "w", stdout);
+	  } else {
+	    outfile = freopen(fileName.c_str(), "a", stdout);
+	  }
+        }
+	if(isInput){
+	  fstream inputFile;
+	  string fileName = "";
+	  if(!isBackground) {
+	    fileName = tokens[tokens.size() -1];
+	  } else {
+	    fileName = tokens[tokens.size() -2];
+	  }
+	   inputFile.open(fileName.c_str(),ios_base::in);
+	   string fileContents;
+	   string fileLine;
+	   while(inputFile >> fileLine){
+		fileContents += fileLine;
+	   }
+	   tokens.push_back(fileContents.c_str());
+	    transform (tokens.begin(), tokens.end(), tokenCharVector.begin(), convertStringToCStr);
+	    inputFile.close();
+	}
+	tokenCharVector.push_back(buffer);
+	int err = execvp(tokens[0].c_str(), &tokenCharVector[0]);
+	cout << endl;
+	if(isOverwrite || isAppend){
+	  fclose(outfile);
+	}
+	close(currentPipe[1]);
+	return err;
     }
     if(!isBackground){
       int returnValue = wait(NULL);
