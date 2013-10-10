@@ -345,13 +345,15 @@ int execute_external_command(vector<string> tokens) {
 		tokenCharVector[tokens.size()-3] = NULL;
 	}
 	int i = 0;
-	while(tokenCharVector[i] != "|") {
+	while(tokenCharVector[i] != "|"  && i < tokenCharVector.size()) {
 	  i++;
 	}
 	for(i;i < tokenCharVector.size(); i++){
 		tokenCharVector.pop_back();
 	}
-	
+	for(int i = 0; i < tokenCharVector.size(); i++) {
+	  cout << tokenCharVector[i] << endl;
+	}
 	FILE *outfile;
 	if(isOverwrite || isAppend){
 	  string fileName = "";
@@ -393,7 +395,7 @@ int execute_external_command(vector<string> tokens) {
     }
   } else {
     if(isPipe){
-	wait(NULL);
+	//wait(NULL);
     vector<char*> tokenCharVector;
     tokenCharVector.resize(tokens.size() + 1); 
     transform (tokens.begin(), tokens.end(), tokenCharVector.begin(), convertStringToCStr);
@@ -445,11 +447,12 @@ int execute_external_command(vector<string> tokens) {
 	    fileName = tokens[tokens.size() -2];
 	  }
 	   inputFile.open(fileName.c_str(),ios_base::in);
-	   string fileContents;
+	   string fileContents = "\"";
 	   string fileLine;
 	   while(inputFile >> fileLine){
 		fileContents += fileLine;
 	   }
+	   fileContents += "\"";
 	   tokens.push_back(fileContents.c_str());
 	    transform (tokens.begin(), tokens.end(), tokenCharVector.begin(), convertStringToCStr);
 	    inputFile.close();
