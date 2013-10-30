@@ -6,4 +6,3 @@ Files: builtins.cpp: The code for all of the built in functions
 	   MyShell: This is the binary that make produces
 
 Time Spent: Intermediate 1: 1.5 hours
-	    Intermediate 2: 7 hours

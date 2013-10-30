@@ -395,7 +395,7 @@ int execute_external_command(vector<string> tokens) {
     }
   } else {
     if(isPipe){
-	//wait(NULL);
+	wait(NULL);
     vector<char*> tokenCharVector;
     tokenCharVector.resize(tokens.size() + 1); 
     transform (tokens.begin(), tokens.end(), tokenCharVector.begin(), convertStringToCStr);
