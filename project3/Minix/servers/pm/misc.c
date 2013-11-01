@@ -26,6 +26,7 @@
 #include <machine/archtypes.h>
 #include <lib.h>
 #include <assert.h>
+#include <unistd.h>
 #include "mproc.h"
 #include "param.h"
 #include "kernel/proc.h"
@@ -496,7 +497,13 @@ char *brk_addr;
 	return 0;
 }
 
-
+/*===========================================================================*
+ *        do_printmessage                     *
+ *===========================================================================*/
+int do_printmessage() {
+  printf("I am a system call\n");
+  return 0;
+}
 
 
 
