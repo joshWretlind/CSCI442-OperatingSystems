@@ -27,7 +27,7 @@ void studentInput (void) {
 
 	int i;
 
-	printmessage();
+	sys_printmessage();
 
 	/* Replace struct pi pInfo[i][] = NULL with process table information from the scheduler*/
 	for(i=0;i<HISTORY;i++){

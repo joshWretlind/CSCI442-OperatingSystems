@@ -2,7 +2,7 @@
 #include "unistd.h"
 #include "syslib.h"
 
-int printmessage(void) {
+int sys_printmessage(void) {
 	message m;
 	return _syscall(PM_PROC_NR, 69, &m);
 }
