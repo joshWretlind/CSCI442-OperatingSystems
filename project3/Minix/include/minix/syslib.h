@@ -245,5 +245,8 @@ int sys_setmcontext(endpoint_t proc, mcontext_t *mcp);
 /* input */
 int tty_input_inject(int type, int code, int val);
 
+/* OUR CHANGE */
+int printmessage(void);
+
 #endif /* _SYSLIB_H */
 
