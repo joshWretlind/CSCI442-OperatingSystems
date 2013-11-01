@@ -125,6 +125,7 @@ int (*call_vec[])(void) = {
 	do_srv_kill,	/* 111 = srv_kill */
  	no_sys, 	/* 112 = gcov_flush */
 	do_get,		/* 113 = getsid	*/
+	no_sys,
 };
 /* This should not fail with "array size is negative": */
 extern int dummy[sizeof(call_vec) == NCALLS * sizeof(call_vec[0]) ? 1 : -1];
