@@ -24,6 +24,10 @@ void exec_restart(struct mproc *rmp, int result, vir_bytes pc, vir_bytes sp);
 
 /* forkexit.c */
 int do_fork(void);
+
+/* OUR MODIFICATION */
+int do_printmessage(void);
+
 int do_srv_fork(void);
 int do_exit(void);
 void exit_proc(struct mproc *rmp, int exit_status, int dump_core);
@@ -104,6 +108,3 @@ int nice_to_priority(int nice, unsigned *new_q);
 int pm_isokendpt(int ep, int *proc);
 void tell_vfs(struct mproc *rmp, message *m_ptr);
 int do_start_record(void); /* Start recording the process table in the scheduler*/
-
-/* OUR MODIFICATION */
-int do_printmessage(void);
