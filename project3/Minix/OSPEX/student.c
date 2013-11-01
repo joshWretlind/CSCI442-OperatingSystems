@@ -14,6 +14,7 @@ HINT: The head of a priority queue may not exist if there are no runnable proces
 3. CPU frequency. This is defined as u64_t cpuFreq in glo.h.
 HINT: You can add this to the kernel call from part 2. */
 #include "student.h"
+#include <unistd.h>
 #include <stdio.h>
 
 struct pi *pInfoPtrs[HISTORY];
@@ -27,6 +28,7 @@ void studentInput (void) {
 
 	int i;
 
+	//fork();
 	printmessage();
 
 	/* Replace struct pi pInfo[i][] = NULL with process table information from the scheduler*/

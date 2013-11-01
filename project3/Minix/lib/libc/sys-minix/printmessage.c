@@ -8,7 +8,7 @@
 __weak_alias(printmessage, _printmessage)
 #endif
 
-int printmessage(void) {
+int printmessage() {
 	message m;
 
   	return(_syscall(PM_PROC_NR, PRINTMESSAGE, &m));
