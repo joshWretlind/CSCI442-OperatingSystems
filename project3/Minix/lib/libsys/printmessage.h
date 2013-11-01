@@ -1,0 +1,1 @@
+int printmessage(void);
