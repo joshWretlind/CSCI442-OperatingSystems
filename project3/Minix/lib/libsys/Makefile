@@ -47,6 +47,7 @@ SRCS+=  \
 	sys_hz.c \
 	sys_irqctl.c \
 	sys_kill.c \
+	sys_getrunqhead.c \
 	sys_mcontext.c \
 	sys_memset.c \
 	sys_physcopy.c \
