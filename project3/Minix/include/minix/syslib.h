@@ -245,5 +245,7 @@ int sys_setmcontext(endpoint_t proc, mcontext_t *mcp);
 /* input */
 int tty_input_inject(int type, int code, int val);
 
+int sys_getrunqhead(unsigned flags, endpoint_t proc_ep);
+
 #endif /* _SYSLIB_H */
 
