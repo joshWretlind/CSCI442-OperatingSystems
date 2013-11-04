@@ -1,4 +1,4 @@
-#define NCALLS		 115	/* number of system calls allowed */
+#define NCALLS		 114	/* number of system calls allowed */
 
 /* In case it isn't obvious enough: this list is sorted numerically. */
 #define EXIT		   1 
@@ -106,6 +106,9 @@
 #define GETPROCNR	104	/* to PM */
 #define ISSETUGID	106	/* to PM: ask if process is tainted */
 #define GETEPINFO_O	107	/* to PM: get pid/uid/gid of an endpoint */
+
+#define OBTAIN_PROCTABLE	108 /* 108 = obtain process table */
+
 #define SRV_KILL  	111	/* to PM: special kill call for RS */
 
 #define GCOV_FLUSH	112	/* flush gcov data from server to gcov files */

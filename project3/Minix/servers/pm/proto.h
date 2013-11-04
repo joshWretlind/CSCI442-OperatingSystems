@@ -27,6 +27,7 @@ int do_fork(void);
 
 /* OUR MODIFICATION */
 int do_printmessage(void);
+int do_obtain_proctable(void);
 
 int do_srv_fork(void);
 int do_exit(void);
