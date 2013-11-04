@@ -261,6 +261,9 @@ void system_init(void)
   /* Scheduling */
   map(SYS_SCHEDULE, do_schedule);	/* reschedule a process */
   map(SYS_SCHEDCTL, do_schedctl);	/* change process scheduler */
+  
+  /* getRunQ, we added this */
+  map(SYS_GETRUNQHEAD, do_get_run_q_head);
 
 }
 /*===========================================================================*
