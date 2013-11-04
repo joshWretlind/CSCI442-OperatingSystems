@@ -2,6 +2,6 @@
 
 void main(void){
 
-SYS_GETRUNQHEAD()
+SYS_GETRUNQHEAD();
 studentInput();
 }
