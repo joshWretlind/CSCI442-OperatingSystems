@@ -34,8 +34,8 @@ void studentInput (void) {
 		pQhPtrs[i] = &pQh[i][0];
 	}
 
-	struct* proc;
-	obtain_proctable(proc);
+	// After this call, pInfo will hold the process table
+	obtain_proctable(&pInfo);
 
 	/* Uncomment the following line to run the test processes */
 	procs(); 

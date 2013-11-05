@@ -1,8 +1,7 @@
-#include <printmessage.h>
-#include <obtain_proctable.h>
+#include "student.h"
 #include <stdio.h>
 int main(int argc, char** args) {
-	int a = printmessage();
-	int b = obtain_proctable();
+	struct pi p;
+	int i = obtain_proctable((char*) &p);
 	return 0;
 }

@@ -3,7 +3,7 @@
 
 #include <unistd.h>
 
-static inline int obtain_proctable(struct* proc) {
+static inline int obtain_proctable(char* proc) {
 	message m;
 
 	m.m1_p1 = proc;
