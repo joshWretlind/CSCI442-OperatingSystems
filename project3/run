@@ -1,0 +1,5 @@
+#!/bin/sh
+
+git pull
+rm -rf /usr/src/*
+cp -R Minix/* /usr/src/
