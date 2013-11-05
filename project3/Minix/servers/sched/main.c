@@ -101,9 +101,11 @@ int main(void)
 
 			printf("Hello from Sched Server\n");
 
-			char* proc = m_in.m1_p1;
+			char* proc_table = m_in.m1_p1;
 
-			sys_getproctab(proc);
+			sys_getproctab(proc_table);
+
+			
 
 			break;
 		default:

@@ -27,15 +27,15 @@ void studentInput (void) {
 
 	int i;
 
+	// After this call, pInfo will hold the process table
+	obtain_proctable(&pInfo);
+
 	/* Replace struct pi pInfo[i][] = NULL with process table information from the scheduler*/
 	for(i=0;i<HISTORY;i++){
 		strcpy(pInfo[i][0].p_name,"NOPTABCOPY"); /*Signal to the GUI that there are no process tables */
 		pInfoPtrs[i] = &pInfo[i][0]; /* Give these pointers to the scheduler so it knows where to copy the process tables to*/
 		pQhPtrs[i] = &pQh[i][0];
 	}
-
-	// After this call, pInfo will hold the process table
-	obtain_proctable(&pInfo);
 
 	/* Uncomment the following line to run the test processes */
 	procs(); 
