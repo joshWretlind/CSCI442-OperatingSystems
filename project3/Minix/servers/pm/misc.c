@@ -28,6 +28,7 @@
 #include <stdio.h>
 #include <assert.h>
 #include <unistd.h>
+#include <sched_task_call.h>
 #include "mproc.h"
 #include "param.h"
 #include "kernel/proc.h"
@@ -486,6 +487,7 @@ int do_printmessage() {
  *===========================================================================*/
 int do_obtain_proctable() {
   printf("I am a system call");
+  sched_task_call();
   return 0;
 }
 

@@ -97,6 +97,11 @@ int main(void)
 				result = EPERM;
 			}
 			break;
+		case SCHED_TASK_CALL:
+
+			printf("Hello from Sched Server\n");
+
+			break;
 		default:
 			result = no_sys(who_e, call_nr);
 		}

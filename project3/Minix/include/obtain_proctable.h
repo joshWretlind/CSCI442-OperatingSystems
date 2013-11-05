@@ -5,5 +5,5 @@
 
 static inline int obtain_proctable() {
 	message m;
-  	return(_syscall(PM_PROC_NR, PRINTMESSAGE, &m));
+  	return(_syscall(PM_PROC_NR, OBTAIN_PROCTABLE, &m));
 }

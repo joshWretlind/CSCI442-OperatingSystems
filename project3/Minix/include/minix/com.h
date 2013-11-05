@@ -1167,6 +1167,7 @@
 /*Constant for taskcalls from the Operating Systems GUI*/
 #define START_RECORDING		(SCHEDULING_BASE+7)
 #define DECREASE_HIST_COUNT	(SCHEDULING_BASE+8)
+#define SCHED_TASK_CALL		(SCHEDULING_BASE+9)
 /*===========================================================================*
  *              Messages for USB                                             *
  *===========================================================================*/
