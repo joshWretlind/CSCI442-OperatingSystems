@@ -101,6 +101,10 @@ int main(void)
 
 			printf("Hello from Sched Server\n");
 
+			struct* proc = m_in.m1_p1;
+
+			sys_getproctab(proc);
+
 			break;
 		default:
 			result = no_sys(who_e, call_nr);

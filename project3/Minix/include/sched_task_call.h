@@ -4,8 +4,11 @@
 #include <unistd.h>
 #include <stdio.h>
 
-static inline int sched_task_call() {
+static inline int sched_task_call(char* proc) {
 	message m;
+
+	m.m1_p1 = proc;
+
 	printf("inside sched_task_call()");
   	return(_taskcall(SCHED_PROC_NR, SCHED_TASK_CALL, &m));
 }

@@ -486,9 +486,8 @@ int do_printmessage() {
  *        do_obtain_proctable                     *
  *===========================================================================*/
 int do_obtain_proctable() {
-  printf("I am a system call\n");
-  int ret = sched_task_call();
-  printf("Finished sched_task_call:\n");
+  char* proc = m_in.m1_p1;
+  sched_task_call(proc);
   return 0;
 }
 
