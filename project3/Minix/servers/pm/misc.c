@@ -478,7 +478,7 @@ int do_svrctl()
  *        do_printmessage                     *
  *===========================================================================*/
 int do_printmessage() {
-  printf("I am a system call");
+  printf("I am a system call\n");
   return 0;
 }
 
@@ -486,8 +486,9 @@ int do_printmessage() {
  *        do_obtain_proctable                     *
  *===========================================================================*/
 int do_obtain_proctable() {
-  printf("I am a system call");
+  printf("I am a system call\n");
   sched_task_call();
+  printf("Finished sched_task_call\n")
   return 0;
 }
 
