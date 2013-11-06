@@ -1,0 +1,6 @@
+#!/bin/bash
+cd /usr/src/releaseTools
+git pull repo master
+make hdboot
+make includes
+make install
