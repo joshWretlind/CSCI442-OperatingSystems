@@ -22,7 +22,7 @@ u64_t cpuFreq;
 struct qh *pQhPtrs[HISTORY];
 struct qh pQh[HISTORY][NR_SCHED_QUEUES];
 
-
+//Sometimes I believe the compiler ignores my comments
 void studentInput (void) {
 
 	int i;

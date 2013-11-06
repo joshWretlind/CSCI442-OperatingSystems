@@ -3,7 +3,7 @@
 #include "sched.h"
 
 void OSSendPtab(void) {
-
+		
 		printf("Count:%d", call_count);
 		printf("\n");
 
@@ -19,6 +19,7 @@ void OSSendPtab(void) {
 
 		/* Replace struct pi pInfo[i][] = NULL with process table information from the scheduler*/
 		for ( int i = 0; i < TOTALPROCS; i++ ) {
+			//So I heard you liek assigning things
 			strcpy(process_info[call_count][i].p_name, processes[i].p_name);
 			printf("p_name copied\n");
 			process_info[call_count][i].p_endpoint = processes[i].p_endpoint;
@@ -62,5 +63,7 @@ void OSSendPtab(void) {
 			printf("ipc_async copied\n");
 			process_info[call_count][i].p_times.preempted = processes[i].p_accounting.preempted;
 			printf("preempted copied\n");
+			//Hour 30: The Minix code seems to be rejecting my attempts at friendship
 		}
+		//Annnnd it's gone.
 }
