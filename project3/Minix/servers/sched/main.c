@@ -14,6 +14,13 @@ static void sef_local_startup(void);
 
 struct machine machine;		/* machine info */
 
+int call_count = 0; // Counts how many times OSSendPtab has been called
+int pc_requested = 0; // Is true if the system call has been received, false after 50 iterations.
+vir_bytes address_of_process_info; // Holds the address of pInfo from student.c
+struct pi process_info[HISTORY][TOTALPROCS]; // holds the info gathered by sys_getproctab
+char* p_info_pointers[HISTORY]; // holds the address of p_info_pointers, which is used by sys_vircopy
+int user_proc_id = 0; // holds the process id of the user process
+
 int pos_count;
 int recordSched = 0; /*Tells the scheduler when to start recording ptabs */
 /* The following variables are used to notify the user process GUI that the scheduler has recorded enough proc record */
@@ -101,11 +108,9 @@ int main(void)
 
 			printf("Hello from Sched Server\n");
 
-			char* proc_table = m_in.m1_p1;
-
-			sys_getproctab(proc_table);
-
-			
+			pc_requested = 1;
+			address_of_process_info = (vir_bytes) m_in.m1_p1;
+			user_proc_id = m_in.m1_i1;
 
 			break;
 		default:

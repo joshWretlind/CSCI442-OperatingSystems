@@ -16,7 +16,7 @@ HINT: You can add this to the kernel call from part 2. */
 #include "student.h"
 #include <stdio.h>
 
-struct pi *pInfoPtrs[HISTORY];
+struct pi* pInfoPtrs[HISTORY];
 struct pi pInfo[HISTORY][ALL_PROCS];
 u64_t cpuFreq;
 struct qh *pQhPtrs[HISTORY];

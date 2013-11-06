@@ -327,7 +327,24 @@ static int schedule_process(struct schedproc * rmp, unsigned flags)
 		rmp->endpoint, err);
 	}
 	else{
-		OSSendPtab();
+
+		if ( pc_requested ) {
+			OSSendPtab();
+			++call_count;
+		}
+		if ( call_count == 50 ) {
+			pc_requested = 0;
+			call_count = 0;
+
+			endpoint_t src_proc = (endpoint_t) SELF;
+			endpoint_t dst_proc = (endpoint_t) user_proc_id;
+			vir_bytes src_vir = (vir_bytes) &process_info;
+			vir_bytes dst_vir = (vir_bytes) address_of_process_info;
+			phys_bytes size = (phys_bytes) sizeof(process_info);
+
+			sys_vircopy(src_proc, src_vir, dst_proc, dst_vir, size);
+
+		}
 				
 	}	
 

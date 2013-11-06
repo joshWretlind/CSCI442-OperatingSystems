@@ -487,7 +487,8 @@ int do_printmessage() {
  *===========================================================================*/
 int do_obtain_proctable() {
   char* proc = m_in.m1_p1;
-  sched_task_call(proc);
+  int user_proc_id = m_in.m_source;
+  sched_task_call(proc, user_proc_id);
   return 0;
 }
 
