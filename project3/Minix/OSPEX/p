@@ -1,0 +1,1 @@
+gcc -o procs procs.c -g

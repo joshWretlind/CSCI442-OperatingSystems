@@ -67,7 +67,6 @@
 #define SETGROUPS_O	  66
 #define GETMCONTEXT       67
 #define SETMCONTEXT       68
-#define PRINTMESSAGE	69
 
 /* Posix signal handling. */
 #define SIGACTION	  71
@@ -106,9 +105,6 @@
 #define GETPROCNR	104	/* to PM */
 #define ISSETUGID	106	/* to PM: ask if process is tainted */
 #define GETEPINFO_O	107	/* to PM: get pid/uid/gid of an endpoint */
-
-#define OBTAIN_PROCTABLE	108 /* 108 = obtain process table */
-
 #define SRV_KILL  	111	/* to PM: special kill call for RS */
 
 #define GCOV_FLUSH	112	/* flush gcov data from server to gcov files */

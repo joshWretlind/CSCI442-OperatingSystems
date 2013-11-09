@@ -1,0 +1,35 @@
+#include "procs.h"
+
+/*Array for storing the proc numbers of forked processes. This is used to filter the procs shown by the GUI*/
+pid_t pid_array[PROCNUM];
+
+void procs(void){
+
+int i;
+pid_t pid, child_pid;
+
+	for(i=0;i<PROCNUM;i++){
+		pid = fork();
+
+		if(pid == -1){
+			printf("There was an error forking process: %d\n",i);
+			break;
+		}
+		else if(pid == 0){
+			switch(i){
+				case(0): 
+					execl("./proc1","10000000");
+					break;
+				case(1):
+					execl("./proc2",NULL);
+					break;
+				}
+				break;
+		}	
+		else{
+			pid_array[i] = pid; /*Store the child's PID in the global variable for use in the scheduler GUI*/
+			printf("PID stored in array position %d: %d\n",i,pid_array[i]);
+		}
+	}	
+				
+}

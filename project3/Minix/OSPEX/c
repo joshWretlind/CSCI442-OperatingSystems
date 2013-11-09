@@ -1,0 +1,2 @@
+gcc ptab.c -o ptab -I /usr/pkg/share/x11-links/include -L /usr/pkg/share/x11-links/lib \
+-lX11 -lm -g

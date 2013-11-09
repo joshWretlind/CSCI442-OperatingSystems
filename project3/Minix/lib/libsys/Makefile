@@ -47,7 +47,6 @@ SRCS+=  \
 	sys_hz.c \
 	sys_irqctl.c \
 	sys_kill.c \
-	sys_getrunqhead.c \
 	sys_mcontext.c \
 	sys_memset.c \
 	sys_physcopy.c \
@@ -87,7 +86,9 @@ SRCS+=  \
 	vm_umap.c \
 	vm_yield_get_block.c \
 	vm_procctl.c \
-	vprintf.c 
+	vprintf.c \
+	sys_cpuvar.c \
+	sys_qptab.c
 
 .if ${MKPCI} != "no"
 SRCS+=	pci_attr_r16.c \

@@ -1,0 +1,1 @@
+gcc -o OSprocs com.c procs.c -g

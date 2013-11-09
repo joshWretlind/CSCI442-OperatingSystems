@@ -45,4 +45,3 @@
 #define RTS_BOOTINHIBIT	0x10000	/* not ready until VM has made it */
 
 int startsim(void);
-u64_t cpuFreq;

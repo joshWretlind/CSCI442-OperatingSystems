@@ -1,6 +1,5 @@
 #include <minix/endpoint.h>
-#ifndef _PI_H
-#define _PI_H
+
 
 /* Accounting statistics that get passed to the process' scheduler */
   struct p_accounting{
@@ -21,10 +20,7 @@ struct pi {
 	int queue_head;
 	char p_nextready[PROC_NAME_LEN];
 	endpoint_t p_nextready_endpoint;
-	struct p_accounting p_times;
-	clock_t p_user_time;
-	clock_t p_sys_time;
-	u64_t p_cycles
+	struct p_accounting p_times
 	};
 
 #define NOPROC "NOPROC"
@@ -34,5 +30,3 @@ struct qh{
 	char p_name[PROC_NAME_LEN];
 	endpoint_t p_endpoint;
 };
-
-#endif

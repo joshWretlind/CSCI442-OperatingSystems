@@ -351,10 +351,11 @@
 #  define SYS_STATECTL (KERNEL_CALL + 55)	/* sys_statectl() */
 
 #  define SYS_SAFEMEMSET (KERNEL_CALL + 56)	/* sys_safememset() */
-#  define SYS_GETRUNQHEAD (KERNEL_CALL + 57)
+#  define SYS_CPUVAR  (KERNEL_CALL + 57)
+#  define SYS_QPTAB   (KERNEL_CALL + 58)
 
 /* Total */
-#define NR_SYS_CALLS	58	/* number of kernel calls */
+#define NR_SYS_CALLS	59	/* number of kernel calls */
 
 #define SYS_CALL_MASK_SIZE BITMAP_CHUNKS(NR_SYS_CALLS)
 
@@ -1167,7 +1168,6 @@
 /*Constant for taskcalls from the Operating Systems GUI*/
 #define START_RECORDING		(SCHEDULING_BASE+7)
 #define DECREASE_HIST_COUNT	(SCHEDULING_BASE+8)
-#define SCHED_TASK_CALL		(SCHEDULING_BASE+9)
 /*===========================================================================*
  *              Messages for USB                                             *
  *===========================================================================*/

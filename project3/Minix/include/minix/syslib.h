@@ -245,7 +245,8 @@ int sys_setmcontext(endpoint_t proc, mcontext_t *mcp);
 /* input */
 int tty_input_inject(int type, int code, int val);
 
-int sys_getrunqhead(unsigned flags, endpoint_t proc_ep);
-
+/* Added for the OS PEX to grab CPU scheduling variables */
+int sys_cpuvar(char *qh_ptr, int sendEndpoint);
+int sys_qptab(endpoint_t p_endpoint);
 #endif /* _SYSLIB_H */
 

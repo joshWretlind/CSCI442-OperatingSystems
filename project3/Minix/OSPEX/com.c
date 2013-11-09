@@ -18,9 +18,7 @@ int startsim(void){
 
 message m;
 int i,j=0,piReady = -1;
-u64_t cpuTimeDiff;
 FILE *fp;
-
 fp = fopen("/home/out","w");
 
 for(i=0;i<HISTORY;i++){
@@ -42,17 +40,13 @@ m.m1_p2 = (char *) &piReady;
 m.m1_i2 = SELF;
 m.m1_i3 = HISTORY;
 m.m2_p1 = (char *) &pQhPtrs;
-m.m3_p1 = (char *) &cpuFreq;
 
 int error = _syscall(PM_PROC_NR,STARTRECORD,&m);
 procs();
 for(j;j<HISTORY;j++){
 		while(piReady < j){
 		}
-		if(j==0){
-			fprintf(fp,"CPU frequency is: %lu Mhz\n",div64u(cpuFreq, 1000000));
-		}
-		printf("Simulation is %d%% complete.\n",(j*2)+2);
+		printf("Simulation is %d%% complete\n",(j*2)+2);
 		fprintf(fp,"Proc Table %d\n\n",j);
 		fprintf(fp,"Queue heads: ");
 		for(i=0;i<NR_SCHED_QUEUES;i++){
@@ -78,24 +72,16 @@ for(j;j<HISTORY;j++){
 	pQhPtrsCopy[j] = pQhPtrs[j]; /* Reset the Qh Pointers */
 
 	for (i=0;i<ALL_PROCS;i++){ 
-		if (!(pInfoPtrsCopy[j]->p_rts_flags == RTS_SLOT_FREE)){ 
-			if(j>0){
-				cpuTimeDiff = sub64(pInfoPtrsCopy[j]->p_cycles,pInfoPtrsCopy[j-1]->p_cycles);
-				}
-		fprintf(fp,"Process: %s, Endpoint: %d, Enter queue: %lu%lu, Time in Queue: %lu%lu, Dequeues: %lu, IPC Sync: %lu, IPC Async: %lu,Preempted: %lu,RTS: %x\n\t\t, Priority: %d, Next: %s Endpoint: %d, User time: %d, Sys Time: %d, CPU Cycles Elaps: %lu%lu\n",
+		if (!(pInfoPtrsCopy[j]->p_rts_flags == RTS_SLOT_FREE)) 
+		fprintf(fp,"Process: %s, Endpoint: %d, Enter queue: %lu%lu, Time in Queue: %lu%lu, Dequeues: %lu, IPC Sync: %lu, IPC Async: %lu,Preempted: %lu,RTS: %x\n\t\t, Priority: %d, Next: %s Endpoint: %d\n",
 				pInfoPtrsCopy[j]->p_name,pInfoPtrsCopy[j]->p_endpoint,ex64hi(pInfoPtrsCopy[j]->p_times.enter_queue),ex64lo(pInfoPtrsCopy[j]->p_times.enter_queue),
 				ex64hi(pInfoPtrsCopy[j]->p_times.time_in_queue),ex64lo(pInfoPtrsCopy[j]->p_times.time_in_queue),
 				pInfoPtrsCopy[j]->p_times.dequeues,pInfoPtrsCopy[j]->p_times.ipc_sync,pInfoPtrsCopy[j]->p_times.ipc_async,
 				pInfoPtrsCopy[j]->p_times.preempted,pInfoPtrsCopy[j]->p_rts_flags,pInfoPtrsCopy[j]->p_priority, pInfoPtrsCopy[j]->p_nextready,
-				pInfoPtrsCopy[j]->p_nextready_endpoint,pInfoPtrsCopy[j]->p_user_time,pInfoPtrsCopy[j]->p_sys_time,ex64hi(cpuTimeDiff),
-				ex64lo(cpuTimeDiff));
-		}
+				pInfoPtrsCopy[j]->p_nextready_endpoint);
 		pInfoPtrsCopy[j]++;
-		if(j>0){
-			pInfoPtrsCopy[j-1]++;
-		}
 	}
-	pInfoPtrsCopy[j] = pInfoPtrs[j];	
+	
 }
 
 m.m1_i3 = -1;
@@ -119,6 +105,7 @@ struct pi *cpy = procPtr;
 /* Print the process to the file, then see if there is another process in the nextready spot. If yes, recursively call this routine. If no, write a line feed for the next queue */
 fprintf(fp,"Process: %s, enpoint %d -> ",cpy->p_name,cpy->p_endpoint);
 	if(cpy->p_nextready_endpoint != -1){
+		/*printf("Start pointer: %p, copy pointer: %p\n",start,cpy);*/
 		printQ(start,cpy->p_nextready_endpoint,fp);
 	}
 	else{

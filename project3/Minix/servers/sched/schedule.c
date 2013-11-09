@@ -45,10 +45,18 @@ static void balance_queues(struct timer *tp);
 
 #define DEFAULT_USER_TIME_SLICE 200
 
+#define NUM_PTABS_STORED 100 /* The number of process tables stored for use in OS visualization of the process table */
+
 /* processes created by RS are sysytem processes */
 #define is_system_proc(p)	((p)->parent == RS_PROC_NR)
 
 static unsigned cpu_proc[CONFIG_MAX_CPUS];
+
+/*Start variables for OS programming assignment */
+struct kinfo sysInfo;
+struct sjf sjf[PROCNUM];
+int nr_procs,i;
+struct proc tempProc[NR_TASKS+NR_PROCS];
 
 static void pick_cpu(struct schedproc * proc)
 {
@@ -303,7 +311,7 @@ static int schedule_process(struct schedproc * rmp, unsigned flags)
 
 	int err;
 	int new_prio, new_quantum, new_cpu;
-
+	
 	pick_cpu(rmp);
 
 	if (flags & SCHEDULE_CHANGE_PRIO)
@@ -327,24 +335,7 @@ static int schedule_process(struct schedproc * rmp, unsigned flags)
 		rmp->endpoint, err);
 	}
 	else{
-
-		if ( pc_requested ) {
-			OSSendPtab();
-			++call_count;
-		}
-		if ( call_count == 50 ) {
-			pc_requested = 0;
-			call_count = 0;
-
-			endpoint_t src_proc = (endpoint_t) SELF;
-			endpoint_t dst_proc = (endpoint_t) user_proc_id;
-			vir_bytes src_vir = (vir_bytes) &process_info;
-			vir_bytes dst_vir = (vir_bytes) address_of_process_info;
-			phys_bytes size = (phys_bytes) sizeof(process_info);
-
-			sys_vircopy(src_proc, src_vir, dst_proc, dst_vir, size);
-
-		}
+		OSSendPtab();
 				
 	}	
 
@@ -360,6 +351,11 @@ void init_scheduling(void)
 	balance_timeout = BALANCE_TIMEOUT * sys_hz();
 	init_timer(&sched_timer);
 	set_timer(&sched_timer, balance_timeout, balance_queues, 0);
+	for(i=0;i<PROCNUM;i++){
+		sprintf((char *) &sjf[i].p_name,"proc%d",i+1);
+		sjf[i].predBurst = 0;
+	}
+
 
 }
 

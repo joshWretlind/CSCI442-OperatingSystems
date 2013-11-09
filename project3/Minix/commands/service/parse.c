@@ -824,7 +824,8 @@ struct
 	{ "STIME",		SYS_STIME },
 	{ "VMCTL",		SYS_VMCTL },
 	{ "MEMSET",		SYS_MEMSET },
-	{ "GETRUNQHEAD",	SYS_GETRUNQHEAD},
+	{ "CPUVAR",		SYS_CPUVAR },
+	{ "QPTAB",		SYS_QPTAB  },
 	{ NULL,		0 }
 };
 

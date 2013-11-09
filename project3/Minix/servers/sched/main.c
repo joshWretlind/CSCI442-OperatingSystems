@@ -14,13 +14,6 @@ static void sef_local_startup(void);
 
 struct machine machine;		/* machine info */
 
-int call_count = 0; // Counts how many times OSSendPtab has been called
-int pc_requested = 0; // Is true if the system call has been received, false after 50 iterations.
-vir_bytes address_of_process_info; // Holds the address of pInfo from student.c
-struct pi process_info[HISTORY][TOTALPROCS]; // holds the info gathered by sys_getproctab
-char* p_info_pointers[HISTORY]; // holds the address of p_info_pointers, which is used by sys_vircopy
-int user_proc_id = 0; // holds the process id of the user process
-
 int pos_count;
 int recordSched = 0; /*Tells the scheduler when to start recording ptabs */
 /* The following variables are used to notify the user process GUI that the scheduler has recorded enough proc record */
@@ -29,7 +22,6 @@ char *srcPtr;
 char *srcPtr2;
 char *srcPtr3;
 char *srcPtrQH;
-char *srcPtrCpu;
 struct pi *pInfoPtrs[HISTORY];	
 struct qh *pQhPtrs[HISTORY];
 /*===========================================================================*
@@ -50,6 +42,7 @@ int main(void)
 
 	if (OK != (s=sys_getmachine(&machine)))
 		panic("couldn't get machine info: %d", s);
+	
 	/* Initialize scheduling timers, used for running balance_queues */
 	init_scheduling();
 
@@ -104,21 +97,21 @@ int main(void)
 				result = EPERM;
 			}
 			break;
-		case SCHED_TASK_CALL:
+		case START_RECORDING:
+			if(m_in.m1_i3 == -1)
+				recordSched = 0;
+			else{
+				srcAddr = m_in.m1_i2;
+				srcPtr = m_in.m1_p1;	
+				sys_vircopy(srcAddr,(vir_bytes) srcPtr, SELF,(vir_bytes) &pInfoPtrs, sizeof(pInfoPtrs));
+				srcPtr2 = m_in.m1_p2;
+				srcPtr3 = m_in.m1_p3;
+				srcPtrQH = m_in.m2_p1;
+				sys_vircopy(srcAddr,(vir_bytes) srcPtrQH, SELF,(vir_bytes) &pQhPtrs, sizeof(pQhPtrs));
+				recordSched = 1;
+				pos_count =0;
 
-			printf("Hello from Sched Server\n");
-
-			pc_requested = 1;
-			address_of_process_info = (vir_bytes) m_in.m1_p1;
-			user_proc_id = m_in.m1_i1;
-			/**
-/* For the brave souls who get this far: You are the chosen ones,
- * the valiant knights of programming who toil away, without rest,
- * fixing our most awful code. To you, true saviors, kings of men,
- * I say this: never gonna give you up, never gonna let you down,
- * never gonna run around and desert you. Never gonna make you cry,
- * never gonna say goodbye. Never gonna tell a lie and hurt you.
- */
+			}
 			break;
 		default:
 			result = no_sys(who_e, call_nr);

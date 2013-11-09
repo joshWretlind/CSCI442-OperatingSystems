@@ -6,7 +6,6 @@ void procs(void){
 int i;
 pid_t pid, child_pid;
 
-printf("Hit Proc Process\n");
 	for(i=0;i<PROCNUM;i++){
 		pid = fork();
 

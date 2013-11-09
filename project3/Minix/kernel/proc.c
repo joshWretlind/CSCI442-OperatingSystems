@@ -59,10 +59,10 @@ static int deadlock(int function, register struct proc *caller,
 static int try_async(struct proc *caller_ptr);
 static int try_one(struct proc *src_ptr, struct proc *dst_ptr);
 static struct proc * pick_proc(void);
-static void enqueue_head(struct proc *rp);
 
 /* all idles share the same idle_priv structure */
 static struct priv idle_priv;
+static void enqueue_head(struct proc *rp);
 
 static void set_idle_name(char * name, int n)
 {
@@ -1651,7 +1651,7 @@ void dequeue(struct proc *rp)
   struct proc **rdy_tail;
 
   assert(proc_ptr_ok(rp));
-  assert(!proc_is_runnable(rp));
+  /*assert(!proc_is_runnable(rp));*/
 
   /* Side-effect for kernel: check if the task's stack still is ok? */
   assert (!iskernelp(rp) || *priv(rp)->s_stack_guard == STACK_GUARD);

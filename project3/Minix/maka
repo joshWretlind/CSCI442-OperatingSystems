@@ -1,6 +1,4 @@
-#!/bin/bash
-cd /usr/src/releaseTools
-git pull repo master
+cd /usr/src/releasetools
 make hdboot
 make includes
 make install

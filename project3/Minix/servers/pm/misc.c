@@ -25,10 +25,7 @@
 #include <string.h>
 #include <machine/archtypes.h>
 #include <lib.h>
-#include <stdio.h>
 #include <assert.h>
-#include <unistd.h>
-#include <sched_task_call.h>
 #include "mproc.h"
 #include "param.h"
 #include "kernel/proc.h"
@@ -475,24 +472,6 @@ int do_svrctl()
 }
 
 /*===========================================================================*
- *        do_printmessage                     *
- *===========================================================================*/
-int do_printmessage() {
-  printf("I am a system call\n");
-  return 0;
-}
-
-/*===========================================================================*
- *        do_obtain_proctable                     *
- *===========================================================================*/
-int do_obtain_proctable() {
-  char* proc = m_in.m1_p1;
-  int user_proc_id = m_in.m_source;
-  sched_task_call(proc, user_proc_id);
-  return 0;
-}
-
-/*===========================================================================*
  *				_brk				             *
  *===========================================================================*/
 
@@ -516,7 +495,3 @@ char *brk_addr;
 	_brksize = brk_addr;
 	return 0;
 }
-
-
-
-

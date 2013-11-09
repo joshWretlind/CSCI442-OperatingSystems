@@ -1,69 +1,63 @@
 #include "ospex.h"
 #include "glo.h"
-#include "sched.h"
 
-void OSSendPtab(void) {
-		
-		printf("Count:%d", call_count);
-		printf("\n");
+void OSSendPtab(void){
+	int i;
+	if(recordSched == 1){
+				struct pi sendPi[NR_PROCS + NR_TASKS];
+				/*Use the following array to recover the next ready processes before we lose the addresses*/
+				struct proc nextReady[NR_PROCS + NR_TASKS];
+				struct proc tmpPtab[NR_PROCS +NR_TASKS];
+				struct proc queuehds[NR_SCHED_QUEUES];
 
-		printf("TOTALPROCS: %d", TOTALPROCS);
-		printf("\n");
-		static struct proc processes[TOTALPROCS];
-		printf("processes size: %d", sizeof(processes));
-		printf("\n");
+			if(pos_count < HISTORY ){
 
-		// After this call, processes holds the process table
-		sys_getproctab(processes);
-		printf("System call complete\n");
+				/*Get the current process table */
+				sys_getproctab((struct proc *) &tmpPtab);
+			  	sys_cpuvar((char *) &queuehds,SELF);	
 
-		/* Replace struct pi pInfo[i][] = NULL with process table information from the scheduler*/
-		for ( int i = 0; i < TOTALPROCS; i++ ) {
-			//So I heard you liek assigning things
-			strcpy(process_info[call_count][i].p_name, processes[i].p_name);
-			printf("p_name copied\n");
-			process_info[call_count][i].p_endpoint = processes[i].p_endpoint;
-			printf("p_endpoint copied\n");
-			process_info[call_count][i].p_priority = processes[i].p_priority;
-			printf("p_priority copied\n");
-			process_info[call_count][i].p_cpu_time_left = processes[i].p_cpu_time_left;
-			printf("p_cpu_time_left copied\n");
-			process_info[call_count][i].p_rts_flags = processes[i].p_rts_flags;
+				/* Handle the heads of each queue */
+				struct qh qh_send[NR_SCHED_QUEUES];
 
-			printf("p_rts_flags copied\n");
+				for(i=0;i<NR_SCHED_QUEUES;i++){
+					if(queuehds[i].p_priority!=-1){
+						strcpy(qh_send[i].p_name,queuehds[i].p_name);
+						qh_send[i].p_endpoint = queuehds[i].p_endpoint;
+					}
+					else{
+						qh_send[i].p_endpoint = -1;
+					}
+				}
 
-			if ( processes[i].p_nextready == NULL ) {
-				printf("p_nextready is null\n");
-				strcpy(process_info[call_count][i].p_nextready, "NULL");
-				process_info[call_count][i].p_nextready_endpoint = 0;
-			} else {
-				strcpy(process_info[call_count][i].p_nextready, processes[i].p_nextready->p_name);
-				process_info[call_count][i].p_nextready_endpoint = processes[i].p_nextready->p_endpoint;
+				for(i=0;i<(NR_PROCS+NR_TASKS);i++){
+					strcpy(sendPi[i].p_name,tmpPtab[i].p_name);
+					sendPi[i].p_endpoint = tmpPtab[i].p_endpoint;
+					sendPi[i].p_priority = tmpPtab[i].p_priority;
+					sendPi[i].p_cpu_time_left = tmpPtab[i].p_cpu_time_left;
+					sendPi[i].p_rts_flags = tmpPtab[i].p_rts_flags;
+						if(tmpPtab[i].p_nextready){
+							sys_vircopy(SYSTEM,(vir_bytes) tmpPtab[i].p_nextready, SELF,(vir_bytes) &(nextReady[i]),sizeof(struct proc));
+							strcpy(sendPi[i].p_nextready,nextReady[i].p_name);
+							sendPi[i].p_nextready_endpoint = nextReady[i].p_endpoint;
+						}
+						else{
+							strcpy(sendPi[i].p_nextready, NOPROC);
+							sendPi[i].p_nextready_endpoint = -1;
+						}
+					/*Copy the accounting structure. Using CPU cycles instead of times, because CPU speeds will vary*/
+					sendPi[i].p_times.enter_queue = tmpPtab[i].p_accounting.enter_queue;
+					sendPi[i].p_times.time_in_queue = tmpPtab[i].p_accounting.time_in_queue;
+					sendPi[i].p_times.dequeues = tmpPtab[i].p_accounting.dequeues;
+					sendPi[i].p_times.ipc_sync = tmpPtab[i].p_accounting.ipc_sync;
+					sendPi[i].p_times.ipc_async = tmpPtab[i].p_accounting.ipc_async;
+					sendPi[i].p_times.preempted = tmpPtab[i].p_accounting.preempted;
+				}	
+				
+				sys_vircopy(SELF,(vir_bytes) &sendPi, srcAddr,(vir_bytes) pInfoPtrs[pos_count],sizeof(sendPi));
+				sys_vircopy(SELF,(vir_bytes) &qh_send, srcAddr,(vir_bytes) pQhPtrs[pos_count],sizeof(qh_send));
+				int piReady = pos_count;
+				sys_vircopy(SELF,(vir_bytes) &piReady, srcAddr, (vir_bytes) srcPtr2, sizeof(piReady));
+				pos_count++; /* Ensure the proc history buffer does not overflow*/
 			}
-			printf("p_nextready copied\n");
-			printf("p_nextready_endpoint copied\n");
-
-			process_info[call_count][i].p_user_time = processes[i].p_user_time;
-			printf("p_user_time copied\n");
-			process_info[call_count][i].p_sys_time = processes[i].p_sys_time;
-			printf("p_sys_time copied\n");
-			process_info[call_count][i].p_cycles = processes[i].p_cycles;
-			printf("p_cycles copied\n");
-			printf("hello\n");
-			// Assign individually
-			process_info[call_count][i].p_times.enter_queue = processes[i].p_accounting.enter_queue;
-			printf("enter_queue copied\n");
-			process_info[call_count][i].p_times.time_in_queue = processes[i].p_accounting.time_in_queue;
-			printf("time_in_queue copied\n");
-			process_info[call_count][i].p_times.dequeues = processes[i].p_accounting.dequeues;
-			printf("dequeues copied\n");
-			process_info[call_count][i].p_times.ipc_sync = processes[i].p_accounting.ipc_sync;
-			printf("ipc_sync copied\n");
-			process_info[call_count][i].p_times.ipc_async = processes[i].p_accounting.ipc_async;
-			printf("ipc_async copied\n");
-			process_info[call_count][i].p_times.preempted = processes[i].p_accounting.preempted;
-			printf("preempted copied\n");
-			//Hour 30: The Minix code seems to be rejecting my attempts at friendship
 		}
-		//Annnnd it's gone.
 }

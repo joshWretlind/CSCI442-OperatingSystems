@@ -1,0 +1,71 @@
+#include "com.h"
+#include <minix/u64.h>
+#include "glo.h"
+#include "procs.h"
+
+struct pi *pInfoPtrs[HISTORY];
+/* qh is queue heads and will hold the process at the top of each priority queue*/
+struct qh *pQhPtrs[HISTORY];
+struct pi pInfo[HISTORY][ALL_PROCS];
+struct qh pQh[HISTORY][NR_SCHED_QUEUES];
+
+/*int startsim(void){*/
+int main(void){
+
+message m;
+int i,j=0,piReady = -1;
+FILE *fp;
+fp = fopen("/home/out","w");
+
+for(i=0;i<HISTORY;i++){
+	pInfoPtrs[i] = (struct pi *) &pInfo[i][0]; 
+}
+for(i=0;i<NR_SCHED_QUEUES;i++){
+	pQhPtrs[i] = (struct qh*) &pQh[i][0];
+}
+
+/* Copy the pointer arrays so that you can go backward and forward through the history */
+struct pi *pInfoPtrsCopy[HISTORY];
+struct qh *pQhPtrsCopy[HISTORY];
+for(i=0;i<HISTORY;i++){
+	pInfoPtrsCopy[i] = pInfoPtrs[i];
+	pQhPtrsCopy[i] = pQhPtrs[i];
+}
+m.m1_p1 = (char *) &pInfoPtrs;
+m.m1_p2 = (char *) &piReady;
+m.m1_i2 = SELF;
+m.m1_i3 = HISTORY;
+m.m2_p1 = (char *) &pQhPtrs;
+
+int error = _syscall(PM_PROC_NR,STARTRECORD,&m);
+procs();
+for(j;j<HISTORY;j++){
+		while(piReady < j){
+		}
+		fprintf(fp,"Proc Table %d\n\n",j);
+		fprintf(fp,"Queue heads: ");
+		for(i=0;i<NR_SCHED_QUEUES;i++){
+			if(pQhPtrsCopy[j]->p_endpoint!=-1){
+				fprintf(fp,"%d: %s,",i,pQhPtrsCopy[j]->p_endpoint);
+			}
+			pQhPtrsCopy[j]++;
+		}
+		fprintf(fp,"\n\n");
+	
+	for (i=0;i<ALL_PROCS;i++){ 
+		if (!(pInfoPtrsCopy[j]->p_rts_flags == RTS_SLOT_FREE)) 
+		/* printf("Process: %s, priority: %d, RTS: %x\n",pInfoPtrsCopy[j]->p_name, pInfoPtrsCopy[j]->p_priority, pInfoPtrsCopy[j]->p_rts_flags); */
+		fprintf(fp,"Process: %s, Enter queue: %lu%lu, Time in Queue: %lu%lu, Dequeues: %lu, IPC Sync: %lu, IPC Async: %lu,Preempted: %lu,RTS: %x, Priority: %d, Next: %s\n",
+				pInfoPtrsCopy[j]->p_name,ex64hi(pInfoPtrsCopy[j]->p_times.enter_queue),ex64lo(pInfoPtrsCopy[j]->p_times.enter_queue),
+				ex64hi(pInfoPtrsCopy[j]->p_times.time_in_queue),ex64lo(pInfoPtrsCopy[j]->p_times.time_in_queue),
+				pInfoPtrsCopy[j]->p_times.dequeues,pInfoPtrsCopy[j]->p_times.ipc_sync,pInfoPtrsCopy[j]->p_times.ipc_async,
+				pInfoPtrsCopy[j]->p_times.preempted,pInfoPtrsCopy[j]->p_rts_flags,pInfoPtrsCopy[j]->p_priority, pInfoPtrsCopy[j]->p_nextready);
+		pInfoPtrsCopy[j]++;
+	}
+	
+}
+
+m.m1_i3 = -1;
+_syscall(PM_PROC_NR,STARTRECORD,&m);
+return(0);
+}

@@ -1141,30 +1141,6 @@ pci_slot_name.o pci_slot_name.po pci_slot_name.pico pci_slot_name.go pci_slot_na
   /usr/include/minix/sef.h /usr/include/stdio.h \
   /usr/include/machine/mcontext.h /usr/include/machine/fpu.h \
   /usr/include/machine/stackframe.h /usr/include/minix/sysutil.h
-printmessage.o printmessage.po printmessage.pico printmessage.go printmessage.ln: printmessage.c /usr/include/lib.h \
-  /usr/include/minix/config.h /usr/include/minix/sys_config.h \
-  /usr/include/sys/types.h /usr/include/sys/featuretest.h \
-  /usr/include/machine/types.h /usr/include/sys/cdefs.h \
-  /usr/include/machine/cdefs.h /usr/include/sys/cdefs_elf.h \
-  /usr/include/machine/int_types.h /usr/include/machine/ansi.h \
-  /usr/include/sys/ansi.h /usr/include/machine/endian.h \
-  /usr/include/sys/endian.h /usr/include/machine/endian_machdep.h \
-  /usr/include/machine/bswap.h /usr/include/machine/byte_swap.h \
-  /usr/include/sys/bswap.h /usr/include/sys/fd_set.h \
-  /usr/include/sys/syslimits.h /usr/include/minix/limits.h \
-  /usr/pkg/bin/../lib/clang/3.1/include/limits.h /usr/include/limits.h \
-  /usr/include/machine/limits.h /usr/include/errno.h \
-  /usr/include/sys/errno.h /usr/include/minix/const.h \
-  /usr/include/machine/archconst.h /usr/include/sys/null.h \
-  /usr/include/minix/com.h /usr/include/minix/type.h \
-  /usr/include/machine/multiboot.h \
-  /usr/pkg/bin/../lib/clang/3.1/include/stdint.h /usr/include/stdint.h \
-  /usr/include/machine/int_mwgwtypes.h /usr/include/machine/int_limits.h \
-  /usr/include/machine/int_const.h /usr/include/machine/wchar_limits.h \
-  /usr/include/machine/interrupt.h /usr/include/minix/callnr.h \
-  /usr/include/minix/ipc.h /usr/include/minix/ipcconst.h \
-  /usr/include/machine/ipcconst.h /usr/include/unistd.h \
-  /usr/include/sys/unistd.h /usr/include/sys/reboot.h
 profile.o profile.po profile.pico profile.go profile.ln: /usr/src/lib/libsys/arch/i386/profile.c /usr/include/lib.h \
   /usr/include/minix/config.h /usr/include/minix/sys_config.h \
   /usr/include/sys/types.h /usr/include/sys/featuretest.h \
@@ -1671,6 +1647,36 @@ sys_clear.o sys_clear.po sys_clear.pico sys_clear.go sys_clear.ln: sys_clear.c /
   /usr/include/machine/mcontext.h /usr/include/machine/fpu.h \
   /usr/include/machine/stackframe.h
 sys_cprof.o sys_cprof.po sys_cprof.pico sys_cprof.go sys_cprof.ln: sys_cprof.c /usr/src/lib/libsys/arch/i386/../../syslib.h \
+  /usr/include/lib.h /usr/include/minix/config.h \
+  /usr/include/minix/sys_config.h /usr/include/sys/types.h \
+  /usr/include/sys/featuretest.h /usr/include/machine/types.h \
+  /usr/include/sys/cdefs.h /usr/include/machine/cdefs.h \
+  /usr/include/sys/cdefs_elf.h /usr/include/machine/int_types.h \
+  /usr/include/machine/ansi.h /usr/include/sys/ansi.h \
+  /usr/include/machine/endian.h /usr/include/sys/endian.h \
+  /usr/include/machine/endian_machdep.h /usr/include/machine/bswap.h \
+  /usr/include/machine/byte_swap.h /usr/include/sys/bswap.h \
+  /usr/include/sys/fd_set.h /usr/include/sys/syslimits.h \
+  /usr/include/minix/limits.h \
+  /usr/pkg/bin/../lib/clang/3.1/include/limits.h /usr/include/limits.h \
+  /usr/include/machine/limits.h /usr/include/errno.h \
+  /usr/include/sys/errno.h /usr/include/minix/const.h \
+  /usr/include/machine/archconst.h /usr/include/sys/null.h \
+  /usr/include/minix/com.h /usr/include/minix/type.h \
+  /usr/include/machine/multiboot.h \
+  /usr/pkg/bin/../lib/clang/3.1/include/stdint.h /usr/include/stdint.h \
+  /usr/include/machine/int_mwgwtypes.h /usr/include/machine/int_limits.h \
+  /usr/include/machine/int_const.h /usr/include/machine/wchar_limits.h \
+  /usr/include/machine/interrupt.h /usr/include/minix/callnr.h \
+  /usr/include/minix/ipc.h /usr/include/minix/ipcconst.h \
+  /usr/include/machine/ipcconst.h /usr/include/minix/syslib.h \
+  /usr/include/sys/sigtypes.h /usr/include/minix/u64.h \
+  /usr/include/minix/devio.h /usr/include/minix/safecopies.h \
+  /usr/include/minix/vm.h /usr/include/minix/endpoint.h \
+  /usr/include/minix/sef.h /usr/include/stdio.h \
+  /usr/include/machine/mcontext.h /usr/include/machine/fpu.h \
+  /usr/include/machine/stackframe.h
+sys_cpuvar.o sys_cpuvar.po sys_cpuvar.pico sys_cpuvar.go sys_cpuvar.ln: sys_cpuvar.c /usr/src/lib/libsys/arch/i386/../../syslib.h \
   /usr/include/lib.h /usr/include/minix/config.h \
   /usr/include/minix/sys_config.h /usr/include/sys/types.h \
   /usr/include/sys/featuretest.h /usr/include/machine/types.h \
@@ -2218,6 +2224,36 @@ sys_privctl.o sys_privctl.po sys_privctl.pico sys_privctl.go sys_privctl.ln: sys
   /usr/include/machine/mcontext.h /usr/include/machine/fpu.h \
   /usr/include/machine/stackframe.h
 sys_profbuf.o sys_profbuf.po sys_profbuf.pico sys_profbuf.go sys_profbuf.ln: sys_profbuf.c /usr/src/lib/libsys/arch/i386/../../syslib.h \
+  /usr/include/lib.h /usr/include/minix/config.h \
+  /usr/include/minix/sys_config.h /usr/include/sys/types.h \
+  /usr/include/sys/featuretest.h /usr/include/machine/types.h \
+  /usr/include/sys/cdefs.h /usr/include/machine/cdefs.h \
+  /usr/include/sys/cdefs_elf.h /usr/include/machine/int_types.h \
+  /usr/include/machine/ansi.h /usr/include/sys/ansi.h \
+  /usr/include/machine/endian.h /usr/include/sys/endian.h \
+  /usr/include/machine/endian_machdep.h /usr/include/machine/bswap.h \
+  /usr/include/machine/byte_swap.h /usr/include/sys/bswap.h \
+  /usr/include/sys/fd_set.h /usr/include/sys/syslimits.h \
+  /usr/include/minix/limits.h \
+  /usr/pkg/bin/../lib/clang/3.1/include/limits.h /usr/include/limits.h \
+  /usr/include/machine/limits.h /usr/include/errno.h \
+  /usr/include/sys/errno.h /usr/include/minix/const.h \
+  /usr/include/machine/archconst.h /usr/include/sys/null.h \
+  /usr/include/minix/com.h /usr/include/minix/type.h \
+  /usr/include/machine/multiboot.h \
+  /usr/pkg/bin/../lib/clang/3.1/include/stdint.h /usr/include/stdint.h \
+  /usr/include/machine/int_mwgwtypes.h /usr/include/machine/int_limits.h \
+  /usr/include/machine/int_const.h /usr/include/machine/wchar_limits.h \
+  /usr/include/machine/interrupt.h /usr/include/minix/callnr.h \
+  /usr/include/minix/ipc.h /usr/include/minix/ipcconst.h \
+  /usr/include/machine/ipcconst.h /usr/include/minix/syslib.h \
+  /usr/include/sys/sigtypes.h /usr/include/minix/u64.h \
+  /usr/include/minix/devio.h /usr/include/minix/safecopies.h \
+  /usr/include/minix/vm.h /usr/include/minix/endpoint.h \
+  /usr/include/minix/sef.h /usr/include/stdio.h \
+  /usr/include/machine/mcontext.h /usr/include/machine/fpu.h \
+  /usr/include/machine/stackframe.h
+sys_qptab.o sys_qptab.po sys_qptab.pico sys_qptab.go sys_qptab.ln: sys_qptab.c /usr/src/lib/libsys/arch/i386/../../syslib.h \
   /usr/include/lib.h /usr/include/minix/config.h \
   /usr/include/minix/sys_config.h /usr/include/sys/types.h \
   /usr/include/sys/featuretest.h /usr/include/machine/types.h \
