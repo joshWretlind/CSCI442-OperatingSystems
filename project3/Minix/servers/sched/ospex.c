@@ -31,6 +31,7 @@ void OSSendPtab(void){
 
 				for(i=0;i<(NR_PROCS+NR_TASKS);i++){
 					strcpy(sendPi[i].p_name,tmpPtab[i].p_name);
+
 					sendPi[i].p_endpoint = tmpPtab[i].p_endpoint;
 					sendPi[i].p_priority = tmpPtab[i].p_priority;
 					sendPi[i].p_cpu_time_left = tmpPtab[i].p_cpu_time_left;
