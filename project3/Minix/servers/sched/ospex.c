@@ -14,7 +14,7 @@ void OSSendPtab(void){
 
 				/*Get the current process table */
 				sys_getproctab((struct proc *) &tmpPtab);
-			  	sys_cpuvar((char *) &queuehds,SELF);	
+			  	sys_cpuvar((char *) &queuehds,SELF);
 
 				/* Handle the heads of each queue */
 				struct qh qh_send[NR_SCHED_QUEUES];

@@ -216,30 +216,12 @@ int do_start_scheduling(message *m_ptr)
 				&parent_nr_n)) != OK)
 			return rv;
 
-		// Check if the process is one of the 10 fake processes we are working with
-		// First get endpoints of the 10 processes we are working with
-
-		// Holds the names of the 10 fake processes
-		const char* fake_process_names[10];
-
-		fake_process_names[0] = "proc1\0";
-		fake_process_names[1] = "proc2\0";
-		fake_process_names[2] = "proc3\0";
-		fake_process_names[3] = "proc4\0";
-		fake_process_names[4] = "proc5\0";
-		fake_process_names[5] = "proc6\0";
-		fake_process_names[6] = "proc7\0";
-		fake_process_names[7] = "proc8\0";
-		fake_process_names[8] = "proc9\0";
-		fake_process_names[9] = "proc10\0";
-
-		// // Holds the endpoints of the 10 fake processes
-		// endpoint_t fake_process_endpoints[10];
-		// // Holds a snapshot of the process table
-		// struct proc process_table[NR_PROCS + NR_TASKS];
-		// // Get a copy of the process table
-		// sys_getproctab((struct proc *) &process_table);
-		// // Loop through all the processes in the process table
+		// Holds the endpoints of the 10 fake processes
+		endpoint_t fake_process_endpoints[10];
+		
+		// Get a copy of the process table
+		sys_getproctab((struct proc *) &tempProc);
+		// Loop through all the processes in the process table
 		// for ( int j = 0; j < (NR_PROCS+NR_TASKS); j++ ) {
 		// 	// Check if the process is one of the fake ones. If it is, add it
 		// 	// to the fake_process_endpoints array
