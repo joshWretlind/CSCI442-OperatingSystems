@@ -218,31 +218,32 @@ int do_start_scheduling(message *m_ptr)
 
 		// Holds the endpoints of the 10 fake processes
 		endpoint_t fake_process_endpoints[10];
-		
+
 		// Get a copy of the process table
 		sys_getproctab((struct proc *) &tempProc);
+		
 		// Loop through all the processes in the process table
-		// for ( int j = 0; j < (NR_PROCS+NR_TASKS); j++ ) {
-		// 	// Check if the process is one of the fake ones. If it is, add it
-		// 	// to the fake_process_endpoints array
-		// 	for ( int i = 0; i < 10; i++ ) {
-		// 		if ( process_table[j].p_name == fake_process_names[i] ) {
-		// 			fake_process_endpoints[i] = process_table[j].p_endpoint;
-		// 		}
-		// 	}
-		// }
+		for ( int j = 0; j < (NR_PROCS+NR_TASKS); j++ ) {
+			// Check if the process is one of the fake ones. If it is, add it
+			// to the fake_process_endpoints array
+			for ( int i = 0; i < 10; i++ ) {
+				if ( tempProc[j].p_name == sjf[i].p_name ) {
+					fake_process_endpoints[i] = tempProc[j].p_endpoint;
+				}
+			}
+		}
 
 		// Normal assignment, for non-fake processes
 		rmp->priority = schedproc[parent_nr_n].priority;
 
-		// // Then compare to the endpoint of rmp to see if it's one of the target processes
-		// for ( int i = 0; i < 10; i++ ) {
-		// 	if ( rmp->endpoint == fake_process_endpoints[i] ) {
-		// 		// Assign priority in some way different from below
-		// 		// rmp->priority = schedproc[parent_nr_n].priority;
-		// 		break;
-		// 	}
-		// }
+		// Then compare to the endpoint of rmp to see if it's one of the target processes
+		for ( int i = 0; i < 10; i++ ) {
+			if ( rmp->endpoint == fake_process_endpoints[i] ) {
+				// Assign priority in some way different from below
+				rmp->priority = 9;
+				break;
+			}
+		}
 
 		rmp->time_slice = schedproc[parent_nr_n].time_slice;
 		break;
