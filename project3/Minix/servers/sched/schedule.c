@@ -220,45 +220,48 @@ int do_start_scheduling(message *m_ptr)
 		// First get endpoints of the 10 processes we are working with
 
 		// Holds the names of the 10 fake processes
-		char* fake_process_names[10];
-		for ( int i = 0; i < 10; i++ ) {
-			char* proc_name = "proc";
-			strcat(proc_name, itoa(i + 1));
-			fake_process_names[i] = proc_name;
-		}
-		// Holds the endpoints of the 10 fake processes
-		endpoint_t fake_process_endpoints[10];
+		const char* fake_process_names[10];
 
-		// Holds a snapshot of the process table
-		struct proc process_table[NR_PROCS +NR_TASKS];
+		fake_process_names[0] = "proc1\0";
+		fake_process_names[1] = "proc2\0";
+		fake_process_names[2] = "proc3\0";
+		fake_process_names[3] = "proc4\0";
+		fake_process_names[4] = "proc5\0";
+		fake_process_names[5] = "proc6\0";
+		fake_process_names[6] = "proc7\0";
+		fake_process_names[7] = "proc8\0";
+		fake_process_names[8] = "proc9\0";
+		fake_process_names[9] = "proc10\0";
 
-		// Get a copy of the process table
-		sys_getproctab((struct proc *) &process_table);
+		// // Holds the endpoints of the 10 fake processes
+		// endpoint_t fake_process_endpoints[10];
+		// // Holds a snapshot of the process table
+		// struct proc process_table[NR_PROCS + NR_TASKS];
+		// // Get a copy of the process table
+		// sys_getproctab((struct proc *) &process_table);
+		// // Loop through all the processes in the process table
+		// for ( int j = 0; j < (NR_PROCS+NR_TASKS); j++ ) {
+		// 	// Check if the process is one of the fake ones. If it is, add it
+		// 	// to the fake_process_endpoints array
+		// 	for ( int i = 0; i < 10; i++ ) {
+		// 		if ( process_table[j].p_name == fake_process_names[i] ) {
+		// 			fake_process_endpoints[i] = process_table[j].p_endpoint;
+		// 		}
+		// 	}
+		// }
 
-		// Loop through all the processes in the process table
-		for ( int j = 0; j < (NR_PROCS+NR_TASKS); j++ ) {
-			// Check if the process is one of the fake ones. If it is, add it
-			// to the fake_process_endpoints array
-			for ( int i = 0; i < 10; i++ ) {
-				if ( process_table[i].p_name == fake_process_names[i] ) {
-					fake_process_endpoints[i] = process_table[i].p_endpoint;
-				}
-			}
-		}
-
-		// Then compare to the endpoint of rmp to see if it's one of the target processes
-		for ( int i = 0; i < 10; i++ ) {
-			if ( rmp->endpoint == fake_process_endpoints[i] ) {
-				// Assign priority in some way different from below
-				rmp->priority = schedproc[parent_nr_n].priority;
-
-				// Assign time slice
-				rmp->time_slice = schedproc[parent_nr_n].time_slice;
-				break;
-			}
-		}
-
+		// Normal assignment, for non-fake processes
 		rmp->priority = schedproc[parent_nr_n].priority;
+
+		// // Then compare to the endpoint of rmp to see if it's one of the target processes
+		// for ( int i = 0; i < 10; i++ ) {
+		// 	if ( rmp->endpoint == fake_process_endpoints[i] ) {
+		// 		// Assign priority in some way different from below
+		// 		// rmp->priority = schedproc[parent_nr_n].priority;
+		// 		break;
+		// 	}
+		// }
+
 		rmp->time_slice = schedproc[parent_nr_n].time_slice;
 		break;
 		
