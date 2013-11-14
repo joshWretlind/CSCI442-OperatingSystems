@@ -239,8 +239,8 @@ int do_start_scheduling(message *m_ptr)
 		// Then compare to the endpoint of rmp to see if it's one of the target processes
 		for ( int i = 0; i < 10; i++ ) {
 			if ( rmp->endpoint == fake_process_endpoints[i] ) {
-				// Assign priority in some way different from below
-				rmp->priority = 9;
+				// call do_qptab
+				sys_qptab(rmp->endpoint);
 				break;
 			}
 		}
