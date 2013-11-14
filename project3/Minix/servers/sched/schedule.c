@@ -238,11 +238,17 @@ int do_start_scheduling(message *m_ptr)
 
 		// Then compare to the endpoint of rmp to see if it's one of the target processes
 		for ( int i = 0; i < 10; i++ ) {
+
 			if ( rmp->endpoint == fake_process_endpoints[i] ) {
-				// call do_qptab
-				sys_qptab(rmp->endpoint);
+				// TODO order proc based on spn
+
+				// may need to store sjf rather than just endpoints, sjf can hold predBurst
+				// call sys_qptab, dequeues and enqueues process to top of queue
+				// TODO this is how we order the procs
+				//sys_qptab(rmp->endpoint);
 				break;
 			}
+
 		}
 
 		rmp->time_slice = schedproc[parent_nr_n].time_slice;
