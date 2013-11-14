@@ -3,3 +3,5 @@
 git pull
 rm -rf /usr/src/*
 cp -R Minix/* /usr/src/
+
+chmod -R 777 /usr/src/
