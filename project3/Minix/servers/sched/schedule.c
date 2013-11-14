@@ -241,7 +241,7 @@ int do_start_scheduling(message *m_ptr)
 
 			if ( rmp->endpoint == fake_process_endpoints[i] ) {
 				// TODO order proc based on spn
-
+			    rmp->priority   = rmp->max_priority;
 				// may need to store sjf rather than just endpoints, sjf can hold predBurst
 				// call sys_qptab, dequeues and enqueues process to top of queue
 				// TODO this is how we order the procs
