@@ -20,7 +20,8 @@ struct pi {
 	int queue_head;
 	char p_nextready[PROC_NAME_LEN];
 	endpoint_t p_nextready_endpoint;
-	struct p_accounting p_times
+	struct p_accounting p_times;
+	unsigned long predBurst;
 	};
 
 #define NOPROC "NOPROC"

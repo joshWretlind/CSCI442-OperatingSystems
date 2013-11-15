@@ -58,6 +58,7 @@ struct kinfo sysInfo;
 struct sjf sjf[PROCNUM];
 int nr_procs,i;
 struct proc tempProc[NR_TASKS+NR_PROCS];
+unsigned long predBurst;
 
 // Our function for rearranging the processes
 struct schedproc* rearrange_order(struct schedproc* rmp);
@@ -286,6 +287,7 @@ struct schedproc* rearrange_order(struct schedproc* rmp) {
 		for ( int i = 0; i < PROCNUM; i++ ) {
 			if ( tempProc[j].p_name == sjf[i].p_name ) {
 				sjf[i].p_endpoint = tempProc[j].p_endpoint;
+				// Math? 3/4 instead of .75
 				sjf[i].predBurst = (.75)*(tempProc[j].p_cycles) + (.25)*sjf[i].predBurst;
 			}
 		}
@@ -295,6 +297,8 @@ struct schedproc* rearrange_order(struct schedproc* rmp) {
 	for ( int i = 0; i < PROCNUM; i++ ) {
 
 		if ( rmp->endpoint == sjf[i].p_endpoint ) {
+
+			predBurst = sjf[i].predBurst;
 			
 			// sjf[i] is the new (incoming) process
 			
@@ -311,7 +315,7 @@ struct schedproc* rearrange_order(struct schedproc* rmp) {
 			}
 
 			// Move all the processes that are ahead of the minimum to end of queue
-			for ( int k = indexOfMin + 1; k < PROCNUM; k++ ) {
+			for ( int k = 0; k < indexOfMin; k++ ) {
 				// Move process to end of queue
 				sys_qptab(rmp->endpoint);
 			}

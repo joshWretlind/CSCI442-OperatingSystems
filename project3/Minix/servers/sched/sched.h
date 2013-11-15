@@ -28,6 +28,7 @@
 #include <string.h>
 
 extern struct machine machine;		/* machine info */
+extern unsigned long predBurst;
 
 #define TOTALPROCS NR_TASKS + NR_PROCS 
 #define HISTORY 50 
