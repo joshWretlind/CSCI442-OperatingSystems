@@ -58,7 +58,6 @@ struct kinfo sysInfo;
 struct sjf sjf[PROCNUM];
 int nr_procs,i;
 struct proc tempProc[NR_TASKS+NR_PROCS];
-unsigned long predBurst;
 
 // Our function for rearranging the processes
 struct schedproc* rearrange_order(struct schedproc* rmp);
@@ -297,8 +296,6 @@ struct schedproc* rearrange_order(struct schedproc* rmp) {
 	for ( int i = 0; i < PROCNUM; i++ ) {
 
 		if ( rmp->endpoint == sjf[i].p_endpoint ) {
-
-			predBurst = sjf[i].predBurst;
 			
 			// sjf[i] is the new (incoming) process
 			

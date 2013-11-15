@@ -396,7 +396,7 @@ int size;
 	}
 
 char procName[100];
-sprintf(procName, "%s(%l)", cpy->p_name, cpy->predBurst);
+sprintf(procName, "%s(%zu)", cpy->p_name, cpy->p_cpu_time_left);
 
 /* Print the process to the file, then see if there is another process in the nextready spot. If yes, recursively call this routine. If no, write a line feed for the next queue */
 size = sprintf(NULL,"%s",procName);

@@ -35,7 +35,6 @@ void OSSendPtab(void){
 					sendPi[i].p_endpoint = tmpPtab[i].p_endpoint;
 					sendPi[i].p_priority = tmpPtab[i].p_priority;
 					sendPi[i].p_cpu_time_left = tmpPtab[i].p_cpu_time_left;
-					sendPi[i].predBurst = predBurst;
 					sendPi[i].p_rts_flags = tmpPtab[i].p_rts_flags;
 						if(tmpPtab[i].p_nextready){
 							sys_vircopy(SYSTEM,(vir_bytes) tmpPtab[i].p_nextready, SELF,(vir_bytes) &(nextReady[i]),sizeof(struct proc));

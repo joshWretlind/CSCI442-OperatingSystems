@@ -1,0 +1,26 @@
+1. Team Members:
+
+Taylor Sallee
+Michael Lewis
+Josh Wretlind
+Shawn Toffel
+
+2. Each of us spent approximately 30 hours on the first deliverable, and 25 hours on the second deliverable. We feel that we have put in more than enough time on this project, and are getting very frustrated with the poor instructions, lack of documentation, and poor code quality. We are tired of working on this and need to move on with our lives.
+
+3. One interesting feature is that we print p_cpu_time_left to the GUI, next to the process name. This was designed to help us track whether or not our algorithm was working.
+
+4. The hardest part of this assignment was dealing with the poor instructions, difficult-to-read code, and trying to work in an unfamiliar environment, with a language that we haven't been exposed to, and with hardly any real support. Without good instructions, we ended up wading through complex code and spending hours on debugging, not to mention compiling. After the first deliverable, we already felt we had spent way too much time on the project.
+
+5. Even though we didn't complete the scheduling algorithm, we put in a lot of time, and spent a lot of time helping other teams, as well as receiving help from other teams. In the end, we thought our time would be better-spent focusing on our homework for other classes, which has been often neglected/sacrificed due to the massive amounts of time we were spending on this project. We know our grades will take a hit because we didn't complete the algorithm, but we describe below the steps we took. We think our methods were correct, but MINIX fought us every step of the way, so we got frustrated enough to just leave it up to the grader to judge how much our efforts are worth.
+
+6.
+
+Part 1
+For part 1, we were able to implement the system call, and were able to pass messages to the schedule server. We then spent several hours trying to copy the process table back to the user process, and were pretty close, judging by the code released after the due date of the first deliverable.
+
+Part 2
+In schedule.c, we were able to use sjf to identify incoming (and preempted) processes by their names, by comparing the names in sjf to those in the process table, which we obtained using a system call. We then identified if the incoming process (represented by rpm) was one of the processes we wanted (proc1 - proc10), by comparing rmp->endpoint to sjf[i]->p_endpoint. We then assigned the sjf[i].predBurst by using the equation given in the project doc. Then we looped through each of the 10 processes and found the one with the minimum expected cpu burst. Once we had this process, we looped through all the processes that were ahead of it in the queue, and used sys_qptab to dequeue and enqueue again, effectively moving them to a position in the queue with less priority than the process with the minimum expected burst time.
+
+7. We didn't prove that we implemented SPN. Technically, the solution we attempted to implement was actually SERT (Shortest Expected Remaining Time) - as was clarified on piazza (https://piazza.com/class/hkh3zfdu5mo3zs?cid=158). Either way, we can't prove that it works, because we have had too much trouble with the GUI and just MINIX in general, and, as we said, we are at the mercy of the grader.
+
+8. Considering that we didn't rewrite the Minix scheduling algorithm (which is a Multilevel Feedback Queue algorithm), but only a small part of that algorithm (the part that schedules the specified processes proc1 - proc10), we can't really compare the two algorithms. Also, given that our algorithm is not complete, due to the aforementioned reasons, we were not able to run a quantitative analysis. However, we understand the difference between MLFQ and SERT. The MLFQ is a good algorithm for systems that handle many different types of processes (relatively balanced between I/O and CPU-bound). This is because the processes that use up their time slice (usually CPU-bound) go down in priority, and the processes that don't (usually I/O-bound), stay at the same priority, thus giving priority to I/O-bound processes, but not neglecting CPU-bound processes. The SERT algorithm is better for I/O-bound processes, because the processes with shorter CPU bursts will jump to the front of the queue when they return from a blocked state, because the algorithm will expect it to have a small CPU burst, and will push it ahead of the CPU-bound processes, which are expected to have a large CPU burst.
