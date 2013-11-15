@@ -216,42 +216,39 @@ int do_start_scheduling(message *m_ptr)
 				&parent_nr_n)) != OK)
 			return rv;
 
-		// Holds the endpoints of the 10 fake processes
-		endpoint_t fake_process_endpoints[10];
-
 		// Get a copy of the process table
 		sys_getproctab((struct proc *) &tempProc);
 		
 		// Loop through all the processes in the process table
 		for ( int j = 0; j < (NR_PROCS+NR_TASKS); j++ ) {
-			// Check if the process is one of the fake ones. If it is, add it
-			// to the fake_process_endpoints array
+			// Check if the process is one of the fake ones. If it is, assign it an endpoint
 			for ( int i = 0; i < 10; i++ ) {
 				if ( tempProc[j].p_name == sjf[i].p_name ) {
-					fake_process_endpoints[i] = tempProc[j].p_endpoint;
+					sjf[i].p_endpoint = tempProc[j].p_endpoint;
+					sfj[i].predBurst = (.75)*(tempProc[j].p_cycles) + (.25)*sjf[i].predBurst;
 				}
 			}
 		}
 
 		// Normal assignment, for non-fake processes
 		rmp->priority = schedproc[parent_nr_n].priority;
+		rmp->time_slice = schedproc[parent_nr_n].time_slice;
 
 		// Then compare to the endpoint of rmp to see if it's one of the target processes
 		for ( int i = 0; i < 10; i++ ) {
 
-			if ( rmp->endpoint == fake_process_endpoints[i] ) {
+			if ( rmp->endpoint == sjf[i].p_endpoint ) {
 				// TODO order proc based on spn
-			    rmp->priority   = rmp->max_priority;
+
 				// may need to store sjf rather than just endpoints, sjf can hold predBurst
 				// call sys_qptab, dequeues and enqueues process to top of queue
 				// TODO this is how we order the procs
-				//sys_qptab(rmp->endpoint);
+				sys_qptab(rmp->endpoint);
 				break;
 			}
 
 		}
 
-		rmp->time_slice = schedproc[parent_nr_n].time_slice;
 		break;
 		
 	default: 
