@@ -85,8 +85,8 @@ screenPtr = DefaultScreenOfDisplay(dispPtr);
 screenNum = DefaultScreen(dispPtr);
 display_width = DisplayWidth(dispPtr, screenNum);
 display_height = DisplayHeight(dispPtr, screenNum);
-window_width = 0.75*display_width;
-window_height = 0.75*display_height;
+window_width = 1.4*display_width;
+window_height = 0.85*display_height;
 colormap = DefaultColormap(dispPtr,0);
 
 displayTab = 0;
@@ -96,9 +96,9 @@ displayTab_x = 30;
 displayTab_y = floor((1.0/16.0)*window_width);
 
 /*Set text constants for button*/
-char* stButText = "Start Simulation";
-char* rgButText = "Running...";
-char* scButText = "Simulation Complete";
+char* stButText = "Start Stimulation";
+char* rgButText = "Stimulating...";
+char* scButText = "Stimulation Complete";
 char* etButText = "Exit";
 char* ntButText = "Next >>>";
 char* psButText = "<<< Previous";
@@ -335,9 +335,9 @@ void drawScreen (Display *dispPtr,
 
 	int i;
 	/*Set text constants for button*/
-	char* stButText = "Start Simulation";
-	char* rgButText = "Running...";
-	char* scButText = "Simulation Complete";
+	char* stButText = "Start Stimulation";
+	char* rgButText = "Stimulating...";
+	char* scButText = "Stimulation Complete";
 	char* etButText = "Exit";
 	char* ntButText = "Next >>>";
 	char* psButText = "<<< Previous";
@@ -395,10 +395,13 @@ int size;
 		cpy++;
 	}
 
+char procName[100];
+sprintf(procName, "%s(%d)", cpy->p_name, cpy->p_cpu_time_left);
+
 /* Print the process to the file, then see if there is another process in the nextready spot. If yes, recursively call this routine. If no, write a line feed for the next queue */
-size = sprintf(NULL,"%s",cpy->p_name);
+size = sprintf(NULL,"%s",procName);
 XDrawString(dispPtr,window,gc_red,(rectPts.x)+2,
-		(rectPts.y)+*verPos,cpy->p_name,
+		(rectPts.y)+*verPos,procName,
 		size);
 		*verPos = *verPos + 20;
 	if(cpy->p_nextready_endpoint != -1){

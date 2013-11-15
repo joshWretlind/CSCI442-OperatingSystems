@@ -1,6 +1,5 @@
 #include "procs.h"
 
-void main(void){
-
+int main(){
 procs();
 }
