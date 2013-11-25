@@ -236,17 +236,26 @@ static phys_bytes alloc_pages(int pages, int memflags)
 		maxpage = boundary1 - 1;
 	else {
 		/* no position restrictions: check page cache */
-		if(pages == 1) {
-			while(free_page_cache_size > 0) {
-				i = free_page_cache[free_page_cache_size-1];
-				if(page_isfree(i)) {
-					free_page_cache_size--;
-					mem = i;
-					assert(mem != NO_MEM);
-					run_length = 1;
-					break;
-				}
-				free_page_cache_size--;
+		//if(pages == 1) {
+			//while(free_page_cache_size > 0) {
+				//i = free_page_cache[free_page_cache_size-1];
+				//if(page_isfree(i)) {
+					//free_page_cache_size--;
+					//mem = i;
+					//assert(mem != NO_MEM);
+					//run_length = 1;
+					//break;
+				//}
+				//free_page_cache_size--;
+			//}
+		//}
+		int num_free_pages = 0;
+		for(int i = mem_low; i < mem_high-pages; ++i) {
+			if(page_isfree(i)) ++num_free_pages;
+			else num_free_pages = 0;
+			if(num_free_pages == pages) {
+				mem = i-pages;
+				break;
 			}
 		}
 	}
