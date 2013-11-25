@@ -274,10 +274,13 @@ static phys_bytes alloc_pages(int pages, int memflags)
 	/* remember for next time */
 	lastscan = mem_high;
 	
+	
+	printf("pages: %d ", pages);
+	printf("mem: %x    ", mem);
+	
 	//int holeSize = 0;
 	//int newHole = 0;
-	//printf("pages: %d ", pages);
-	//printf("mem: %x    ", mem);
+	
 	//for(int i = mem_low; i < mem_high; i++){
 		//if(page_isfree(i)){
 			//newHole = 1;
