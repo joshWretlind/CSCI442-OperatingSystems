@@ -265,6 +265,8 @@ static phys_bytes alloc_pages(int pages, int memflags)
 	/* remember for next time */
 	lastscan = 0;
 	
+	printf("pages: %d", pages);
+	printf("mem: %x", mem);
 	for(unsigned long long i = mem_low; i < mem_low + 1024; i++){
 		if(page_isfree(i)){
 			printf("1");
