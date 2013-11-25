@@ -274,18 +274,32 @@ static phys_bytes alloc_pages(int pages, int memflags)
 	/* remember for next time */
 	lastscan = mem_high;
 	
-	printf("pages: %d ", pages);
-	printf("mem: %x    ", mem);
-	for(unsigned long long i = mem - 512; i < mem+512; i++){
-		if(i == mem){
-			printf("   |   ");
-		}
-		if(page_isfree(i)){
-			printf("1");
+	int holeSize = 0;
+	int newHole = 0;
+	for(int i = mem_low; i < mem_high; i++){
+		if(page_isfree(i){
+			newHole = 1;
+			holeSize++;
 		} else {
-			printf("0");
+			if(newHole){
+				printf("hole start: %x hole size: %d", i-holeSize, holeSize);
+				newHole = 0;
+			}
+			holeSize = 0;
 		}
 	}
+	printf("pages: %d ", pages);
+	printf("mem: %x    ", mem);
+	//for(unsigned long long i = mem - 512; i < mem+512; i++){
+		//if(i == mem){
+			//printf("   |   ");
+		//}
+		//if(page_isfree(i)){
+			//printf("1");
+		//} else {
+			//printf("0");
+		//}
+	//}
 	printf("\n");	
 	for(i = mem; i < mem + pages; i++) {
 		UNSET_BIT(free_pages_bitmap, i);
