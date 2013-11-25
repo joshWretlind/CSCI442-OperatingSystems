@@ -294,7 +294,7 @@ static phys_bytes alloc_pages(int pages, int memflags)
 		//}
 	//}
 
-	for(unsigned long long i = mem - 768; i < mem+768; i++){
+	for(unsigned long long i = mem - 128; i < mem+128; i++){
 		if(i == mem){
 			printf("   |   ");
 		}
