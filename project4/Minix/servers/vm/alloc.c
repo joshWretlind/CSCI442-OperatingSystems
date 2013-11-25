@@ -263,11 +263,11 @@ static phys_bytes alloc_pages(int pages, int memflags)
 		return NO_MEM;
 
 	/* remember for next time */
-	lastscan = 0;
+	lastscan = mem_high;
 	
 	printf("pages: %d", pages);
 	printf("mem: %x", mem);
-	for(unsigned long long i = PAGE_BITMAP_CHUNKS*32 - 1024; i < PAGE_BITMAP_CHUNKS*32; i++){
+	for(unsigned long long i = mem_low; i < mem_low+1024; i++){
 		if(page_isfree(i)){
 			printf("1");
 		} else {
