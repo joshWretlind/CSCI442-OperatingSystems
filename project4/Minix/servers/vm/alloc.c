@@ -254,7 +254,7 @@ static phys_bytes alloc_pages(int pages, int memflags)
 			if(page_isfree(i)) ++num_free_pages;
 			else num_free_pages = 0;
 			if(num_free_pages == pages) {
-				mem = i-pages;
+				mem = i-pages+1;
 				break;
 			}
 		}
