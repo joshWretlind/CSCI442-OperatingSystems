@@ -266,7 +266,7 @@ static phys_bytes alloc_pages(int pages, int memflags)
 	lastscan = mem_low;
 	
 	for(int i = 0; i < PAGE_BITMAP_CHUNKS; i++){
-		printf("%llu", free_pages_bitmap[i]);
+		printf("%llu", page_isfree(i));
 	}
 	printf("\n");	
 	for(i = mem; i < mem + pages; i++) {
