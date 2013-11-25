@@ -265,7 +265,7 @@ static phys_bytes alloc_pages(int pages, int memflags)
 	/* remember for next time */
 	lastscan = 0;
 	
-	for(unsigned long long i = 0; i < 512; i++){
+	for(unsigned long long i = 0; i < 1024; i++){
 		if(page_isfree(i)){
 			printf("1");
 		} else {
