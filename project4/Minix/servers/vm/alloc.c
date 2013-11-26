@@ -278,21 +278,21 @@ static phys_bytes alloc_pages(int pages, int memflags)
 	printf("pages: %d ", pages);
 	printf("mem: %x    ", mem);
 	
-	int holeSize = 0;
-	int newHole = 0;
+	//int holeSize = 0;
+	//int newHole = 0;
 	
-	for(int i = mem_low; i < mem_high; i++){
-		if(page_isfree(i)){
-			newHole = 1;
-			holeSize++;
-		} else {
-			if(newHole){
-				printf("hole start: %x hole size: %d ", i-holeSize, holeSize);
-				newHole = 0;
-			}
-			holeSize = 0;
-		}
-	}
+	//for(int i = mem_low; i < mem_high; i++){
+		//if(page_isfree(i)){
+			//newHole = 1;
+			//holeSize++;
+		//} else {
+			//if(newHole){
+				//printf("hole start: %x hole size: %d ", i-holeSize, holeSize);
+				//newHole = 0;
+			//}
+			//holeSize = 0;
+		//}
+	//}
 
 	for(unsigned long long i = mem - 128; i < mem+128; i++){
 		if(i == mem){
