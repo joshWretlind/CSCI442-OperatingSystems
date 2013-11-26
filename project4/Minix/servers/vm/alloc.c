@@ -250,7 +250,7 @@ static phys_bytes alloc_pages(int pages, int memflags)
 			//}
 		//}
 		int num_free_pages = 0;
-		for(int i = mem_low; i < mem_high-pages; ++i) {
+		for(int i = mem_low; i < mem_high; ++i) {
 			if(page_isfree(i)) ++num_free_pages;
 			else num_free_pages = 0;
 			if(num_free_pages == pages) {
@@ -272,27 +272,27 @@ static phys_bytes alloc_pages(int pages, int memflags)
 		return NO_MEM;
 
 	/* remember for next time */
-	lastscan = mem_high;
+	lastscan = mem_low;
 	
 	
 	printf("pages: %d ", pages);
 	printf("mem: %x    ", mem);
 	
-	//int holeSize = 0;
-	//int newHole = 0;
+	int holeSize = 0;
+	int newHole = 0;
 	
-	//for(int i = mem_low; i < mem_high; i++){
-		//if(page_isfree(i)){
-			//newHole = 1;
-			//holeSize++;
-		//} else {
-			//if(newHole){
-				//printf("hole start: %x hole size: %d ", i-holeSize, holeSize);
-				//newHole = 0;
-			//}
-			//holeSize = 0;
-		//}
-	//}
+	for(int i = mem_low; i < mem_high; i++){
+		if(page_isfree(i)){
+			newHole = 1;
+			holeSize++;
+		} else {
+			if(newHole){
+				printf("hole start: %x hole size: %d ", i-holeSize, holeSize);
+				newHole = 0;
+			}
+			holeSize = 0;
+		}
+	}
 
 	for(unsigned long long i = mem - 128; i < mem+128; i++){
 		if(i == mem){
