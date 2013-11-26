@@ -280,9 +280,7 @@ static phys_bytes alloc_pages(int pages, int memflags)
 	/* remember for next time */
 	lastscan = mem_low;
 	
-	
-	printf("pages: %d ", pages);
-	printf("mem: %x    ", mem);
+
 	
 	//int holeSize = 0;
 	//int newHole = 0;
@@ -300,6 +298,9 @@ static phys_bytes alloc_pages(int pages, int memflags)
 		//}
 	//}
 	if(pages > 1){
+			
+		printf("pages: %d ", pages);
+		printf("mem: %x    ", mem);
 		for(unsigned long long i = mem - 128; i < mem+128; i++){
 			if(i == mem){
 				printf("   |   ");
@@ -310,8 +311,9 @@ static phys_bytes alloc_pages(int pages, int memflags)
 				printf("0");
 			}
 		}
+			printf("\n");	
+
 	}
-	printf("\n");	
 	for(i = mem; i < mem + pages; i++) {
 		UNSET_BIT(free_pages_bitmap, i);
 	}
