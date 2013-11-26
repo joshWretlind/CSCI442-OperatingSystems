@@ -297,7 +297,7 @@ static phys_bytes alloc_pages(int pages, int memflags)
 			//holeSize = 0;
 		//}
 	//}
-	if(pages > 1){
+	//if(pages > 1){
 			
 		printf("pages: %d ", pages);
 		printf("mem: %x    ", mem);
@@ -313,7 +313,7 @@ static phys_bytes alloc_pages(int pages, int memflags)
 		}
 			printf("\n");	
 
-	}
+	//}
 	for(i = mem; i < mem + pages; i++) {
 		UNSET_BIT(free_pages_bitmap, i);
 	}
