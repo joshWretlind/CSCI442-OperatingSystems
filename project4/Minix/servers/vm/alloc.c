@@ -299,15 +299,16 @@ static phys_bytes alloc_pages(int pages, int memflags)
 			//holeSize = 0;
 		//}
 	//}
-
-	for(unsigned long long i = mem - 128; i < mem+128; i++){
-		if(i == mem){
-			printf("   |   ");
-		}
-		if(page_isfree(i)){
-			printf("1");
-		} else {
-			printf("0");
+	if(pages > 1){
+		for(unsigned long long i = mem - 128; i < mem+128; i++){
+			if(i == mem){
+				printf("   |   ");
+			}
+			if(page_isfree(i)){
+				printf("1");
+			} else {
+				printf("0");
+			}
 		}
 	}
 	printf("\n");	
