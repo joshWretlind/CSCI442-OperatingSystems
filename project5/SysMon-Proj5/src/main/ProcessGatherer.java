@@ -6,7 +6,7 @@ import java.util.List;
  * ProcessGatherer is the threads that gather process information for the system monitor.
  * @author Josh Wretlind
  */
-public class ProcessGatherer extends Thread {
+public class ProcessGatherer extends Gatherer {
 
 	private List<ProcessData> processes = new ArrayList<ProcessData>();
 	
@@ -19,6 +19,7 @@ public class ProcessGatherer extends Thread {
 	/**
 	 * This process fills in the data for this process
 	 */
+	@Override
 	public void getInformation(){
 		
 	}

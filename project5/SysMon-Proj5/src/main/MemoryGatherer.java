@@ -7,20 +7,21 @@ package main;
  * @author Josh Wretlind
  *
  */
-public class MemoryGatherer extends Thread {
+public class MemoryGatherer extends Gatherer {
 	
 	public MemoryGatherer(){
 	
 	}
 	
-	private void getInfo(){
+	@Override
+	void getInformation(){
 		
 	}
 	
 	@Override
 	public void run(){
 		while(true){
-			getInfo();
+			getInformation();
 			try{
 				wait(250);
 			} catch(InterruptedException ie){

@@ -1,10 +1,17 @@
 package main;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class Scheduler extends Thread {
 	
+	private int delay;
+	private List<Gatherer> tasks = new ArrayList<Gatherer>();
+	
 	public Scheduler(int delay) // , ArrayList<Harvester> taskList)
 	{
+		this.delay = delay;
 	}
 
 	private synchronized void delay()
@@ -13,7 +20,7 @@ public class Scheduler extends Thread {
 		// and wait for the specified timeout
 		try
 		{
-			wait(500);
+			wait(delay);
 		} catch (InterruptedException e) {}
 	}
 	
@@ -33,5 +40,10 @@ public class Scheduler extends Thread {
 			// 	 h.collect();
 			// }
 		}
+	}
+	
+	public Scheduler withTask(Gatherer task){
+		tasks.add(task);
+		return this;
 	}
 }

@@ -10,7 +10,7 @@ import java.util.List;
  * @author Josh Wretlind
  *
  */
-public class CPUGatherer extends Thread {
+public class CPUGatherer extends Gatherer {
 	
 	private List<CPUData> cpuData = new ArrayList<CPUData>();
 	
@@ -18,14 +18,15 @@ public class CPUGatherer extends Thread {
 		
 	}
 	
-	private void getInfo(){
+	@Override
+	void getInformation(){
 		
 	}
 	
 	@Override
 	public void run(){
 		while(true){
-			getInfo();
+			getInformation();
 			try {
 				wait(250);
 			} catch (InterruptedException ie) {
