@@ -253,7 +253,7 @@ static phys_bytes alloc_pages(int pages, int memflags)
 		for(int i = mem_low; i < mem_high; ++i) {
 			if(page_isfree(i)) ++num_free_pages;
 			else{
-				printf("hole start: %x, hole size: %d", i - pages + 1, num_free_pages);
+				printf("hole start: %x, hole size: %d", i - num_free_pages + 1, num_free_pages);
 				 num_free_pages = 0;
 			}
 			
