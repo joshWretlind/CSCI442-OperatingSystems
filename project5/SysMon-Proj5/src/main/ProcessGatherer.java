@@ -14,6 +14,7 @@ public class ProcessGatherer extends Gatherer {
 	 * Constructor for a processGatherer thread
 	 */
 	public ProcessGatherer(){
+		super.setDelay(5000);
 	}
 	
 	/**
@@ -29,7 +30,7 @@ public class ProcessGatherer extends Gatherer {
 		while(true){
 			getInformation();
 			try {
-				wait(250);
+				wait(super.getDelay());
 			} catch (InterruptedException ie) {
 				ie.printStackTrace();
 			}

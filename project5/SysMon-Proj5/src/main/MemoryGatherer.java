@@ -10,7 +10,7 @@ package main;
 public class MemoryGatherer extends Gatherer {
 	
 	public MemoryGatherer(){
-	
+		super.setDelay(250);
 	}
 	
 	@Override
@@ -23,7 +23,7 @@ public class MemoryGatherer extends Gatherer {
 		while(true){
 			getInformation();
 			try{
-				wait(250);
+				wait(super.getDelay());
 			} catch(InterruptedException ie){
 				ie.printStackTrace();
 			}
