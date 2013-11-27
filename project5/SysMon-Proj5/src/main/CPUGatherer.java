@@ -91,10 +91,13 @@ public class CPUGatherer extends Gatherer {
 					} else {
 						cpuUsagePercentageList.set(i, cpuUsage);
 					}
+					gui.getCPUGraph().addDataPoint(i, (int) (cpuUsagePercentageList.get(i)*100));
 				}
+				
 				i++;
 			}
 			this.setNumOfCPUs(i);
+			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
