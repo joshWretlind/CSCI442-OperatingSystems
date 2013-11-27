@@ -28,12 +28,16 @@ public class Scheduler extends Thread {
 	{
 		while (true)
 		{
-			// Wait for the specified timeout
-			delay();
 			
 			for(Gatherer gatherer: tasks){
-				gatherer.run();
+				synchronized (gatherer){
+					gatherer.run();
+				}
 			}
+			// Wait for the specified timeout
+			delay();
+			this.notifyAll();
+			
 		}
 	}
 	
