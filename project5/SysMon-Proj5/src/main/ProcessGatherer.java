@@ -1,4 +1,6 @@
 package main;
+import gui.SystemMonitorWindow;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,8 +15,9 @@ public class ProcessGatherer extends Gatherer {
 	/**
 	 * Constructor for a processGatherer thread
 	 */
-	public ProcessGatherer(){
+	public ProcessGatherer(SystemMonitorWindow gui){
 		super.setDelay(5000);
+		super.gui = gui;
 	}
 	
 	/**
@@ -52,5 +55,11 @@ public class ProcessGatherer extends Gatherer {
 	
 	public void addProcess(ProcessData process){
 		this.processes.add(process);
+	}
+
+	@Override
+	public void updateGUI() {
+		// TODO Auto-generated method stub
+		
 	}
 }

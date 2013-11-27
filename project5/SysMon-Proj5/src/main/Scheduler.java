@@ -31,14 +31,9 @@ public class Scheduler extends Thread {
 			// Wait for the specified timeout
 			delay();
 			
-			// Dispatch each harvester to collect data/update gui.
-			
-			// For those unfamiliar with Java, this is the equivalent of
-			// a for-each loop... For each Harvester h in Tasks...do...
-			// for (Harvester h : Tasks)
-			// {
-			// 	 h.collect();
-			// }
+			for(Gatherer gatherer: tasks){
+				gatherer.run();
+			}
 		}
 	}
 	

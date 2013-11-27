@@ -1,8 +1,12 @@
 package main;
 
+import gui.SystemMonitorWindow;
+
 public abstract class Gatherer extends Thread {
 
 	private int delay;
+	SystemMonitorWindow gui;
+	
 	abstract void getInformation();
 	
 	@Override
@@ -21,4 +25,6 @@ public abstract class Gatherer extends Thread {
 	public void setDelay(int delay) {
 		this.delay = delay;
 	}
+	
+	public abstract void updateGUI();
 }

@@ -1,5 +1,8 @@
 package main;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import gui.SystemMonitorWindow;
 
 public class SystemMonitor {
@@ -13,6 +16,5 @@ public class SystemMonitor {
 	{
 
 		SystemMonitorWindow mySysMon = new SystemMonitorWindow();
-		
 	}
 }

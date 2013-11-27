@@ -3,6 +3,8 @@
  */
 package main;
 
+import gui.SystemMonitorWindow;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -23,8 +25,9 @@ public class CPUGatherer extends Gatherer {
 	private int numOfCPUs;
 	private BufferedReader reader;
 	
-	public CPUGatherer(){
+	public CPUGatherer(SystemMonitorWindow gui){
 		super.setDelay(250);
+		super.gui = gui;
 	}
 	
 	public CPUData parseData(String line){
@@ -178,5 +181,11 @@ public class CPUGatherer extends Gatherer {
 	 */
 	public void setNumOfCPUs(int numOfCPUs) {
 		this.numOfCPUs = numOfCPUs;
+	}
+
+	@Override
+	public void updateGUI() {
+		// TODO Auto-generated method stub
+		
 	}
 }
