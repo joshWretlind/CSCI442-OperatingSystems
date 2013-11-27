@@ -30,9 +30,8 @@ public class ProcessGatherer extends Gatherer {
 		while(true){
 			getInformation();
 			try {
-				wait(super.getDelay());
+				wait();
 			} catch (InterruptedException ie) {
-				ie.printStackTrace();
 			}
 		}
 	}

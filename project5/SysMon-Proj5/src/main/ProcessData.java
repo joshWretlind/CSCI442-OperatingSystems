@@ -3,7 +3,10 @@ package main;
 public class ProcessData {
 	private int pid;
 	private String name;
-	private String state;
+	enum ProcessState{
+		Running, Sleeping, Zombie, Dead, DiskSleep, Stopped, TracingStoped
+	};
+	private ProcessState processState;
 	private int numOfThreads;
 	private String volCText;
 	private String nonVolCText;
@@ -35,20 +38,6 @@ public class ProcessData {
 	 */
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	/**
-	 * @return the state
-	 */
-	public String getState() {
-		return state;
-	}
-
-	/**
-	 * @param state the state to set
-	 */
-	public void setState(String state) {
-		this.state = state;
 	}
 
 	/**
@@ -91,5 +80,19 @@ public class ProcessData {
 	 */
 	public void setNonVolCText(String nonVolCText) {
 		this.nonVolCText = nonVolCText;
+	}
+
+	/**
+	 * @return the processState
+	 */
+	public ProcessState getProcessState() {
+		return processState;
+	}
+
+	/**
+	 * @param processState the processState to set
+	 */
+	public void setProcessState(ProcessState processState) {
+		this.processState = processState;
 	}
 }
