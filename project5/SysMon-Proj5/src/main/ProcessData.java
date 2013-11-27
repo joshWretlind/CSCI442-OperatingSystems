@@ -1,15 +1,18 @@
 package main;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ProcessData {
 	private int pid;
 	private String name;
 	enum ProcessState{
-		Running, Sleeping, Zombie, Dead, DiskSleep, Stopped, TracingStoped
+		Running, Sleeping, Zombie, DiskSleep, Paging, TracingStoped
 	};
 	private ProcessState processState;
 	private int numOfThreads;
-	private String volCText;
-	private String nonVolCText;
+	private int volCText;
+	private int nonVolCText;
 	
 	
 	/**
@@ -57,28 +60,28 @@ public class ProcessData {
 	/**
 	 * @return the volCText
 	 */
-	public String getVolCText() {
+	public int getVolCText() {
 		return volCText;
 	}
 
 	/**
 	 * @param volCText the volCText to set
 	 */
-	public void setVolCText(String volCText) {
+	public void setVolCText(int volCText) {
 		this.volCText = volCText;
 	}
 
 	/**
 	 * @return the nonVolCText
 	 */
-	public String getNonVolCText() {
+	public int getNonVolCText() {
 		return nonVolCText;
 	}
 
 	/**
 	 * @param nonVolCText the nonVolCText to set
 	 */
-	public void setNonVolCText(String nonVolCText) {
+	public void setNonVolCText(int nonVolCText) {
 		this.nonVolCText = nonVolCText;
 	}
 
@@ -94,5 +97,17 @@ public class ProcessData {
 	 */
 	public void setProcessState(ProcessState processState) {
 		this.processState = processState;
+	}
+	
+	public String[] toStringCollection(){
+		List<String> valuesInObject = new ArrayList<String>();
+		
+		valuesInObject.add(Integer.toString(this.pid));
+		valuesInObject.add(this.getProcessState().toString());
+		valuesInObject.add(Integer.toString(this.numOfThreads));
+		valuesInObject.add(Integer.toString(this.volCText));
+		valuesInObject.add(Integer.toString(this.nonVolCText));
+		
+		return (String[]) valuesInObject.toArray();
 	}
 }

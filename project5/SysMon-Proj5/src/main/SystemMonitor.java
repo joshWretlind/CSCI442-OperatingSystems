@@ -1,7 +1,5 @@
 package main;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import gui.SystemMonitorWindow;
 
@@ -16,12 +14,18 @@ public class SystemMonitor {
 	{
 
 		SystemMonitorWindow mySysMon = new SystemMonitorWindow();
-		Scheduler cpuAndMemoryScheduler = new Scheduler(250)
+		
+		
+		 Scheduler cpuAndMemoryScheduler = new Scheduler(250) 
 									.withTask(new MemoryGatherer(mySysMon))
 									.withTask(new CPUGatherer(mySysMon));
-		Scheduler processScheduler = new Scheduler(500)
+		 
+		Scheduler processScheduler = new Scheduler(5000)
 		                            .withTask(new ProcessGatherer(mySysMon));
+		
 		cpuAndMemoryScheduler.start();
 		processScheduler.start();
+		
+		
 	}
 }

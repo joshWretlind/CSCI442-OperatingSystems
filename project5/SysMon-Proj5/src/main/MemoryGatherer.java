@@ -28,7 +28,7 @@ public class MemoryGatherer extends Gatherer {
 	
 	public void parseData(String line){
 		Pattern totalMemoryPattern = Pattern.compile("MemTotal: *[0-9]*");
-		Pattern numberPattern = Pattern.compile("[0-9]*");
+		Pattern numberPattern = Pattern.compile("[0-9].*");
 		
 		Matcher totalMemoryMatcher = totalMemoryPattern.matcher(line);
 		if(totalMemoryMatcher.matches()){
@@ -139,7 +139,6 @@ public class MemoryGatherer extends Gatherer {
 		try {
 			reader = new BufferedReader(new FileReader("/proc/meminfo"));
 			String line = reader.readLine();
-			int i = 0;
 			memoryData = new MemoryData();
 			
 			while(line != null){
@@ -148,13 +147,13 @@ public class MemoryGatherer extends Gatherer {
 			}
 			
 			gui.updateMemoryInfo(memoryData.getTotalRam(),
-					                             memoryData.getFreeRam(),
-					                             memoryData.getActiveRam(),
-					                             memoryData.getInactiveRam(),
-					                             memoryData.getTotalSwap(),
-					                             memoryData.getFreeSwap(),
-					                             memoryData.getNumOfDirtyPages(),
-					                             memoryData.getWriteBack());
+					             memoryData.getFreeRam(),
+			                     memoryData.getActiveRam(),
+					             memoryData.getInactiveRam(),
+				                 memoryData.getTotalSwap(),
+				                 memoryData.getFreeSwap(),
+				                 memoryData.getNumOfDirtyPages(),
+				                 memoryData.getWriteBack());
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
