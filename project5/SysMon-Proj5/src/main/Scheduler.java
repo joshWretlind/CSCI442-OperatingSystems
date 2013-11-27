@@ -26,17 +26,18 @@ public class Scheduler extends Thread {
 	
 	public void run()
 	{
+		for(Gatherer gatherer: tasks){
+			gatherer.start();				
+		}
 		while (true)
 		{
-			
-			for(Gatherer gatherer: tasks){
-				synchronized (gatherer){
-					gatherer.run();
-				}
-			}
 			// Wait for the specified timeout
 			delay();
-			this.notifyAll();
+			for(Gatherer gatherer: tasks){
+				synchronized(gatherer){
+					gatherer.notifyAll();
+				}
+			}
 			
 		}
 	}

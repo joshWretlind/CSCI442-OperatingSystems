@@ -19,7 +19,7 @@ public class SystemMonitor {
 		Scheduler cpuAndMemoryScheduler = new Scheduler(250)
 									.withTask(new MemoryGatherer(mySysMon))
 									.withTask(new CPUGatherer(mySysMon));
-		Scheduler processScheduler = new Scheduler(5000)
+		Scheduler processScheduler = new Scheduler(500)
 		                            .withTask(new ProcessGatherer(mySysMon));
 		cpuAndMemoryScheduler.start();
 		processScheduler.start();

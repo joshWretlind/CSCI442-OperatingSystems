@@ -25,11 +25,11 @@ public class ProcessGatherer extends Gatherer {
 	 */
 	@Override
 	public void getInformation(){
-		
+		System.out.println("ProcessGather running");
 	}
 
 	@Override
-	public void run(){
+	public synchronized  void run(){
 		while(true){
 			getInformation();
 			try {
