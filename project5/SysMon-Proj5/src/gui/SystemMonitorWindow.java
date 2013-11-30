@@ -53,7 +53,7 @@ public class SystemMonitorWindow extends JFrame implements ActionListener{
 	 * 
 	 * @param data
 	 */
-	public void addRowToProcList(String[] data)
+	public synchronized void addRowToProcList(String[] data)
 	{
 		TableData.addRow(data);
 	}
@@ -61,7 +61,7 @@ public class SystemMonitorWindow extends JFrame implements ActionListener{
 	/**
 	 * Removes all rows from the process list JTable.
 	 */
-	public void removeAllRowsFromProcList()
+	public synchronized void removeAllRowsFromProcList()
 	{
 		while (TableData.getRowCount() >= 1){
 			TableData.removeRow(0);
@@ -83,7 +83,7 @@ public class SystemMonitorWindow extends JFrame implements ActionListener{
 	 * @param dirtyPages The dirty pages
 	 * @param writeback The writeback
 	 */
-	public void updateMemoryInfo(int totalMem, int memFree, int memActive, int memInactive, int swapTotal, int swapFree, int dirtyPages, int writeback)
+	public synchronized void updateMemoryInfo(int totalMem, int memFree, int memActive, int memInactive, int swapTotal, int swapFree, int dirtyPages, int writeback)
 	{
 		MemoryLabels[0].setText("Memory Total: " + totalMem + " KB");
 		MemoryLabels[1].setText("Memory Free: "+ memFree + " KB");

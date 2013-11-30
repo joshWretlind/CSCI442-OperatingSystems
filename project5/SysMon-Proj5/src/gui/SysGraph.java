@@ -73,7 +73,7 @@ public class SysGraph extends JComponent {
 	 * This begins at index 0, not 1.
 	 * @param value The data point value
 	 */
-	public void addDataPoint(int lineNum, int value)
+	public synchronized void addDataPoint(int lineNum, int value)
 	{
 		while ((DataPoints.get(lineNum)).size() >= this.uIntVal + 1)
 		{
@@ -116,7 +116,7 @@ public class SysGraph extends JComponent {
 	/* (non-Javadoc)
 	 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
 	 */
-	protected void paintComponent(Graphics g)
+	protected synchronized void paintComponent(Graphics g)
 	{
 		// Here's where we draw the pretty graph!
 		
