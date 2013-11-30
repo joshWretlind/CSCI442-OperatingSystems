@@ -60,7 +60,7 @@ public class SysGraph extends JComponent {
 	 * 
 	 * @param updateIntervalMS
 	 */
-	public void setUInt(int updateIntervalMS)
+	public synchronized void setUInt(int updateIntervalMS)
 	{
 		this.uIntVal = (int)((double)this.xMax / (updateIntervalMS/1000.0));
 	}
