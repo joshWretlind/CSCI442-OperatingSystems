@@ -13,15 +13,13 @@ public class SystemMonitor {
 	public static void main (String[] args)
 	{
 
-		SystemMonitorWindow mySysMon = new SystemMonitorWindow();
+		SystemMonitorWindow mySysMon = new SystemMonitorWindow(8);
 		
-		
-		 Scheduler cpuAndMemoryScheduler = new Scheduler(250) 
-									.withTask(new MemoryGatherer(mySysMon))
-									.withTask(new CPUGatherer(mySysMon));
-		 
+		Scheduler cpuAndMemoryScheduler = new Scheduler(250) 
+							           	  .withTask(new MemoryGatherer(mySysMon))
+								          .withTask(new CPUGatherer(mySysMon));
 		Scheduler processScheduler = new Scheduler(5000)
-		                            .withTask(new ProcessGatherer(mySysMon));
+		                                 .withTask(new ProcessGatherer(mySysMon));
 		
 		cpuAndMemoryScheduler.start();
 		processScheduler.start();

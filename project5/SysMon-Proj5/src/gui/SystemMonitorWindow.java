@@ -34,13 +34,16 @@ public class SystemMonitorWindow extends JFrame implements ActionListener{
 	private DefaultTableModel TableData;
 	
 	
+	public DefaultTableModel getProcTable(){
+		return this.TableData;
+	}
 	/**
 	 * A getter function for the CPU graph.  Your threads can use this
 	 * to add data points to the CPU graph.
 	 * 
 	 * @return The CPUGraph associated with this SystemMonitorWindow
 	 */
-	public SysGraph getCPUGraph()
+	public synchronized SysGraph getCPUGraph()
 	{
 		return CPUGraph;
 	}
@@ -63,11 +66,15 @@ public class SystemMonitorWindow extends JFrame implements ActionListener{
 	 */
 	public synchronized void removeAllRowsFromProcList()
 	{
-		while (TableData.getRowCount() >= 1){
-			TableData.removeRow(0);
-		}
 
-		TableData.fireTableDataChanged();
+		   int rowCount= TableData.getRowCount();
+
+		  // System.out.println(rowCount);
+
+		   for(int i=0;i<rowCount;i++ ){
+		        TableData.removeRow(0);
+		        //System.out.println(i);
+		   }
 	}
 	
 	
@@ -97,7 +104,11 @@ public class SystemMonitorWindow extends JFrame implements ActionListener{
 	
 	
 	// Default constructor
-	public SystemMonitorWindow()
+	/**
+	 * Default Constructor for the system monitor
+	 * @param numOfCPUs
+	 */
+	public SystemMonitorWindow(int numOfCPUs)
 	{
 		this.setTitle("Linux System Monitor");
 		this.setSize(600, 500);
@@ -122,7 +133,7 @@ public class SystemMonitorWindow extends JFrame implements ActionListener{
 		
 		// Creating the System Graph.  Don't forget that you need to make the number
 		// of lines dynamic, I'd recommend passing in a variable.
-		CPUGraph = new SysGraph(0, 60, 0, 100, 5, 500);
+		CPUGraph = new SysGraph(0, 60, 0, 100, numOfCPUs, 500);
 		CPUGraph.setBorder(BorderFactory.createTitledBorder("CPU/Memory Usage"));
 		WindowPanel.add(CPUGraph);
 		
@@ -175,7 +186,7 @@ public class SystemMonitorWindow extends JFrame implements ActionListener{
 	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 	 */
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
+	public synchronized void actionPerformed(ActionEvent arg0) {
 		// This function handles our menu click event.  My code here is based off of how I implemented
 		// the interval code, if you do it differently, make appropriate changes.
 		JMenuItem j = (JMenuItem)arg0.getSource();

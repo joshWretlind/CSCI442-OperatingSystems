@@ -27,8 +27,8 @@ public class MemoryGatherer extends Gatherer {
 	}
 	
 	public void parseData(String line){
-		Pattern totalMemoryPattern = Pattern.compile("MemTotal: *[0-9]*");
-		Pattern numberPattern = Pattern.compile("[0-9].*");
+		Pattern totalMemoryPattern = Pattern.compile("MemTotal:.*");
+		Pattern numberPattern = Pattern.compile("[0-9][0-9]*");
 		
 		Matcher totalMemoryMatcher = totalMemoryPattern.matcher(line);
 		if(totalMemoryMatcher.matches()){
@@ -145,7 +145,6 @@ public class MemoryGatherer extends Gatherer {
 				parseData(line);
 				line = reader.readLine();
 			}
-			
 			gui.updateMemoryInfo(memoryData.getTotalRam(),
 					             memoryData.getFreeRam(),
 			                     memoryData.getActiveRam(),
@@ -165,9 +164,12 @@ public class MemoryGatherer extends Gatherer {
 	}
 	
 	@Override
-	public void run(){
+	public synchronized void run(){
 		while(true){
-			getInformation();
+			synchronized(gui){
+				getInformation();
+				gui.repaint();
+			}
 			try{
 				wait();
 			} catch(InterruptedException ie){

@@ -24,10 +24,11 @@ public class Scheduler extends Thread {
 		} catch (InterruptedException e) {}
 	}
 	
-	public void run()
+	public synchronized void run()
 	{
 		for(Gatherer gatherer: tasks){
-			gatherer.start();				
+				gatherer.start();		
+			
 		}
 		while (true)
 		{
@@ -36,6 +37,7 @@ public class Scheduler extends Thread {
 			for(Gatherer gatherer: tasks){
 				synchronized(gatherer){
 					gatherer.notifyAll();
+					
 				}
 			}
 			

@@ -116,7 +116,7 @@ public class SysGraph extends JComponent {
 	/* (non-Javadoc)
 	 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
 	 */
-	protected synchronized void paintComponent(Graphics g)
+	protected void paintComponent(Graphics g)
 	{
 		// Here's where we draw the pretty graph!
 		

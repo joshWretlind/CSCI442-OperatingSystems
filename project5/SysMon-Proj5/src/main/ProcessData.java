@@ -100,14 +100,14 @@ public class ProcessData {
 	}
 	
 	public String[] toStringCollection(){
-		List<String> valuesInObject = new ArrayList<String>();
+		String[] values = new String[6];
+		values[0] = this.name;
+		values[1] = Integer.toString(this.pid);
+		values[2] = this.processState.name();
+		values[3] = Integer.toString(this.numOfThreads);
+		values[4] = Integer.toString(this.volCText);
+		values[5] = Integer.toString(this.nonVolCText);
 		
-		valuesInObject.add(Integer.toString(this.pid));
-		valuesInObject.add(this.getProcessState().toString());
-		valuesInObject.add(Integer.toString(this.numOfThreads));
-		valuesInObject.add(Integer.toString(this.volCText));
-		valuesInObject.add(Integer.toString(this.nonVolCText));
-		
-		return (String[]) valuesInObject.toArray();
+		return values;
 	}
 }

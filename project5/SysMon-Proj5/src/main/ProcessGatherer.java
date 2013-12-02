@@ -42,22 +42,21 @@ public class ProcessGatherer extends Gatherer {
 				Matcher stateMatcher = statePattern.matcher(line);
 				
 				if(stateMatcher.find()){
-					Pattern enumStatePattern = Pattern.compile(" . ");
-					Matcher enumStateMatcher = enumStatePattern.matcher(line);
-					enumStateMatcher.find();
-					String substr = line.substring(enumStateMatcher.start(), enumStateMatcher.end());
-					if(substr.equalsIgnoreCase(" S ")){
+					String substr = line.substring(stateMatcher.start(), stateMatcher.end());
+					if(substr.equalsIgnoreCase("(sleeping)")){
 						procData.setProcessState(ProcessState.Sleeping);
-					} else if(substr.equalsIgnoreCase(" R ")){
+					} else if(substr.equalsIgnoreCase("(running)")){
 						procData.setProcessState(ProcessState.Running);
-					} else if(substr.equalsIgnoreCase(" Z ")){
+					} else if(substr.equalsIgnoreCase("(zombie)")){
 						procData.setProcessState(ProcessState.Zombie);
 					} else if(substr.equalsIgnoreCase(" T ")){
 						procData.setProcessState(ProcessState.TracingStoped);
 					} else if(substr.equalsIgnoreCase(" D ")){
 						procData.setProcessState(ProcessState.DiskSleep);
-					} else if(substr.equalsIgnoreCase(" W ")){
+					} else if(substr.equalsIgnoreCase("(paging)")){
 						procData.setProcessState(ProcessState.Paging);
+					} else {
+						procData.setProcessState(ProcessState.Running);
 					}
 					
 				}
@@ -66,18 +65,18 @@ public class ProcessGatherer extends Gatherer {
 				Matcher nameMatcher = namePattern.matcher(line);
 				
 				if(nameMatcher.find()){
-					Pattern nameStringPattern = Pattern.compile("[[:blank:]][A-Za-z].*");
+					Pattern nameStringPattern = Pattern.compile(":.*[a-zA-Z].*");
 					Matcher nameStringMatcher = nameStringPattern.matcher(line);
 					if(nameStringMatcher.find()){
-						procData.setName(line.substring(nameStringMatcher.start(), nameStringMatcher.end()));
+						procData.setName(line.substring(nameStringMatcher.start() + 1, nameStringMatcher.end()));
 					}
 				}
 				
-				Pattern threadLinePattern = Pattern.compile("Thread:");
+				Pattern threadLinePattern = Pattern.compile("Threads:.*");
 				Matcher threadLineMatcher = threadLinePattern.matcher(line);
 				
 				if(threadLineMatcher.find()){
-					Pattern threadNumberPattern = Pattern.compile("[0-9].*");
+					Pattern threadNumberPattern = Pattern.compile("[0-9][0-9]*");
 					Matcher threadNumberMatcher = threadNumberPattern.matcher(line);
 					while(threadNumberMatcher.find()){
 						if(threadNumberMatcher.end() != threadNumberMatcher.start()){
@@ -105,11 +104,12 @@ public class ProcessGatherer extends Gatherer {
 					}
 				}
 				
-				
+				line = statusReader.readLine();
+
 			}
 			statusReader.close();
+			//gui.addRowToProcList(procData.toStringCollection());
 			
-			gui.addRowToProcList(procData.toStringCollection());
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -117,6 +117,8 @@ public class ProcessGatherer extends Gatherer {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch(Exception e) {
+			
 		}
 		
 		
@@ -138,13 +140,20 @@ public class ProcessGatherer extends Gatherer {
 				}
 			}
 		}
+		for(ProcessData proc: processes){
+			gui.addRowToProcList(proc.toStringCollection());
+		}
+		
 	}
 
 	@Override
 	public synchronized  void run(){
 		while(true){
-			gui.removeAllRowsFromProcList();
-			getInformation();
+			synchronized(gui){
+				gui.removeAllRowsFromProcList();
+				getInformation();
+				gui.repaint();
+			}
 			try {
 				wait();
 			} catch (InterruptedException ie) {

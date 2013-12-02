@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
 public class CPUGatherer extends Gatherer {
 	
 	private List<List<CPUData>> cpuData = new ArrayList<List<CPUData>>();
-	private List<Double> cpuUsagePercentageList;
+	private List<Double> cpuUsagePercentageList = new ArrayList<Double>();
 	private int numOfCPUs;
 	private BufferedReader reader;
 	
@@ -33,29 +33,30 @@ public class CPUGatherer extends Gatherer {
 	public CPUData parseData(String line){
 		Pattern cpuPattern = Pattern.compile("cpu[0-9]");
 		Matcher cpuMatcher = cpuPattern.matcher(line);
-		while(cpuMatcher.matches()){
+		while(cpuMatcher.find()){
 			CPUData usageData = new CPUData();
 			Pattern usagePattern = Pattern.compile(" [0-9]*");
 			Matcher usageMatcher = usagePattern.matcher(line);
 			int i = 0;
+			//System.out.println(cpuMatches.)
 			while(usageMatcher.find()){
 				if(i < 4){
 					switch (i){
 						case 0:
 							usageData.setUserModeTime(
-									new Integer(line.substring(usageMatcher.start(), usageMatcher.end())) );
+									new Integer(line.substring(usageMatcher.start() + 1, usageMatcher.end())) );
 							break;
 						case 1:
 							usageData.setUserIdleTime(
-									new Integer(line.substring(usageMatcher.start(), usageMatcher.end())) );
+									new Integer(line.substring(usageMatcher.start() + 1, usageMatcher.end())) );
 							break;
 						case 2:
 							usageData.setSystemModeTime(
-									new Integer(line.substring(usageMatcher.start(), usageMatcher.end())) );
+									new Integer(line.substring(usageMatcher.start() + 1, usageMatcher.end())) );
 							break;
 						case 3:
 							usageData.setIdleTaskTime(
-									new Integer(line.substring(usageMatcher.start(), usageMatcher.end())) );
+									new Integer(line.substring(usageMatcher.start() + 1, usageMatcher.end())) );
 							break;
 					}
 				}
@@ -76,17 +77,16 @@ public class CPUGatherer extends Gatherer {
 			while(line != null){
 				CPUData data = parseData(line);
 				line = reader.readLine();
-				if(data == null){
-					break;
-				}
-				if(cpuData.size() < i){
+				if(data != null){
+				
+				if(cpuData.size() <= i){
 					List<CPUData> listOfData = new ArrayList<CPUData>();
 					listOfData.add(data);
 					addNewCPUsData(listOfData);
 				} else {
 					addNewDataToACPU(i,data);
 					double cpuUsage = calculateCPUUsage(i);
-					if(cpuUsagePercentageList.size() < i){
+					if(cpuUsagePercentageList.size() <= i){
 						cpuUsagePercentageList.add(cpuUsage);
 					} else {
 						cpuUsagePercentageList.set(i, cpuUsage);
@@ -95,6 +95,7 @@ public class CPUGatherer extends Gatherer {
 				}
 				
 				i++;
+				}
 			}
 			this.setNumOfCPUs(i);
 			
@@ -115,11 +116,14 @@ public class CPUGatherer extends Gatherer {
 	}
 	
 	@Override
-	public void run(){
+	public synchronized void run(){
 		while(true){
-			getInformation();
+			synchronized(gui){
+				getInformation();
+				gui.repaint();
+			}
 			try {
-				wait();
+				this.wait();
 			} catch (InterruptedException ie) {
 			}
 		}
@@ -168,7 +172,6 @@ public class CPUGatherer extends Gatherer {
 		double numerator = (dataPoint2.getUserModeTime() - dataPoint1.getUserModeTime());
 		numerator += (dataPoint2.getUserIdleTime() - dataPoint1.getUserIdleTime());
 		numerator += (dataPoint2.getSystemModeTime() - dataPoint1.getSystemModeTime());
-		
 		return (numerator / (numerator + (dataPoint2.getIdleTaskTime() - dataPoint1.getIdleTaskTime())));
 	}
 
