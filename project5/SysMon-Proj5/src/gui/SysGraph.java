@@ -201,9 +201,9 @@ public class SysGraph extends JComponent {
 					g2.drawRect(x+100*i, newy, 20, 10);
 					String prefix = "CPU" + (i+1);
 					
-					// We assume the last series to be RAM for our application.
+					/*// We assume the last series to be RAM for our application.
 					if (DataPoints.size() > 1 && i == DataPoints.size()-1)
-						prefix = "RAM";
+						prefix = "RAM"; */
 					if (DataPoints.get(i).size() > 0)
 						g2.drawString(prefix + " " + DataPoints.get(i).get(DataPoints.get(i).size()-1)+"%", x+22+100*i, newy+10);
 			

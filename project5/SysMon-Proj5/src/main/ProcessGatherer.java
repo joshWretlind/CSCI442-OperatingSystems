@@ -160,7 +160,13 @@ public class ProcessGatherer extends Gatherer {
 	 */
 	@Override
 	public void getInformation(){
-		Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {public void uncaughtException(Thread t, Throwable e) {}});
+		Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+			public void uncaughtException(Thread t, Throwable e) {
+				if(e instanceof NullPointerException){
+					e.printStackTrace();
+				}
+			}
+		});
 		File procDir = new File("/proc");
 		processes = new ArrayList<ProcessData>();
 		for(File f : procDir.listFiles()){
@@ -173,6 +179,10 @@ public class ProcessGatherer extends Gatherer {
 			}
 		}
 		for(ProcessData proc: processes){
+			if(proc.getProcessState() == null){
+				System.out.println("Null process: " + proc.getName());
+				System.out.println("Null Process: " + proc.getPid());
+			}
 			gui.addRowToProcList(proc.toStringCollection());
 		}
 		

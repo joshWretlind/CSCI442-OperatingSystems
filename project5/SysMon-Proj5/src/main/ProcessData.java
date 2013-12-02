@@ -108,6 +108,9 @@ public class ProcessData {
 		String[] values = new String[9];
 		values[0] = this.name;
 		values[1] = Integer.toString(this.pid);
+		if(this.processState == null){
+			this.processState = ProcessState.Running;
+		}
 		values[2] = this.processState.name();
 		values[3] = Integer.toString(this.numOfThreads);
 		values[4] = Integer.toString(this.volCText);
