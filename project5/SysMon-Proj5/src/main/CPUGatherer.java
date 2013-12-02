@@ -25,11 +25,20 @@ public class CPUGatherer extends Gatherer {
 	private int numOfCPUs;
 	private BufferedReader reader;
 	
+	/**
+	 * The constructor for a CPUGatherer
+	 * @param gui the gui to place our data into
+	 */
 	public CPUGatherer(SystemMonitorWindow gui){
 		super.setDelay(250);
 		super.gui = gui;
 	}
 	
+	/**
+	 * Extracts CPUData from a input line
+	 * @param line the line to parse data from
+	 * @return a CPUData object with its fields filled in
+	 */
 	public CPUData parseData(String line){
 		Pattern cpuPattern = Pattern.compile("cpu[0-9]");
 		Matcher cpuMatcher = cpuPattern.matcher(line);
@@ -68,6 +77,9 @@ public class CPUGatherer extends Gatherer {
 		return null;
 	}
 	
+	/**
+	 * This reads through a process's stats, puts it into a list, and then adds the lists to the appropriate spot in the gui
+	 */
 	@Override
 	void getInformation(){
 		try {
@@ -100,16 +112,13 @@ public class CPUGatherer extends Gatherer {
 			this.setNumOfCPUs(i);
 			
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			try {
 				reader.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -143,10 +152,19 @@ public class CPUGatherer extends Gatherer {
 		this.cpuData = cpuData;
 	}
 	
+	/**
+	 * Adds a new CPU's data to the cpu list
+	 * @param newCPUData
+	 */
 	public void addNewCPUsData(List<CPUData>  newCPUData){
 		cpuData.add(newCPUData);
 	}
 	
+	/**
+	 * Adds a new data point to a specific cpu's data
+	 * @param whichCPUToAddDataTo whichever cpu we need to add the data to
+	 * @param data the data to add
+	 */
 	public void addNewDataToACPU(int whichCPUToAddDataTo, CPUData data){
 		cpuData.get(whichCPUToAddDataTo).add(data);
 	}
@@ -165,6 +183,11 @@ public class CPUGatherer extends Gatherer {
 		this.cpuUsagePercentageList = cpuUsagePercentageList;
 	}
 	
+	/**
+	 * Calculates the cpu's usage for a specific cpu
+	 * @param whichCPUToCalculcateFor which cpu to calculate for
+	 * @return the calculated cpu data
+	 */
 	public double calculateCPUUsage(int whichCPUToCalculcateFor){
 		List<CPUData> dataList = cpuData.get(whichCPUToCalculcateFor);
 		CPUData dataPoint1 = dataList.get(dataList.size() - 1);
@@ -191,7 +214,6 @@ public class CPUGatherer extends Gatherer {
 
 	@Override
 	public void updateGUI() {
-		// TODO Auto-generated method stub
 		
 	}
 }

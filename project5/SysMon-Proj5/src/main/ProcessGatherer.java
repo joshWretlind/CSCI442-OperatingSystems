@@ -23,12 +23,19 @@ public class ProcessGatherer extends Gatherer {
 	
 	/**
 	 * Constructor for a processGatherer thread
+	 * @param gui the gui to update with our info
 	 */
 	public ProcessGatherer(SystemMonitorWindow gui){
 		super.setDelay(5000);
 		super.gui = gui;
+	    
 	}
 	
+	/**
+	 * This method basically extracts data from a /proc/<pid> directory and puts it into a process data object
+	 * @param dir the directiory file object for the process that we've found
+	 * @return a ProcessData object with its feilds filled in
+	 */
 	public ProcessData getProcessData(File dir){
 		ProcessData procData = new ProcessData();
 		procData.setPid(new Integer(dir.getName()));
@@ -108,14 +115,10 @@ public class ProcessGatherer extends Gatherer {
 
 			}
 			statusReader.close();
-			//gui.addRowToProcList(procData.toStringCollection());
-			
 			
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch(Exception e) {
 			
@@ -126,11 +129,13 @@ public class ProcessGatherer extends Gatherer {
 		return procData;
 	}
 	/**
-	 * This process fills in the data for this process
+	 * This process finds all of the processes, puts them into a list, and adds them to the gui
 	 */
 	@Override
 	public void getInformation(){
+		Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {public void uncaughtException(Thread t, Throwable e) {}});
 		File procDir = new File("/proc");
+		processes = new ArrayList<ProcessData>();
 		for(File f : procDir.listFiles()){
 			if(f.isDirectory()){
 				Pattern pidPattern = Pattern.compile("/proc/[0-9].*");
@@ -152,7 +157,6 @@ public class ProcessGatherer extends Gatherer {
 			synchronized(gui){
 				gui.removeAllRowsFromProcList();
 				getInformation();
-				gui.repaint();
 			}
 			try {
 				wait();
@@ -175,13 +179,20 @@ public class ProcessGatherer extends Gatherer {
 		this.processes = processes;
 	}
 	
+	/**
+	 * Add a process' data to the process list
+	 * @param process process data to add to the list
+	 */
 	public void addProcess(ProcessData process){
 		this.processes.add(process);
 	}
 
+	
 	@Override
 	public void updateGUI() {
-		// TODO Auto-generated method stub
 		
 	}
+	
+
+
 }

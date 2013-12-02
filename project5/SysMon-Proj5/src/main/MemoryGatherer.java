@@ -21,11 +21,19 @@ public class MemoryGatherer extends Gatherer {
 	BufferedReader reader;
 	MemoryData memoryData;
 	
+	/**
+	 * The constructor for a memoryGatherer object
+	 * @param gui
+	 */
 	public MemoryGatherer(SystemMonitorWindow gui){
 		super.setDelay(250);
 		super.gui = gui;
 	}
 	
+	/**
+	 * Extracts a information about memory from a line of a file
+	 * @param line the line to parse information from
+	 */
 	public void parseData(String line){
 		Pattern totalMemoryPattern = Pattern.compile("MemTotal:.*");
 		Pattern numberPattern = Pattern.compile("[0-9][0-9]*");
@@ -134,6 +142,9 @@ public class MemoryGatherer extends Gatherer {
 		}
 	}
 	
+	/**
+	 * Fills in all of the information for a memoryData object, updates the gui with the information
+	 */
 	@Override
 	void getInformation(){
 		try {
@@ -154,10 +165,8 @@ public class MemoryGatherer extends Gatherer {
 				                 memoryData.getNumOfDirtyPages(),
 				                 memoryData.getWriteBack());
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -179,7 +188,6 @@ public class MemoryGatherer extends Gatherer {
 
 	@Override
 	public void updateGUI() {
-		// TODO Auto-generated method stub
 		
 	}
 	

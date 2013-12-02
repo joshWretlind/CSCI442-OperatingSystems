@@ -59,6 +59,7 @@ public class SystemMonitorWindow extends JFrame implements ActionListener{
 	public synchronized void addRowToProcList(String[] data)
 	{
 		TableData.addRow(data);
+		TableData.fireTableDataChanged();
 	}
 	
 	/**
@@ -75,6 +76,8 @@ public class SystemMonitorWindow extends JFrame implements ActionListener{
 		        TableData.removeRow(0);
 		        //System.out.println(i);
 		   }
+		   TableData.fireTableDataChanged();
+		   
 	}
 	
 	
