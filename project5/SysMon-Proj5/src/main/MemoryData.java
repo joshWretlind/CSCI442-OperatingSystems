@@ -4,6 +4,7 @@
 package main;
 
 /**
+ * This is a container object for the memory data which we gather
  * @author Josh Wretlind
  *
  */

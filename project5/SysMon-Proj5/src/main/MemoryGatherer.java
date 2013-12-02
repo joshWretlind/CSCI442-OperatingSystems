@@ -36,7 +36,6 @@ public class MemoryGatherer extends Gatherer {
 	 */
 	public void parseData(String line){
 		Pattern totalMemoryPattern = Pattern.compile("MemTotal:.*");
-		Pattern numberPattern = Pattern.compile("[0-9][0-9]*");
 		
 		Matcher totalMemoryMatcher = totalMemoryPattern.matcher(line);
 		if(totalMemoryMatcher.matches()){

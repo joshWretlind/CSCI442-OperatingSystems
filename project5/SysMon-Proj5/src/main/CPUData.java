@@ -4,6 +4,7 @@
 package main;
 
 /**
+ * This class is the object type for the CPU data that we collect from the CPUGatherer
  * @author Josh wretlind
  *
  */

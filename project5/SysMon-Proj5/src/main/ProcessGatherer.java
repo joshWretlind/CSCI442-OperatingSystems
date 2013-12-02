@@ -63,7 +63,6 @@ public class ProcessGatherer extends Gatherer {
 					} else if(substr.equalsIgnoreCase("(dead)")){
 						procData.setProcessState(ProcessState.Dead);
 					} else {
-						System.out.println("Issue with finding state, " + substr);
 						procData.setProcessState(ProcessState.Running);
 					}
 					
@@ -109,6 +108,33 @@ public class ProcessGatherer extends Gatherer {
 								procData.setNonVolCText(new Integer(line.substring(vountaryCTextSwitchesNumberMatcher.start(), vountaryCTextSwitchesNumberMatcher.end())));
 							}
 						}
+					}
+				}
+				
+				Pattern programSizePattern = Pattern.compile("VmSize:.*");
+				Matcher programSizeMatcher = programSizePattern.matcher(line);
+				if(programSizeMatcher.find()){
+					Matcher programSizeNumber = numberPattern.matcher(line);
+					if(programSizeNumber.find()){
+						procData.setProgramSize(new Integer(line.substring(programSizeNumber.start(), programSizeNumber.end())));
+					}
+				}
+				
+				Pattern maxSizePattern = Pattern.compile("VmPeak:.*");
+				Matcher maxSizeMatcher = maxSizePattern.matcher(line);
+				if(maxSizeMatcher.find()){
+					Matcher maxSizeNumber = numberPattern.matcher(line);
+					if(maxSizeNumber.find()){
+						procData.setMaxProgramSize(new Integer(line.substring(maxSizeNumber.start(), maxSizeNumber.end())));
+					}
+				}
+				
+				Pattern parentPidPattern = Pattern.compile("PPid:.*");
+				Matcher parentPidMatcher = parentPidPattern.matcher(line);
+				if(parentPidMatcher.find()){
+					Matcher parentPidNumber = numberPattern.matcher(line);
+					if(parentPidNumber.find()){
+						procData.setParentPid(new Integer(line.substring(parentPidNumber.start(), parentPidNumber.end())));
 					}
 				}
 				

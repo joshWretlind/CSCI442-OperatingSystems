@@ -167,8 +167,8 @@ public class SystemMonitorWindow extends JFrame implements ActionListener{
 		ProcInfo.setBorder(BorderFactory.createTitledBorder("Process Information"));
 
 		// Initializing the Table to hold our data for proc info.
-		String[] columnNames = {"Name", "pid", "State", "# Threads", "Vol ctxt sw", "nonVol ctxt sw"};
-		String[][] data = {{"N/A", "N/A", "N/A", "N/A", "N/A", "N/A"}};
+		String[] columnNames = {"Name", "pid", "State", "# Threads", "Vol ctxt sw", "nonVol ctxt sw", "vm size(kB)", "max vm size(kB)","parent pid"};
+		String[][] data = {{"N/A", "N/A", "N/A", "N/A", "N/A", "N/A","N/A","N/A"}};
 		TableData = new DefaultTableModel(data, columnNames);
 		JTable table = new JTable(TableData);
         table.setFillsViewportHeight(true);

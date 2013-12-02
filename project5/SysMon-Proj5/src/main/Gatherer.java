@@ -1,11 +1,14 @@
 package main;
 
+import java.util.regex.Pattern;
+
 import gui.SystemMonitorWindow;
 
 public abstract class Gatherer extends Thread {
 
 	private int delay;
 	SystemMonitorWindow gui;
+	Pattern numberPattern = Pattern.compile("[0-9][0-9]*");
 	
 	abstract void getInformation();
 	
