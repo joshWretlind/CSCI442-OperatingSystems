@@ -45,7 +45,7 @@ public class ProcessGatherer extends Gatherer {
 			statusReader = new BufferedReader(new FileReader(dir.getAbsolutePath() + "/status"));
 			String line = statusReader.readLine();
 			while(line != null){
-				Pattern statePattern = Pattern.compile("(.*)");
+				Pattern statePattern = Pattern.compile("[(][a-zA-Z][a-zA-Z]*[)]");
 				Matcher stateMatcher = statePattern.matcher(line);
 				
 				if(stateMatcher.find()){
@@ -56,13 +56,14 @@ public class ProcessGatherer extends Gatherer {
 						procData.setProcessState(ProcessState.Running);
 					} else if(substr.equalsIgnoreCase("(zombie)")){
 						procData.setProcessState(ProcessState.Zombie);
-					} else if(substr.equalsIgnoreCase(" T ")){
+					} else if(substr.equalsIgnoreCase("(stopped)")){
 						procData.setProcessState(ProcessState.TracingStoped);
-					} else if(substr.equalsIgnoreCase(" D ")){
+					} else if(substr.equalsIgnoreCase("(disk sleep)")){
 						procData.setProcessState(ProcessState.DiskSleep);
-					} else if(substr.equalsIgnoreCase("(paging)")){
-						procData.setProcessState(ProcessState.Paging);
+					} else if(substr.equalsIgnoreCase("(dead)")){
+						procData.setProcessState(ProcessState.Dead);
 					} else {
+						System.out.println("Issue with finding state, " + substr);
 						procData.setProcessState(ProcessState.Running);
 					}
 					

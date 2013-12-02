@@ -7,7 +7,7 @@ public class ProcessData {
 	private int pid;
 	private String name;
 	enum ProcessState{
-		Running, Sleeping, Zombie, DiskSleep, Paging, TracingStoped
+		Running, Sleeping, Zombie, DiskSleep, Dead, TracingStoped
 	};
 	private ProcessState processState;
 	private int numOfThreads;

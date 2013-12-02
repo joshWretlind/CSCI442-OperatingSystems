@@ -42,7 +42,7 @@ public class SystemMonitor {
 		//Set up the Schedulers and system monitor
 		SystemMonitorWindow mySysMon = new SystemMonitorWindow(i);
 		
-		Scheduler cpuAndMemoryScheduler = new Scheduler(350) 
+		Scheduler cpuAndMemoryScheduler = new Scheduler(250) 
 							           	  .withTask(new MemoryGatherer(mySysMon))
 								          .withTask(new CPUGatherer(mySysMon));
 		Scheduler processScheduler = new Scheduler(5000)
